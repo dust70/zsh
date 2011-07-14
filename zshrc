@@ -44,8 +44,6 @@ fi
 [[ -r /etc/zsh/zshrc ]]                 && source /etc/zsh/zshrc
 [[ -r /etc/zshrc ]]                     && source /etc/zshrc
 
-[[ -r ~/.keychain/${HOSTNAME}-sh ]]     && source ~/.keychain/${HOSTNAME}-sh
-
 # clear screen once
 clear #}}}
 
