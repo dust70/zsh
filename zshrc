@@ -1865,7 +1865,8 @@ unhash -ma "*"
 unhash -ms "*"
 
 # Global aliases
-[[ -x /bin/egrep ]] && alias -g G='| egrep --ignore-case'
+[[ -x /bin/egrep ]]    && alias -g G='| egrep --ignore-case'
+[[ -x /usr/bin/view ]] && alias -g V='| ${PAGER} -'
 
 # remap the buildin commads
 alias which='whence -vas'
