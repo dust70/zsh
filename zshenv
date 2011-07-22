@@ -31,7 +31,7 @@ if [[ $- = *i* ]] ; then
 
     # colors for ls, etc.
     if [[ -x /usr/bin/dircolors ]] ; then
-	builtin eval $(/usr/bin/dircolors)
+	builtin eval $(dircolors -b)
     fi
 fi
 
