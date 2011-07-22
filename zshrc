@@ -304,7 +304,7 @@ export HISTFILE=~/.zsh_history
 # the HIST_EXPIRE_DUPS_FIRST option, setting this value larger than the SAVEHIST
 # size will give you the difference as a cushion for saving duplicated history
 # events.
-export HISTSIZE="32"
+export HISTSIZE="1024"
 
 # HOME <S>
 # The default argument for the cd command.
@@ -494,7 +494,7 @@ export RPROMPT
 
 # SAVEHIST
 # The maximum number of history events to save in the history file.
-export SAVEHIST="128"
+export SAVEHIST="10240"
 
 # SPROMPT <S>
 # The prompt used for spelling correction. The sequence `%R' expands to the
@@ -565,6 +565,7 @@ fi
 # `@' followed by a remote hostname, and a `%' followed by a line (tty). Any or
 # all of these components may be present in an entry; if a login/logout event
 # matches all of them, it is reported.
+watch=(notme root)
 
 # WATCHFMT
 # The format of login/logout reports if the watch parameter is set. Default is
@@ -643,7 +644,7 @@ setopt auto_cd #}}}
 
 # {{{ AUTO_PUSHD (-N)
 # Make cd push the old directory onto the directory stack.
-#}}}
+setopt auto_pushd #}}}
 
 # {{{ CDABLE_VARS (-T)
 # If the argument to a cd command (or an implied cd with the AUTO_CD option set)
@@ -688,7 +689,6 @@ setopt pushd_ignore_dups #}}}
 # {{{ PUSHD_TO_HOME (-D)
 # Have pushd with no arguments act like "pushd ${HOME}".
 #}}}
-
 #}}}
 
 # {{{ Completion
@@ -825,7 +825,6 @@ setopt list_packed #}}}
 # {{{ REC_EXACT (-S)
 # In completion, recognize exact matches even if they are ambiguous.
 #}}}
-
 #}}}
 
 # {{{ Expansion and Globbing
@@ -966,7 +965,7 @@ setopt no_multibyte #}}}
 # If a pattern for filename generation has no matches, print an error, instead
 # of leaving it unchanged in the argument list. This also applies to file
 # expansion of an initial "~" or "=".
-#}}}
+setopt nonomatch #}}}
 
 # {{{ NULL_GLOB (-G)
 # If a pattern for filename generation has no matches, delete the pattern from
@@ -1011,7 +1010,6 @@ setopt no_multibyte #}}}
 # warning when a local parameter is assigned to in a nested function, which may
 # also indicate an error.
 #}}}
-
 #}}}
 
 # {{{ History
@@ -1023,7 +1021,7 @@ setopt no_multibyte #}}}
 # the order that they exit. The file will still be periodically re-written to
 # trim it when the number of lines grows 20% beyond the value specified by
 # ${SAVEHIST} (see also the HIST_SAVE_BY_COPY option).
-#}}}
+setopt append_history #}}}
 
 # {{{ BANG_HIST (+K) <C> <Z>
 # Perform textual history expansion, csh-style, treating the character "!"
@@ -1035,8 +1033,8 @@ setopt no_multibyte #}}}
 # duration (in seconds) to the history file. The format of this prefixed data
 # is:
 #
-#	":<beginning time>:<elapsed seconds>:<command>".
-#}}}
+#   ":<beginning time>:<elapsed seconds>:<command>".
+setopt extended_history #}}}
 
 # {{{ HIST_ALLOW_CLOBBER
 # Add "|" to output redirections in the history. This allows history references
@@ -1149,7 +1147,6 @@ setopt hist_verify #}}}
 # may wish to turn SHARE_HISTORY off, INC_APPEND_HISTORY on, and then manually
 # import commands whenever you need them using "fc -RI".
 #}}}
-
 #}}}
 
 # {{{ Initialisation
@@ -1187,7 +1184,6 @@ setopt hist_verify #}}}
 # time to prevent the remaining startup files after the currently executing one
 # from being sourced.
 #}}}
-
 #}}}
 
 # {{{ Input/Output
@@ -1307,7 +1303,6 @@ setopt short_loops #}}}
 # where the return key is too small, and the backquote key lies annoyingly close
 # to it.
 #}}}
-
 #}}}
 
 # {{{ Job Control
@@ -1356,7 +1351,6 @@ setopt monitor #}}}
 # Report the status of background jobs immediately, rather than waiting until
 # just before printing a prompt.
 setopt notify #}}}
-
 #}}}
 
 # {{{ Prompting
@@ -1402,7 +1396,6 @@ setopt notify #}}}
 # Remove any right prompt from display when accepting a command line. This may
 # be useful with terminals with other cut/paste methods.
 # }}}
-
 #}}}
 
 # {{{ Scripts and Functions
@@ -1512,7 +1505,6 @@ setopt multios #}}}
 # {{{ XTRACE (-x, ksh: -x)
 # Print commands and their arguments as they are executed.
 #}}}
-
 #}}}
 
 # {{{ Shell Emulation
@@ -1668,7 +1660,6 @@ setopt posix_identifiers #}}}
 # affect the point at which traps are run for any case other than when the shell
 # is waiting for a child process.
 #}}}
-
 #}}}
 
 # {{{ Shell State
@@ -1723,7 +1714,6 @@ setopt LOGIN #}}}
 # INTERACTIVE option is explicitly set on the command line. The value of this
 # option cannot be changed anywhere other than the command line.
 #}}}
-
 #}}}
 
 # {{{ Zle
@@ -1761,9 +1751,6 @@ setopt promptsubst #}}}
 # Use the zsh line editor. Set by default in interactive shells connected to a
 # terminal.
 #}}}
-
-#}}}
-
 #}}}
 
 # {{{ Hashes
@@ -1812,7 +1799,12 @@ setopt promptsubst #}}}
 unhash -dm "*"
 
 [[ -d /usr/share/doc ]] && hash -d doc=/usr/share/doc
+[[ -d /usr/src ]]       && hash -d src=/usr/src
 [[ -d /var/log ]]       && hash -d log=/var/log
+
+[[ -L /lib/modules/$(uname -r)/build ]] && \
+    hash -d linux=/lib/modules/$(command uname -r)/build/
+
 [[ -d ~/repositories ]] && hash -d repoSitories=~/repositories \
     && for i in ~/repositories/*(/); do
     hash -d "repo$(basename ${(C)i})"="${i}"
@@ -1865,8 +1857,10 @@ unhash -ma "*"
 unhash -ms "*"
 
 # Global aliases
-[[ -x /bin/egrep ]]    && alias -g G='| egrep --ignore-case'
-[[ -x /usr/bin/view ]] && alias -g V='| ${PAGER} -'
+alias -g N='&> /dev/null'
+
+[[ -x /bin/egrep ]]    && alias -g G='|& egrep --ignore-case'
+[[ -x /usr/bin/view ]] && alias -g V='|& ${PAGER} -'
 
 # remap the buildin commads
 alias which='whence -vas'
@@ -1891,19 +1885,21 @@ alias mkdir='nocorrect mkdir --verbose'
 
 # reload configuration
 function reload(){
-    # I forget to do this manual now and then, so lets automate this
-    #[[ -e ~/.zcompdump ]] && rm --force ~/.zcompdump
+    while (( $# )); do
+        unfunction $1
+        autoload -U $1
+        shift
+    done
 
     [[ -r ~/.profile ]]	 && source ~/.profile
     [[ -r ~/.zshenv ]]	 && source ~/.zshenv
     [[ -r ~/.zprofile ]] && source ~/.zprofile
     [[ -r ~/.zshrc ]]    && source ~/.zshrc
-    [[ -r ~/.zlogin ]]	 && source ~/.zlogin
     return 0
 }
 
 # Provides useful information on globbing
-function help() {
+function zsh-help() {
 echo -e "
 /	directories
 .	plain files
@@ -2032,8 +2028,10 @@ function battery() {
 #   -v
 #       K-bytes on the size of virtual memory. On some systems this refers to
 #       the limit called `address space'.
-ulimit -c 0
-ulimit -s 8192
+unlimit
+limit stack 8192
+limit core 0
+limit -s
 #}}}
 
 # {{{ umask
@@ -2578,7 +2576,7 @@ _force_rehash() {
 
 ## correction
 # try to be smart about when to use what completer...
-zstyle -e ':completion:*'               completer '
+zstyle -e ':completion:*' completer '
 if [[ $_last_try != "$HISTNO$BUFFER$CURSOR" ]] ; then
     _last_try="$HISTNO$BUFFER$CURSOR"
     reply=(_complete _match _ignored _prefix _files)
@@ -2943,6 +2941,24 @@ autoload -Uz zsh/zutil
 #autoload -Uz promptinit
 #}}}
 
+# {{{ ZMV
+################################################################################
+# Move (usually, rename) files matching the pattern srcpat to corresponding
+# files having names of the form given by dest, where srcpat contains
+# parentheses surrounding patterns which will be replaced in turn by $1, $2, ...
+# in dest. For example,
+#   zmv '(*).lis' '$1.txt'
+# renames `foo.lis' to `foo.txt', `my.old.stuff.lis' to `my.old.stuff.txt', and
+# so on.
+#
+# The pattern is always treated as an EXTENDED_GLOB pattern. Any file whose name
+# is not changed by the substitution is simply ignored. Any error (a
+# substitution resulted in an empty string, two substitutions gave the same
+# result, the destination was an existing regular file and -f was not given)
+# causes the entire function to abort without doing anything.
+autoload -Uz zmv
+#}}}
+
 # {{{ Other Functions
 ################################################################################
 # colors
@@ -3131,5 +3147,14 @@ zstyle ':vcs_info:*:prompt:*' get-revision      true
 zstyle ':vcs_info:*:prompt:*' stagedstr         "${BOLD_GREEN}*"
 zstyle ':vcs_info:*:prompt:*' unstagedstr       "${BOLD_YELLOW}*"
 #}}}
+
+# change to HOME directory
+cd
+
+# load none ZSH components and/or configurations for all shells but jump to HOME
+# before
+for sh in .shell/*.sh ; do
+    [[ -r "${sh}" ]] && source "${sh}"
+done
 
 # vim: filetype=zsh textwidth=80 foldmethod=marker
