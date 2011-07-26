@@ -1944,9 +1944,9 @@ function title(){
         *term*|*screen*)
             # Use this one instead for XTerms:
             print -nR $'\033]0;'$*$'\a'
-            ;;
+;;
         *)
-            ;;
+;;
     esac
 }
 
@@ -1980,11 +1980,11 @@ function preexec(){
 
 function battery() {
     PERCENT="${${"$(acpi 2>/dev/null)"}/(#b)[[:space:]]#Battery <->: [^0-9]##, (<->)%*/${match[1]}}"
-    if [[ -z "$PERCENT" ]] ; then
+    if [[ -z "$PERCENT" ]]; then
         PERCENT='acpi not present'
         return 1
     else
-        if [[ "$PERCENT" -lt 10 ]] ; then
+        if [[ "$PERCENT" -lt 10 ]]; then
             PERCENT="${RED}warning: ${PERCENT}%%${NO_COLOR}"
         else
             PERCENT="${GREEN}${PERCENT}%%${NO_COLOR}"
@@ -2246,7 +2246,7 @@ bindkey -v
 # is not, copy Functions/Misc/zkbd to an appropriate directory.
 #autoload -Uz zkbd
 
-if [[ "$TERM" != emacs ]] ; then
+if [[ "$TERM" != emacs ]]; then
     [[ -z "$terminfo[kdch1]" ]] || bindkey -M emacs "$terminfo[kdch1]" delete-char
     [[ -z "$terminfo[khome]" ]] || bindkey -M emacs "$terminfo[khome]" beginning-of-line
     [[ -z "$terminfo[kend]"  ]] || bindkey -M emacs "$terminfo[kend]"  end-of-line
@@ -2577,11 +2577,11 @@ _force_rehash() {
 ## correction
 # try to be smart about when to use what completer...
 zstyle -e ':completion:*' completer '
-if [[ $_last_try != "$HISTNO$BUFFER$CURSOR" ]] ; then
+if [[ $_last_try != "$HISTNO$BUFFER$CURSOR" ]]; then
     _last_try="$HISTNO$BUFFER$CURSOR"
     reply=(_complete _match _ignored _prefix _files)
 else
-    if [[ $words[1] == (rm|mv) ]] ; then
+    if [[ $words[1] == (rm|mv) ]]; then
         reply=(_complete _files)
     else
         reply=(_oldlist _expand _force_rehash _complete _ignored _correct _approximate _files)
@@ -2600,7 +2600,7 @@ zstyle ':completion:*:hosts'        hosts $hosts
 
 # use generic completion system for programs not yet defined; (_gnu_generic works
 # with commands that provide a --help option with "standard" gnu-like output.)
-for compcom in cp df feh head mv tail uname ; do
+for compcom in cp df feh head mv tail uname; do
     [[ -z ${_comps[$compcom]} ]] && compdef _gnu_generic ${compcom}
 done; unset compcom
 
@@ -3153,7 +3153,7 @@ cd
 
 # load none ZSH components and/or configurations for all shells but jump to HOME
 # before
-for sh in .shell/*.sh ; do
+for sh in .shell/*.sh; do
     [[ -r "${sh}" ]] && source "${sh}"
 done
 
