@@ -1,14 +1,14 @@
 # language settings (read in /etc/environment before /etc/default/locale as
 # the latter one is the default on Debian nowadays)
 # no xsource() here because it's only created in zshrc! (which is good)
-[[ -r /etc/environment ]]	&& source /etc/environment
+[[ -r /etc/environment ]] && source /etc/environment
 
 # source the default .zshenv, especialy interisting in Gentoo Linux systems
-[[ -r /etc/zsh/zshenv ]]	&& source /etc/zsh/zshenv
-[[ -r /etc/zshenv ]]		&& source /etc/zshenv
-[[ -r ~/.shell/exports ]]	&& source ~/.shell/exports
+[[ -r /etc/zsh/zshenv ]]  && source /etc/zsh/zshenv
+[[ -r /etc/zshenv ]]      && source /etc/zshenv
+[[ -r ~/.shell/exports ]] && source ~/.shell/exports
 
-if [[ $- = *i* ]] ; then
+if [[ $- = *i* ]]; then
     autoload -Uz colors zsh/terminfo
     [[ $terminfo[colors] -ge 8 ]] && \
 	colors
@@ -30,7 +30,7 @@ if [[ $- = *i* ]] ; then
     done
 
     # colors for ls, etc.
-    if [[ -x /usr/bin/dircolors ]] ; then
+    if [[ -x /usr/bin/dircolors ]]; then
 	builtin eval $(dircolors -b)
     fi
 fi
