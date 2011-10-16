@@ -1952,7 +1952,6 @@ function precmd(){
         RPROMPT=""
     fi
     title ${TERM%-*} ${PWD//~/"~"}
-    battery && RPROMPT="${RPROMPT}${PERCENT} "
 }
 
 # Executed just after a command has been read and is about to be executed. If
@@ -1967,21 +1966,6 @@ function preexec(){
     emulate -L zsh
     local -a cmd; cmd=(${(z)1})
     title $cmd[1]:t $cmd[2,-1]
-}
-
-function battery() {
-    PERCENT="${${"$(acpi 2>/dev/null)"}/(#b)[[:space:]]#Battery <->: [^0-9]##, (<->)%*/${match[1]}}"
-    if [[ -z "$PERCENT" ]]; then
-        PERCENT='acpi not present'
-        return 1
-    else
-        if [[ "$PERCENT" -lt 10 ]]; then
-            PERCENT="${RED}warning: ${PERCENT}%%${NO_COLOR}"
-        else
-            PERCENT="${GREEN}${PERCENT}%%${NO_COLOR}"
-        fi
-        return 0
-    fi
 }
 
 # Clean up directory - remove well known tempfiles
