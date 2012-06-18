@@ -35,7 +35,8 @@ fi
 [[ -r /etc/zshrc ]]     && source /etc/zshrc     || true
 
 # clear screen once
-clear #}}}
+clear
+#}}}
 
 # {{{ CONDITIONAL EXPRESSIONS
 ###############################################################################
@@ -630,18 +631,21 @@ watch=(notme root)
 # {{{ AUTO_CD (-J)
 # If a command is issued that can"t be executed as a normal command, and the
 # command is the name of a directory, perform the cd command to that directory.
-setopt auto_cd #}}}
+setopt auto_cd
+#}}}
 
 # {{{ AUTO_PUSHD (-N)
 # Make cd push the old directory onto the directory stack.
-setopt auto_pushd #}}}
+setopt auto_pushd
+#}}}
 
 # {{{ CDABLE_VARS (-T)
 # If the argument to a cd command (or an implied cd with the AUTO_CD option set)
 # is not a directory, and does not begin with a slash, try to expand the
 # expression as if it were preceded by a "~" (see the section "Filename
 # Expansion").
-setopt cdable_vars #}}}
+setopt cdable_vars
+#}}}
 
 # {{{ CHASE_DOTS
 # When changing to a directory containing a path segment ".." which would
@@ -665,7 +669,8 @@ setopt cdable_vars #}}}
 
 # {{{ PUSHD_IGNORE_DUPS
 # Don"t push multiple copies of the same directory onto the directory stack.
-setopt pushd_ignore_dups #}}}
+setopt pushd_ignore_dups
+#}}}
 
 # {{{ PUSHD_MINUS
 # Exchanges the meanings of "+" and "-" when used with a number to specify a
@@ -752,7 +757,8 @@ setopt pushd_ignore_dups #}}}
 # {{{ COMPLETE_IN_WORD
 # If unset, the cursor is set to the end of the word if completion is started.
 # Otherwise it stays there and completion is done from both ends.
-setopt complete_in_word #}}}
+setopt complete_in_word
+#}}}
 
 # {{{ GLOB_COMPLETE
 # When the current word has a glob pattern, do not insert all the words
@@ -786,12 +792,14 @@ setopt complete_in_word #}}}
 # widgets to return status 1 on an ambiguous completion, which causes the shell
 # to beep if the option BEEP is also set; this may be modified if completion is
 # called from a user-defined widget.
-setopt no_list_beep #}}}
+setopt no_list_beep
+#}}}
 
 # {{{ LIST_PACKED
 # Try to make the completion list smaller (occupying less lines) by printing the
 # matches in columns with different widths.
-setopt list_packed #}}}
+setopt list_packed
+#}}}
 
 # {{{ LIST_ROWS_FIRST
 # Lay out the matches in completion lists sorted horizontally, that is, the
@@ -843,7 +851,8 @@ setopt list_packed #}}}
 # case-insensitive matching. For example, cvs(/) can match the directory CVS
 # owing to the presence of the globbing flag (unless the option BARE_GLOB_QUAL
 # is unset).
-setopt no_case_glob #}}}
+setopt no_case_glob
+#}}}
 
 # {{{ CASE_MATCH <D>
 # Make regular expressions using the zsh/regex module (including matches with
@@ -864,7 +873,8 @@ setopt no_case_glob #}}}
 # Treat the "#", "~" and "^" characters as part of patterns for filename
 # generation, etc. (An initial unquoted "~" always produces named directory
 # expansion.)
-setopt extended_glob #}}}
+setopt extended_glob
+#}}}
 
 # {{{ GLOB (+F, ksh: +f) <D>
 # Perform filename generation (globbing). (See the section "Filename
@@ -926,7 +936,8 @@ setopt extended_glob #}}}
 # {{{ MARK_DIRS (-, ksh: -X)
 # Append a trailing "/" to all directory names resulting from filename
 # generation (globbing).
-setopt mark_dirs #}}}
+setopt mark_dirs
+#}}}
 
 # {{{ MULTIBYTE <C> <K> <Z>
 # Respect multibyte characters when found in strings. When this option is set,
@@ -949,13 +960,15 @@ setopt mark_dirs #}}}
 # The option does not affect the shell"s editor, which always uses the locale to
 # determine multibyte characters. This is because the character set displayed by
 # the terminal emulator is independent of shell settings.
-setopt no_multibyte #}}}
+setopt no_multibyte
+#}}}
 
 # {{{ NOMATCH (+) <C> <Z>
 # If a pattern for filename generation has no matches, print an error, instead
 # of leaving it unchanged in the argument list. This also applies to file
 # expansion of an initial "~" or "=".
-setopt nonomatch #}}}
+setopt nonomatch
+#}}}
 
 # {{{ NULL_GLOB (-G)
 # If a pattern for filename generation has no matches, delete the pattern from
@@ -1011,7 +1024,8 @@ setopt nonomatch #}}}
 # the order that they exit. The file will still be periodically re-written to
 # trim it when the number of lines grows 20% beyond the value specified by
 # ${SAVEHIST} (see also the HIST_SAVE_BY_COPY option).
-setopt append_history #}}}
+setopt append_history
+#}}}
 
 # {{{ BANG_HIST (+K) <C> <Z>
 # Perform textual history expansion, csh-style, treating the character "!"
@@ -1024,7 +1038,8 @@ setopt append_history #}}}
 # is:
 #
 #   ":<beginning time>:<elapsed seconds>:<command>".
-setopt extended_history #}}}
+setopt extended_history
+#}}}
 
 # {{{ HIST_ALLOW_CLOBBER
 # Add "|" to output redirections in the history. This allows history references
@@ -1033,7 +1048,8 @@ setopt extended_history #}}}
 
 # {{{ HIST_BEEP <D>
 # Beep when an attempt is made to access a history entry which isn"t there.
-setopt no_hist_beep #}}}
+setopt no_hist_beep
+#}}}
 
 # {{{ HIST_EXPIRE_DUPS_FIRST
 # If the internal history needs to be trimmed to add the current command line,
@@ -1042,24 +1058,28 @@ setopt no_hist_beep #}}}
 # set the value of HISTSIZE to a larger number than SAVEHIST in order to give
 # you some room for the duplicated events, otherwise this option will behave
 # just like HIST_IGNORE_ALL_DUPS once the history fills up with unique events.
-setopt hist_expire_dups_first #}}}
+setopt hist_expire_dups_first
+#}}}
 
 # {{{ HIST_FIND_NO_DUPS
 # When searching for history entries in the line editor, do not display
 # duplicates of a line previously found, even if the duplicates are not
 # contiguous.
-setopt hist_find_no_dups #}}}
+setopt hist_find_no_dups
+#}}}
 
 # {{{ HIST_IGNORE_ALL_DUPS
 # If a new command line being added to the history list duplicates an older one,
 # the older command is removed from the list (even if it is not the previous
 # event).
-setopt hist_ignore_all_dups #}}}
+setopt hist_ignore_all_dups
+#}}}
 
 # {{{ HIST_IGNORE_DUPS (-h)
 # Do not enter command lines into the history list if they are duplicates of the
 # previous event.
-setopt hist_ignore_dups #}}}
+setopt hist_ignore_dups
+#}}}
 
 # {{{ HIST_IGNORE_SPACE (-g)
 # Remove command lines from the history list when the first character on the
@@ -1068,24 +1088,28 @@ setopt hist_ignore_dups #}}}
 # is entered before it vanishes, allowing you to briefly reuse or edit the line.
 # If you want to make it vanish right away without entering another command,
 # type a space and press return.
-setopt hist_ignore_space #}}}
+setopt hist_ignore_space
+#}}}
 
 # {{{ HIST_NO_FUNCTIONS
 # Remove function definitions from the history list. Note that the function
 # lingers in the internal history until the next command is entered before it
 # vanishes, allowing you to briefly reuse or edit the definition.
-setopt hist_no_functions #}}}
+setopt hist_no_functions
+#}}}
 
 # {{{ HIST_NO_STORE
 # Remove the history (fc -l) command from the history list when invoked. Note
 # that the command lingers in the internal history until the next command is
 # entered before it vanishes, allowing you to briefly reuse or edit the line.
-setopt hist_no_store #}}}
+setopt hist_no_store
+#}}}
 
 # {{{ HIST_REDUCE_BLANKS
 # Remove superfluous blanks from each command line being added to the history
 # list.
-setopt hist_reduce_blanks #}}}
+setopt hist_reduce_blanks
+#}}}
 
 # {{{ HIST_SAVE_BY_COPY <D>
 # When the history file is re-written, we normally write out a copy of the file
@@ -1100,18 +1124,21 @@ setopt hist_reduce_blanks #}}}
 # When writing out a copy of the history file, zsh preserves the old file"s
 # permissions and group information, but will refuse to write out a new file if
 # it would change the history file"s owner.
-setopt hist_save_by_copy #}}}
+setopt hist_save_by_copy
+#}}}
 
 # {{{ HIST_SAVE_NO_DUPS
 # When writing out the history file, older commands that duplicate newer ones
 # are omitted.
-setopt hist_save_no_dups #}}}
+setopt hist_save_no_dups
+#}}}
 
 # {{{ HIST_VERIFY
 # Whenever the user enters a line with history expansion, don't execute the line
 # directly; instead, perform history expansion and reload the line into the
 # editing buffer.
-setopt hist_verify #}}}
+setopt hist_verify
+#}}}
 
 # {{{ INC_APPEND_HISTORY
 # This options works like APPEND_HISTORY except that new history lines are added
@@ -1192,7 +1219,8 @@ setopt hist_verify #}}}
 # Try to correct the spelling of commands. Note that, when the HASH_LIST_ALL
 # option is not set or when some directories in the path are not readable, this
 # may falsely report spelling errors the first time some commands are used.
-setopt correct #}}}
+setopt correct
+#}}}
 
 # {{{ CORRECT_ALL (-O)
 # Try to correct the spelling of all arguments in a line.
@@ -1230,18 +1258,21 @@ setopt correct #}}}
 # search. If this option is unset, no path hashing is done at all. However, when
 # CORRECT is set, commands whose names do not appear in the functions or aliases
 # hash tables are hashed in order to avoid reporting them as spelling errors.
-setopt hash_cmds #}}}
+setopt hash_cmds
+#}}}
 
 # {{{ HASH_DIRS <D>
 # Whenever a command name is hashed, hash the directory containing it, as well
 # as all directories that occur earlier in the path. Has no effect if neither
 # HASH_CMDS nor CORRECT is set.
-setopt hash_dirs #}}}
+setopt hash_dirs
+#}}}
 
 # {{{ MAIL_WARNING (-U)
 # Print a warning message if a mail file has been accessed since the shell last
 # checked.
-setopt no_mail_warning #}}}
+setopt no_mail_warning
+#}}}
 
 # {{{ PATH_DIRS (-Q)
 # Perform a path search even on command names with slashes in them. Thus if
@@ -1254,7 +1285,8 @@ setopt no_mail_warning #}}}
 # executables specified in this form. This takes place before any search
 # indicated by this option, and regardless of whether "." or the current
 # directory appear in the command search path.
-setopt path_dirs #}}}
+setopt path_dirs
+#}}}
 
 # {{{ PRINT_EIGHT_BIT
 # Print eight bit characters literally in completion lists, etc. This option is
@@ -1274,7 +1306,8 @@ setopt path_dirs #}}}
 
 # {{{ RM_STAR_SILENT (-H) <K> <S>
 # Do not query the user before executing "rm *" or "rm path/*".
-setopt rm_star_silent #}}}
+setopt rm_star_silent
+#}}}
 
 # {{{ RM_STAR_WAIT
 # If querying the user before executing "rm *" or "rm path/*", first wait ten
@@ -1285,7 +1318,8 @@ setopt rm_star_silent #}}}
 
 # {{{ SHORT_LOOPS <C> <Z>
 # Allow the short forms of for, repeat, select, if, and function constructs.
-setopt short_loops #}}}
+setopt short_loops
+#}}}
 
 # {{{ SUN_KEYBOARD_HACK (-L)
 # If a line ends with a backquote, and there are an odd number of backquotes on
@@ -1301,7 +1335,8 @@ setopt short_loops #}}}
 # With this option set, stopped jobs that are removed from the job table with
 # the disown builtin command are automatically sent a CONT signal to make them
 # running.
-setopt auto_continue #}}}
+setopt auto_continue
+#}}}
 
 # {{{ AUTO_RESUME (-W)
 # Treat single word simple commands without redirection as candidates for
@@ -1310,7 +1345,8 @@ setopt auto_continue #}}}
 
 # {{{ BG_NICE (-) <C> <Z>
 # Run all background jobs at a lower priority. This option is set by default.
-setopt bg_nice #}}}
+setopt bg_nice
+#}}}
 
 # {{{ CHECK_JOBS <Z>
 # Report the status of background and suspended jobs before exiting a shell with
@@ -1323,24 +1359,29 @@ setopt bg_nice #}}}
 # are background or suspended jobs. A "jobs" command run from one of the hook
 # functions defined in the section SPECIAL FUNCTIONS in zshmisc(1) is not
 # counted for this purpose.
-setopt no_check_jobs #}}}
+setopt no_check_jobs
+#}}}
 
 # {{{ HUP <Z>
 # Send the HUP signal to running jobs when the shell exits.
-setopt no_hup #}}}
+setopt no_hup
+#}}}
 
 # {{{ LONG_LIST_JOBS (-R)
 # List jobs in the long format by default.
-setopt long_list_jobs #}}}
+setopt long_list_jobs
+#}}}
 
 # {{{ MONITOR (-m, ksh: -m)
 # Allow job control. Set by default in interactive shells.
-setopt monitor #}}}
+setopt monitor
+#}}}
 
 # {{{ NOTIFY (-, ksh: -b) <Z>
 # Report the status of background jobs immediately, rather than waiting until
 # just before printing a prompt.
-setopt notify #}}}
+setopt notify
+#}}}
 #}}}
 
 # {{{ Prompting
@@ -1468,7 +1509,8 @@ setopt notify #}}}
 # {{{ MULTIOS <Z>
 # Perform implicit tees or cats when multiple redirections are attempted (see
 # the section "Redirection").
-setopt multios #}}}
+setopt multios
+#}}}
 
 # {{{ OCTAL_ZEROES <S>
 # Interpret any integer constant beginning with a 0 as octal, per IEEE Std
@@ -1514,7 +1556,8 @@ setopt multios #}}}
 # Make the echo builtin compatible with the BSD echo(1) command. This disables
 # backslashed escape sequences in echo strings unless the -e option is
 # specified.
-setopt bsd_echo #}}}
+setopt bsd_echo
+#}}}
 
 # {{{ CSH_JUNKIE_HISTORY <C>
 # A history reference without an event specifier will always refer to the
@@ -1601,7 +1644,8 @@ setopt bsd_echo #}}}
 # builtin is prefixed with the command builtin. Special builtins are ., :,
 # break, continue, declare, eval, exit, export, integer, local, readonly,
 # return, set, shift, source, times, trap and unset.
-setopt posix_builtins #}}}
+setopt posix_builtins
+#}}}
 
 # {{{ POSIX_IDENTIFIERS <K> <S>
 # When this option is set, only the ASCII characters a to z, A to Z, 0 to 9 and
@@ -1618,7 +1662,8 @@ setopt posix_builtins #}}}
 # If multibyte character support is not compiled into the shell this option is
 # ignored; all octets with the top bit set may be used in identifiers. This is
 # non-standard but is the traditional zsh behaviour.
-setopt posix_identifiers #}}}
+setopt posix_identifiers
+#}}}
 
 # {{{ SH_FILE_EXPANSION <K> <S>
 # Perform filename expansion (e.g., ~ expansion) before parameter expansion,
@@ -1666,7 +1711,8 @@ setopt posix_identifiers #}}}
 # This is a login shell. If this option is not explicitly set, the shell is a
 # login shell if the first character of the argv[0] passed to the shell is a
 # "-".
-setopt LOGIN #}}}
+setopt LOGIN
+#}}}
 
 # {{{ PRIVILEGED (-p, ksh: -p)
 # Turn on privileged mode. This is enabled automatically on startup if the
@@ -1710,14 +1756,16 @@ setopt LOGIN #}}}
 ################################################################################
 # {{{ BEEP (+B) <D>
 # Beep on error in ZLE.
-setopt nobeep #}}}
+setopt nobeep
+#}}}
 
 # {{{ EMACS
 # If ZLE is loaded, turning on this option has the equivalent effect of "bindkey
 # -e". In addition, the VI option is unset. Turning it off has no effect. The
 # option setting is not guaranteed to reflect the current keymap. This option is
 # provided for compatibility; bindkey is the recommended interface.
-setopt no_emacs #}}}
+setopt no_emacs
+#}}}
 
 # {{{ OVERSTRIKE
 # Start up the line editor in overstrike mode.
@@ -1732,10 +1780,12 @@ setopt no_emacs #}}}
 # -v". In addition, the EMACS option is unset. Turning it off has no effect. The
 # option setting is not guaranteed to reflect the current keymap. This option is
 # provided for compatibility; bindkey is the recommended interface.
-setopt vi #}}}
+setopt vi
+#}}}
 
 # {{{ PromptSubst
-setopt promptsubst #}}}
+setopt promptsubst
+#}}}
 
 # {{{ ZLE (-Z)
 # Use the zsh line editor. Set by default in interactive shells connected to a
@@ -3151,13 +3201,15 @@ zstyle ':vcs_info:*:prompt:*' unstagedstr       "${BOLD_YELLOW}*"
 #}}}
 
 # {{{ change to HOME directory
-cd #}}}
+cd
+#}}}
 
 # {{{ load resources
 # load none ZSH components and/or configurations for all shells but jump to HOME
 # before
 for sh in ~/.shell/*.sh; do
     [[ -r "${sh}" ]] && source "${sh}" || true
-done #}}}
+done
+#}}}
 
 # vim: filetype=zsh textwidth=80 foldmethod=marker
