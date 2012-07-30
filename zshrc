@@ -418,7 +418,7 @@ unset MAILPATH
 # The primary prompt string, printed before a command is read. the default is
 # `%m%# '. It undergoes a special form of expansion before being displayed; see
 # 12. Prompt Expansion.
-PROMPT="%(!.${BOLD_RED}.${BOLD_BLUE})%n${NO_COLOR} ${BOLD_YELLOW}(%M)${NO_COLOR} ${BOLD_CYAN}%(3~.%3~.%~)${NO_COLOR} ${BOLD_GREY}[%D{%Y-%m-%d %H:%M}]${NO_COLOR} Jobs: ${BOLD_WHITE}%j${NO_COLOR} | Exitstatus: %(?.${BOLD_GREEN}%?.${BOLD_RED}%?)${NO_COLOR}
+PROMPT="%(!.${BOLD_RED}.${BOLD_BLUE})%n${NO_COLOR} ${BOLD_YELLOW}(%m)${NO_COLOR} ${BOLD_CYAN}%(3~.%3~.%~)${NO_COLOR} ${BOLD_GREY}[%D{%Y-%m-%d %H:%M}]${NO_COLOR} Jobs: ${BOLD_WHITE}%j${NO_COLOR} | Exitstatus: %(?.${BOLD_GREEN}%?.${BOLD_RED}%?)${NO_COLOR}
 ${BOLD_MAGENTA}%(!.#.$)${NO_COLOR}:> "
 
 [[ -n ${SSH_CLIENT} ]] && PROMPT="${WHITE}${BACK_RED}REMOTE${NO_COLOR} ${PROMPT}"
