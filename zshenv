@@ -39,14 +39,14 @@ fi
 #}}}
 
 # {{{ language variables
-export LANG=en_US
+export LANG=en_US.utf8
 export LC_CTYPE=en_US.utf8
 export LC_NUMERIC=en_US.utf8
-export LC_TIME=de_DE.utf8
+export LC_TIME=en_US.utf8
 export LC_COLLATE=en_US.utf8
 export LC_MONETARY=en_US.utf8
 export LC_MESSAGES=en_US.utf8
-export LC_PAPER=de_DE.utf8
+export LC_PAPER=en_US.utf8
 export LC_NAME=en_US.utf8
 export LC_ADDRESS=en_US.utf8
 export LC_TELEPHONE=en_US.utf8
@@ -59,10 +59,13 @@ export LC_ALL=
 export HOSTNAME=${HOST:-`uname -n 2>/dev/null || echo unknown`}
 #}}}
 
-# {{{ tmp/tmpdir
-mkdir -p /tmp/user/${UID} &> /dev/null
-export TMP=${TMP:/tmp/user/${UID}}
-export TMPDIR=${TMPDIR:/tmp/user/${UID}}
+# {{{ ssh-agent/gpg-agent
+if [[ -d ~/.keychain ]]; then
+    [[ -r ~/.keychain/"${HOSTNAME}"-sh ]] && \
+        source ~/.keychain/"${HOSTNAME}"-sh
+    [[ -r ~/.keychain/"${HOSTNAME}"-sh-gpg ]] && \
+        source ~/.keychain/"${HOSTNAME}"-sh-gpg
+fi
 #}}}
 
 # vim: filetype=zsh textwidth=80 foldmethod=marker
