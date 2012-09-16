@@ -1925,7 +1925,7 @@ alias mkdir='nocorrect mkdir --verbose'
 #unhash -mf "*"
 
 # reload configuration
-function reload(){
+function reload() {
     while (( $# )); do
         unfunction $1
         autoload -U $1
@@ -1980,9 +1980,9 @@ echo /proc/*/cwd(:h:t:s/self//) # Analogous to >ps ax | awk '{print ${1}}'<"
 }
 
 # setting the windowtitle
-function title(){
+function title() {
     case ${TERM} in
-        *term*|*screen*)
+        *rxvt*|*screen*|*term*)
             # Use this one instead for XTerms:
             print -nR $'\033]0;'$*$'\a'
             ;;
@@ -1991,17 +1991,19 @@ function title(){
     esac
 }
 
+# setting title once
+title ${TERM%-*} ${USER}@${HOST}
+
 # Executed before each prompt. Note that precommand functions are not reexecuted
 # simply because the command line is redrawn, as happens, for example, when a
 # notification about an exiting job is displayed.
-function precmd(){
+function precmd() {
     [[ $ZSH_VERSION == 4.3.<10->* || $ZSH_VERSION == 4.<4->* || $ZSH_VERSION == <5->* ]] && vcs_info prompt
     if [[ -n ${vcs_info_msg_0_} ]]; then
         RPROMPT="${vcs_info_msg_0_} "
     else
         RPROMPT=""
     fi
-    title ${TERM%-*} ${PWD//~/"~"}
 }
 
 # Executed just after a command has been read and is about to be executed. If
@@ -2012,11 +2014,11 @@ function precmd(){
 # second argument is a single-line, size-limited version of the command (with
 # things like function bodies elided); the third argument contains the full text
 # that is being executed.
-function preexec(){
-    emulate -L zsh
-    local -a cmd; cmd=(${(z)1})
-    title $cmd[1]:t $cmd[2,-1]
-}
+# function preexec() {
+#     emulate -L zsh
+#     local -a cmd; cmd=(${(z)1})
+#     title $cmd[1]:t $cmd[2,-1]
+# }
 
 # Clean up directory - remove well known tempfiles
 function purge() {
