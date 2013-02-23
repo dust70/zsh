@@ -3202,10 +3202,6 @@ zstyle ':vcs_info:*:prompt:*' stagedstr         "${BOLD_GREEN}*"
 zstyle ':vcs_info:*:prompt:*' unstagedstr       "${BOLD_YELLOW}*"
 #}}}
 
-# {{{ change to HOME directory
-cd
-#}}}
-
 # {{{ load resources
 # load none ZSH components and/or configurations for all shells but jump to HOME
 # before
