@@ -1838,23 +1838,6 @@ setopt promptsubst
 # If the -L flag is present, then each hash table entry is printed in the form
 # of a call to hash.
 unhash -dm "*"
-
-[[ -d /usr/share/doc ]] && hash -d doc=/usr/share/doc
-[[ -d /usr/src ]]       && hash -d src=/usr/src
-[[ -d /var/log ]]       && hash -d log=/var/log
-
-[[ -L /lib/modules/$(uname -r)/build ]] && \
-    hash -d linux=/lib/modules/$(command uname -r)/build/
-
-[[ -d ~/repositories ]] && hash -d repoSitories=~/repositories \
-    && for i in ~/repositories/*(/); do
-    hash -d "repo$(basename ${(C)i})"="${i}"
-done
-
-[[ -d ~/.dotfiles ]] && hash -d dotFiles=~/.dotfiles && \
-    for i in ~/.dotfiles/*(/); do
-    hash -d "dot$(basename ${(C)i})"="${i}"
-done
 #}}}
 
 # {{{ Aliases
