@@ -29,11 +29,6 @@ if [[ $- != *i* ]]; then
     return
 fi
 
-# source the default .zshrc, especialy interisting in Gentoo Linux systems
-[[ -r /etc/profile ]]   && source /etc/profile   || true
-[[ -r /etc/zsh/zshrc ]] && source /etc/zsh/zshrc || true
-[[ -r /etc/zshrc ]]     && source /etc/zshrc     || true
-
 # clear screen once
 clear
 #}}}
