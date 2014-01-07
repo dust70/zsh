@@ -20,7 +20,9 @@
 #   zshzftpsys	Zsh built-in FTP client
 #   zshcontrib	Additional zsh functions and utilities
 ###############################################################################
+#}}}
 
+# {{{ pre requirements
 # Test for an interactive shell. There is no need to set anything past this
 # point for scp and rcp, and it is important to refrain from outputting anything
 # in those cases.
@@ -28,6 +30,9 @@ if [[ $- != *i* ]]; then
     # Shell is non-interactive. Be done now
     return
 fi
+
+# load /etc/profile.d files
+source ~/.shell/load-profile
 
 # clear screen once
 clear
