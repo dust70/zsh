@@ -242,7 +242,7 @@ clear
 # cdpath <S> <Z> (CDPATH <S>)
 # An array (colon-separated list) of directories specifying the search path for
 # the cd command.
-export CDPATH=".:~:/"
+export CDPATH=".:~"
 
 # COLUMNS <S>
 # The number of columns for this terminal session. Used for printing select
@@ -295,7 +295,7 @@ export HISTFILE=~/.zsh_history
 # the HIST_EXPIRE_DUPS_FIRST option, setting this value larger than the SAVEHIST
 # size will give you the difference as a cushion for saving duplicated history
 # events.
-export HISTSIZE="1024"
+export HISTSIZE="10000"
 
 # HOME <S>
 # The default argument for the cd command.
@@ -354,7 +354,7 @@ export LC_TIME="de_DE.UTF-8"
 # LINES <S>
 # The number of lines for this terminal session. Used for printing select lists
 # and for the line editor.
-export LINES="32"
+export LINES="200"
 
 # LISTMAX
 # In the line editor, the number of matches to list without asking first. If the
