@@ -1897,10 +1897,10 @@ alias history='fc -l 1'
 alias aliasgrep='alias G'
 
 # no spell correction for cp, mv, rm, mkdir, rmdir and adding default options
-alias cp='nocorrect cp --verbose'
-alias mv='nocorrect mv --verbose'
-alias ln='nocorrect ln --verbose'
-alias mkdir='nocorrect mkdir --verbose'
+alias cp='nocorrect cp -v'
+alias mv='nocorrect mv -v'
+alias ln='nocorrect ln -v'
+alias mkdir='nocorrect mkdir -v'
 #}}}
 
 # {{{ function
