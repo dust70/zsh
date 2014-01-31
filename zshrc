@@ -1838,6 +1838,36 @@ setopt promptsubst
 # If the -L flag is present, then each hash table entry is printed in the form
 # of a call to hash.
 unhash -dm "*"
+
+[[ -d /usr/share/doc ]] && hash -d doc=/usr/share/doc
+[[ -d /var/log ]]       && hash -d log=/var/log
+[[ -d /usr/src ]]       && hash -d src=/usr/src
+[[ -d /var/www ]]       && hash -d www=/var/www
+
+if [[ -d ~/.dotfiles ]]; then
+    hash -d dotfiles=~/.dotfiles
+    for i in ~/.dotfiles/*(/); do
+        hash -d "dot$(basename ${i})"="${i}"
+    done
+fi
+
+if [[ -d ~/Documents ]]; then
+    for i in ~/Documents/*(/); do
+        hash -d "doc$(basename ${i})"="${i}"
+    done
+fi
+
+if [[ -d ~/norepositories ]]; then
+    for i in ~/norepositories/*(/); do
+        hash -d "norepo$(basename ${i})"="${i}"
+    done
+fi
+
+if [[ -d ~/repositories ]]; then
+    for i in ~/repositories/*(/); do
+        hash -d "repo$(basename ${i})"="${i}"
+    done
+fi
 #}}}
 
 # {{{ Aliases
@@ -2998,173 +3028,6 @@ autoload -Uz zmv
 
 # {{{ Other Functions
 ################################################################################
-# colors
-#   This function initializes several associative arrays to map color names to
-#   (and from) the ANSI standard eight-color terminal codes. These are used by
-#   the prompt theme system (24.3 Prompt Themes). You seldom should need to run
-#   colors more than once.
-#
-#   The eight base colors are: black, red, green, yellow, blue, magenta, cyan,
-#   and white. Each of these has codes for foreground and background. In
-#   addition there are eight intensity attributes: bold, faint, standout,
-#   underline, blink, reverse, and conceal. Finally, there are six codes used to
-#   negate attributes: none (reset all attributes to the defaults), normal
-#   (neither bold nor faint), no-standout, no-underline, no-blink, and
-#   no-reverse.
-#   Some terminals do not support all combinations of colors and intensities.
-#
-#   The associative arrays are:
-#   color
-#   colour
-#       Map all the color names to their integer codes, and integer codes to the
-#       color names. The eight base names map to the foreground color codes, as
-#       do names prefixed with `fg-', such as `fg-red'. Names prefixed with
-#       `bg-', such as `bg-blue', refer to the background codes. The reverse
-#       mapping from code to color yields base name for foreground codes and the
-#       bg- form for backgrounds.
-#
-#       Although it is a misnomer to call them `colors', these arrays also map
-#       the other fourteen attributes from names to codes and codes to names.
-#   fg
-#   fg_bold
-#   fg_no_bold
-#       Map the eight basic color names to ANSI terminal escape sequences that
-#       set the corresponding foreground text properties. The fg sequences
-#       change the color without changing the eight intensity attributes.
-#
-#   bg
-#   bg_bold
-#   bg_no_bold
-#       Map the eight basic color names to ANSI terminal escape sequences that
-#       set the corresponding background properties. The bg sequences change the
-#       color without changing the eight intensity attributes.
-#
-#   In addition, the scalar parameters reset_color and bold_color are set to the
-#   ANSI terminal escapes that turn off all attributes and turn on bold
-#   intensity, respectively.
-#autoload -Uz colors
-
-# zsh-mime-setup [-flv]
-# zsh-mime-handler
-# These two functions use the files ~/.mime.types and /etc/mime.types, which
-# associate types and extensions, as well as ~/.mailcap and /etc/mailcap files,
-# which associate types and the programs that handle them. These are provided on
-# many systems with the Multimedia Internet Mail Extensions.
-#
-# To enable the system, the function zsh-mime-setup should be autoloaded and
-# run. This allows files with extensions to be treated as executable; such files
-# be completed by the function completion system. The function zsh-mime-handler
-# should not need to be called by the user.
-#
-# The system works by setting up suffix aliases with `alias -s'. Suffix aliases
-# already installed by the user will not be overwritten.
-#
-# Repeated calls to zsh-mime-setup do not override the existing mapping between
-# suffixes and executable files unless the option -f is given. Note, however,
-# that this does not override existing suffix aliases assigned to handlers other
-# than zsh-mime-handler. Calling zsh-mime-setup with the option -l lists the
-# existing mapping without altering it. Calling zsh-mime-setup with the option
-# -v causes verbose output to be shown during the setup operation.
-#
-# The system respects the mailcap flags needsterminal and copiousoutput, see man
-# page mailcap(4).
-#
-# The functions use the following styles, which are defined with the zstyle
-# builtin command (21.31 The zsh/zutil Module). They should be defined before
-# zsh-mime-setup is run. The contexts used all start with :mime:, with
-# additional components in some cases. It is recommended that a trailing *
-# (suitably quoted) be appended to style patterns in case the system is extended
-# in future. Some examples are given below.
-#
-# mime-types
-#   A list of files in the format of ~/.mime.types and /etc/mime.types to be
-#   read during setup, replacing the default list which consists of those two
-#   files. The context is :mime:.
-#
-# mailcap
-#   A list of files in the format of ~/.mailcap and /etc/mailcap to be read
-#   during setup, replacing the default list which consists of those two files.
-#   The context is :mime:.
-#
-# handler
-#   Specifies a handler for a suffix; the suffix is given by the context as
-#   :mime:.suffix:, and the format of the handler is exactly that in mailcap.
-#   Note in particular the `.' and trailing colon to distinguish this use of the
-#   context. This overrides any handler specified by the mailcap files. If the
-#   handler requires a terminal, the flags style should be set to include the
-#   word needsterminal, or if the output is to be displayed through a pager (but
-#   not if the handler is itself a pager), it should include copiousoutput.
-#
-# flags
-#   Defines flags to go with a handler; the context is as for the handler style,
-#   and the format is as for the flags in mailcap.
-#
-# pager
-#   If set, will be used instead of ${PAGER} or more to handle suffixes where the
-#   copiousoutput flag is set. The context is as for handler, i.e.
-#   :mime:.suffix: for handling a file with the given suffix.
-#
-# Examples:
-#   zstyle ':mime:*' mailcap ~/.mailcap /usr/local/etc/mailcap
-#   zstyle ':mime:.txt' handler less %s
-#   zstyle ':mime:.txt' flags needsterminal
-#
-# When zsh-mime-setup is subsequently run, it will look for mailcap entries in
-# the two files given. Files of suffix .txt will be handled by running `less
-# file.txt'. The flag needsterminal is set to show that this program must run
-# attached to a terminal.
-#
-# As there are several steps to dispatching a command, the following should be
-# checked if attempting to execute a file by extension .ext does not have the
-# expected effect. starteit() eit()( The command `alias -s ext' should show
-# `ps=zsh-mime-handler'. If it shows something else, another suffix alias was
-# already installed and was not overwritten. If it shows nothing, no handler was
-# installed: this is most likely because no handler was found in the .mime.types
-# and mailcap combination for .ext files. In that case, appropriate handling
-# should be added to ~/.mime.types and mailcap. ) eit()( If the extension is
-# handled by zsh-mime-handler but the file is not opened correctly, either the
-# handler defined for the type is incorrect, or the flags associated with it are
-# in appropriate. Running zsh-mime-setup -l will show the handler and, if there
-# are any, the flags. A %s in the handler is replaced by the file (suitably
-# quoted if necessary). Check that the handler program listed lists and can be
-# run in the way shown. Also check that the flags needsterminal or copiousoutput
-# are set if the handler needs to be run under a terminal; the second flag is
-# used if the output should be sent to a pager. An example of a suitable mailcap
-# entry for such a program is:
-#
-# text/html; /usr/bin/lynx '%s'; needsterminal
-#autoload Uz zsh-mime-setup
-#zsh-mime-setup
-#zstyle ':mime:*' mailcap ~/.mailcap /etc/mailcap
-
-# pick-web-browser
-# This function is separate from the two MIME functions described above and can
-# be assigned directly to a suffix:
-#   autoload -U pick-web-browser
-#   alias -s html=pick-web-browser
-#
-# It is provided as an intelligent front end to dispatch a web browser. It will
-# check if an X Windows display is available, and if so if there is already a
-# browser running which can accept a remote connection. In that case, the file
-# will be displayed in that browser; you should check explicitly if it has
-# appeared in the running browser's window. Otherwise, it will start a new
-# browser according to a builtin set of preferences.
-#
-# Alternatively, pick-web-browser can be run as a zsh script.
-#
-# Two styles are available to customize the choice of browsers: x-browsers when
-# running under the X Windows System, and tty-browsers otherwise. These are
-# arrays in decreasing order of preference consiting of the command name under
-# which to start the browser. They are looked up in the context :mime: (which
-# may be extended in future, so appending `*' is recommended). For example,
-#   zstyle ':mime:*' x-browsers opera konqueror netscape
-# specifies that pick-web-browser should first look for a runing instance of
-# Opera, Konqueror or Netscape, in that order, and if it fails to find any
-# should attempt to start Opera.
-#autoload -Uz pick-web-browser
-#zstyle ':mime:*' x-browsers firefox iceweasel chromium chrome
-#zstyle ':mime:*' tty-browsers w3m links elinks
-
 # vcs_info
 # In a lot of cases, it is nice to automatically retrieve information from
 # version control systems (VCSs), such as subversion, CVS or git, to be able to
@@ -3172,9 +3035,9 @@ autoload -Uz zmv
 # instantly tell on which branch you are currently on, for example
 autoload -Uz vcs_info
 
-zstyle ':vcs_info:*:prompt:*' disable           ALL
-zstyle ':vcs_info:*:prompt:*' enable            git svn
-zstyle ':vcs_info:*:prompt:*' max-exports       2
+zstyle ':vcs_info:*' disable           ALL
+zstyle ':vcs_info:*' enable            bzr git hg svn
+zstyle ':vcs_info:*' disable-patterns "${HOME}/norepositories(|/*)"
 
 zstyle ':vcs_info:*:prompt:*' actionformats     "(${BOLD_BLACK}%s${NO_COLOR}) [ ${BOLD_CYAN}%b${NO_COLOR}|${BOLD_YELLOW}%a${NO_COLOR} ] "
 zstyle ':vcs_info:*:prompt:*' branchformat      "${BOLD_CYAN}%b${NO_COLOR}: ${BOLD_GREEN}%r"
