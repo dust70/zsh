@@ -1937,21 +1937,6 @@ alias mkdir='nocorrect mkdir -v'
 ###############################################################################
 #unhash -mf "*"
 
-# reload configuration
-function reload() {
-    while (( $# )); do
-        unfunction $1
-        autoload -U $1
-        shift
-    done
-
-    [[ -r ~/.profile ]]	 && source ~/.profile
-    [[ -r ~/.zshenv ]]	 && source ~/.zshenv
-    [[ -r ~/.zprofile ]] && source ~/.zprofile
-    [[ -r ~/.zshrc ]]    && source ~/.zshrc
-    return 0
-}
-
 # Provides useful information on globbing
 function zsh-help() {
 echo -e "
