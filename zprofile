@@ -1,6 +1,9 @@
 # source /etc/profile
 [[ -r /etc/profile ]]      && source /etc/profile      || true
 
+# source user default profile
+[ -r ~/.profile ]          && source ~/.profile        || true
+
 # source the default zprofile, especialy interisting in Gentoo Linux systems
 [[ -r /etc/zsh/zprofile ]] && source /etc/zsh/zprofile || true
 [[ -r /etc/zprofile ]]     && source /etc/zprofile     || true
