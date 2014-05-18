@@ -60,13 +60,4 @@ export LANG=en_US
 export HOSTNAME=${HOST:-`uname -n 2>/dev/null || echo unknown`}
 #}}}
 
-# {{{ ssh-agent/gpg-agent
-if [[ -d ~/.keychain ]]; then
-    [[ -r ~/.keychain/"${HOSTNAME}"-sh ]] && \
-        source ~/.keychain/"${HOSTNAME}"-sh
-    [[ -r ~/.keychain/"${HOSTNAME}"-sh-gpg ]] && \
-        source ~/.keychain/"${HOSTNAME}"-sh-gpg
-fi
-#}}}
-
 # vim: filetype=zsh textwidth=80 foldmethod=marker
