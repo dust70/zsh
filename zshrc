@@ -288,7 +288,7 @@ fi
 # HISTFILE
 # The file to save the history in when an interactive shell exits. If unset, the
 # history is not saved.
-export HISTFILE=~/.zsh_history
+export HISTFILE=~/.zsh/history
 
 # HISTSIZE <S>
 # The maximum number of events stored in the internal history list. If you use
