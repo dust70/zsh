@@ -33,9 +33,6 @@ fi
 
 # load /etc/profile.d files
 source ~/.shell/load-profile
-
-# clear screen once
-clear
 #}}}
 
 # {{{ CONDITIONAL EXPRESSIONS
