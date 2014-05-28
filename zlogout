@@ -2,6 +2,9 @@
 [[ -r /etc/zsh/zlogout ]] && source /etc/zsh/zlogout || true
 [[ -r /etc/zlogout ]]     && source /etc/zlogout     || true
 
+# clean maybe broken zcompdump file
+[[ -e ~/.zcompdump ]] && rm -f ~/.zcompdump
+
 # finally run commands
 setopt null_glob
 [[ -r ~/.shell/logout ]]  && source ~/.shell/logout  || true
