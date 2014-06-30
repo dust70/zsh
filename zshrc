@@ -2647,6 +2647,9 @@ fi'
 hosts=($(hostname) "$_ssh_hosts[@]" "$_etc_hosts[@]" localhost)
 zstyle ':completion:*:hosts'        hosts $hosts
 
+# completion order for git push
+zstyle ':completion:*:git-push:*' tag-order remotes '*'
+
 # use generic completion system for programs not yet defined; (_gnu_generic works
 # with commands that provide a --help option with "standard" gnu-like output.)
 for compcom in cp df feh head mv tail uname; do
