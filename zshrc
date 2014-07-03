@@ -526,20 +526,6 @@ export SPROMPT="correct '%R' to '%r' [nyae]?"
 # only printed if they are not zero).
 export TIMEFMT="%*U user %S system %P cpu %*E total '%J'"
 
-# TMOUT
-# If this parameter is nonzero, the shell will receive an ALRM signal if a
-# command is not entered within the specified number of seconds after issuing a
-# prompt. If there is a trap on SIGALRM, it will be executed and a new alarm is
-# scheduled using the value of the TMOUT parameter after executing the trap. If
-# no trap is set, and the idle time of the terminal is not less than the value
-# of the TMOUT parameter, zsh terminates. Otherwise a new alarm is scheduled to
-# TMOUT seconds after the last keypress.
-if [[ ${TERM} = screen* ]]; then
-    unset TMOUT
-else
-    export TMOUT="3600"
-fi
-
 # TMPPREFIX
 # A pathname prefix which the shell will use for all temporary files. Note that
 # this should include an initial part for the file name as well as any directory
