@@ -6,18 +6,18 @@
 #
 #   zshroadmap	Informal introduction to the manual
 #   zshmisc	Anything not fitting into the other sections
-#   zshexpn	Zsh command and parameter expansion
-#   zshparam	Zsh parameters
-#   zshoptions	Zsh options
-#   zshbuiltins	Zsh built-in functions
-#   zshzle	Zsh command line editing
-#   zshcompwid	Zsh completion widgets
-#   zshcompsys	Zsh completion system
-#   zshcompctl	Zsh completion control
-#   zshmodules	Zsh loadable modules
-#   zshcalsys	Zsh built-in calendar functions
-#   zshtcpsys	Zsh built-in TCP functions
-#   zshzftpsys	Zsh built-in FTP client
+#   zshexpn	ZSh command and parameter expansion
+#   zshparam	ZSh parameters
+#   zshoptions	ZSh options
+#   zshbuiltins	ZSh built-in functions
+#   zshzle	ZSh command line editing
+#   zshcompwid	ZSh completion widgets
+#   zshcompsys	ZSh completion system
+#   zshcompctl	ZSh completion control
+#   zshmodules	ZSh loadable modules
+#   zshcalsys	ZSh built-in calendar functions
+#   zshtcpsys	ZSh built-in TCP functions
+#   zshzftpsys	ZSh built-in FTP client
 #   zshcontrib	Additional zsh functions and utilities
 ###############################################################################
 #}}}
@@ -1225,7 +1225,7 @@ setopt correct
 # However, ten consecutive EOFs will cause the shell to exit anyway, to avoid
 # the shell hanging if its tty goes away.
 #
-# Also, if this option is set and the Zsh Line Editor is used, widgets
+# Also, if this option is set and the ZSh Line Editor is used, widgets
 # implemented by shell functions can be bound to EOF (normally Control-D)
 # without printing the normal warning message. This works only for normal
 # widgets, not for completion widgets.
@@ -2656,7 +2656,7 @@ compdef _hosts upgrade
 autoload -Uz zsh/compctl
 #}}}
 
-# {{{ Zsh Modules
+# {{{ ZSh Modules
 ################################################################################
 # THE ZSH/COMPLETE MODULE
 # The zsh/complete module makes available several builtin commands which can be
@@ -3019,7 +3019,7 @@ zstyle ':vcs_info:*:prompt:*' stagedstr         "${BOLD_GREEN}*"
 zstyle ':vcs_info:*:prompt:*' unstagedstr       "${BOLD_YELLOW}*"
 #}}}
 
-# {{{ load resources
+# {{{ Load Resources
 # load none ZSH components and/or configurations for all shells but jump to HOME
 # before
 for sh in ~/.shell/*.sh; do
