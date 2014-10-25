@@ -1973,7 +1973,7 @@ function title() {
 }
 
 # setting title once
-title ${TERM%-*} ${USER}@${HOST}
+title Shell ${USER}@${HOST}
 
 # Executed before each prompt. Note that precommand functions are not reexecuted
 # simply because the command line is redrawn, as happens, for example, when a
