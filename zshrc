@@ -510,6 +510,11 @@ export SPROMPT="correct '%R' to '%r' [nyae]?"
 # value does not change (e.g., `TERM=${TERM}'). It is necessary to make such an
 # assignment upon any change to the terminal definition database or terminal
 # type in order for the new settings to take effect.
+case "${TERM}" in
+    xterm*)
+        export TERM=xterm-256color
+        ;;
+esac
 
 # TIMEFMT
 # The format of process time reports with the time keyword. The default is
