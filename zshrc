@@ -1926,7 +1926,7 @@ alias mkdir='nocorrect mkdir -v'
 #unhash -mf "*"
 
 # Provides useful information on globbing
-function zsh-help() {
+function zsh_help() {
 echo -e "
 /	directories
 .	plain files
