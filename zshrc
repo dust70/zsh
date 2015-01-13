@@ -1856,6 +1856,18 @@ if [[ -d ~/repositories ]]; then
         hash -d "repo$(basename ${i})"="${i}"
     done
 fi
+
+if [[ -d ~/repositories/cbn ]]; then
+    for i in ~/repositories/cbn/*(/); do
+        hash -d "repocbn$(basename ${i})"="${i}"
+    done
+fi
+
+if [[ -d ~/repositories/dotfiles ]]; then
+    for i in ~/repositories/dotfiles/*(/); do
+        hash -d "repodot$(basename ${i})"="${i}"
+    done
+fi
 #}}}
 
 # {{{ Aliases
