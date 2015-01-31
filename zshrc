@@ -1859,19 +1859,19 @@ fi
 
 if [[ -d ~/repositories/cbn ]]; then
     for i in ~/repositories/cbn/*(/); do
-        hash -d "repo$(basename ${i})"="${i}"
+        hash -d "cbn$(basename ${i})"="${i}"
     done
 fi
 
 if [[ -d ~/repositories/dotfiles ]]; then
     for i in ~/repositories/dotfiles/*(/); do
-        hash -d "repo$(basename ${i})"="${i}"
+        hash -d "repoDot$(basename ${i})"="${i}"
     done
 fi
 
 if [[ -d ~/repositories/projects ]]; then
     for i in ~/repositories/projects/*(/); do
-        hash -d "repo$(basename ${i})"="${i}"
+        hash -d "proj$(basename ${i})"="${i}"
     done
 fi
 #}}}
