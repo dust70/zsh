@@ -1828,9 +1828,9 @@ setopt promptsubst
 unhash -dm "*"
 
 [[ -d /usr/share/doc ]] && hash -d doc=/usr/share/doc
-[[ -d /var/log ]]       && hash -d log=/var/log
-[[ -d /usr/src ]]       && hash -d src=/usr/src
-[[ -d /var/www ]]       && hash -d www=/var/www
+[[ -d /var/log ]] && hash -d log=/var/log
+[[ -d /usr/src ]] && hash -d src=/usr/src
+[[ -d /var/www ]] && hash -d www=/var/www
 
 if [[ -d ~/.dotfiles ]]; then
     hash -d dotfiles=~/.dotfiles
@@ -2289,7 +2289,7 @@ bindkey -v
 # your HOME or ZDOTDIR directory. The name of the file is composed from the
 # TERM, VENDOR and OSTYPE parameters, joined by hyphens.
 #
-# You may read this file into your .zshrc or another  startup  file  with the
+# You may read this file into your .zshrc or another startup file with the
 # `source' or `.' commands, then reference the key parameter in bindkey
 # commands, like this:
 #
@@ -2298,21 +2298,21 @@ bindkey -v
 #   [[ -n ${key[Right]} ]] && bindkey "${key[Right]}" forward-char
 #   # etc.
 #
-# Note that in order for `autoload zkbd' to work, the zkdb file  must  be in
+# Note that in order for `autoload zkbd' to work, the zkdb file must be in
 # one of the directories named in your fpath array (see zshparam(1)). This
-# should already be the case if you have a  standard  zsh  installation;  if  it
+# should already be the case if you have a standard zsh installation; if it
 # is not, copy Functions/Misc/zkbd to an appropriate directory.
 #autoload -Uz zkbd
 
 if [[ "$TERM" != emacs ]]; then
     [[ -z "$terminfo[kdch1]" ]] || bindkey -M emacs "$terminfo[kdch1]" delete-char
     [[ -z "$terminfo[khome]" ]] || bindkey -M emacs "$terminfo[khome]" beginning-of-line
-    [[ -z "$terminfo[kend]"  ]] || bindkey -M emacs "$terminfo[kend]"  end-of-line
+    [[ -z "$terminfo[kend]" ]] || bindkey -M emacs "$terminfo[kend]" end-of-line
     [[ -z "$terminfo[kdch1]" ]] || bindkey -M vicmd "$terminfo[kdch1]" vi-delete-char
     [[ -z "$terminfo[khome]" ]] || bindkey -M vicmd "$terminfo[khome]" vi-beginning-of-line
-    [[ -z "$terminfo[kend]"  ]] || bindkey -M vicmd "$terminfo[kend]"  vi-end-of-line
-    [[ -z "$terminfo[cuu1]"  ]] || bindkey -M viins "$terminfo[cuu1]"  vi-up-line-or-history
-    [[ -z "$terminfo[cuf1]"  ]] || bindkey -M viins "$terminfo[cuf1]"  vi-forward-char
+    [[ -z "$terminfo[kend]" ]] || bindkey -M vicmd "$terminfo[kend]" vi-end-of-line
+    [[ -z "$terminfo[cuu1]" ]] || bindkey -M viins "$terminfo[cuu1]" vi-up-line-or-history
+    [[ -z "$terminfo[cuf1]" ]] || bindkey -M viins "$terminfo[cuf1]" vi-forward-char
     [[ -z "$terminfo[kcuu1]" ]] || bindkey -M viins "$terminfo[kcuu1]" vi-up-line-or-history
     [[ -z "$terminfo[kcud1]" ]] || bindkey -M viins "$terminfo[kcud1]" vi-down-line-or-history
     [[ -z "$terminfo[kcuf1]" ]] || bindkey -M viins "$terminfo[kcuf1]" vi-forward-char
@@ -2322,7 +2322,7 @@ if [[ "$TERM" != emacs ]]; then
     if [[ -n "$terminfo[kcbt]" ]]; then
         bindkey -M viins "$terminfo[kcbt]" reverse-menu-complete
     elif [[ -n "$terminfo[cbt]" ]]; then
-        bindkey -M viins "$terminfo[cbt]"  reverse-menu-complete
+        bindkey -M viins "$terminfo[cbt]" reverse-menu-complete
     fi
 
     # ncurses stuff:
@@ -2331,18 +2331,18 @@ if [[ "$TERM" != emacs ]]; then
     [[ "$terminfo[kcuf1]" == $'\eO'* ]] && bindkey -M viins "${terminfo[kcuf1]/O/[}" vi-forward-char
     [[ "$terminfo[kcub1]" == $'\eO'* ]] && bindkey -M viins "${terminfo[kcub1]/O/[}" vi-backward-char
     [[ "$terminfo[khome]" == $'\eO'* ]] && bindkey -M viins "${terminfo[khome]/O/[}" beginning-of-line
-    [[ "$terminfo[kend]"  == $'\eO'* ]] && bindkey -M viins "${terminfo[kend]/O/[}"  end-of-line
+    [[ "$terminfo[kend]" == $'\eO'* ]] && bindkey -M viins "${terminfo[kend]/O/[}" end-of-line
     [[ "$terminfo[khome]" == $'\eO'* ]] && bindkey -M emacs "${terminfo[khome]/O/[}" beginning-of-line
-    [[ "$terminfo[kend]"  == $'\eO'* ]] && bindkey -M emacs "${terminfo[kend]/O/[}"  end-of-line
+    [[ "$terminfo[kend]" == $'\eO'* ]] && bindkey -M emacs "${terminfo[kend]/O/[}" end-of-line
 fi
 
 bindkey '\e[1~' beginning-of-line	# home
 bindkey '\e[4~' end-of-line		# end
-bindkey '\e[A'  up-line-or-search	# cursor up
-bindkey '\e[B'  down-line-or-search	# <ESC>-
+bindkey '\e[A' up-line-or-search	# cursor up
+bindkey '\e[B' down-line-or-search	# <ESC>-
 
-bindkey '^xp'   history-beginning-search-backward
-bindkey '^xP'   history-beginning-search-forward
+bindkey '^xp' history-beginning-search-backward
+bindkey '^xP' history-beginning-search-forward
 
 # if terminal type is set to 'rxvt':
 bindkey '\e[7~' beginning-of-line	# home
@@ -2545,72 +2545,72 @@ compdef _aliases edalias
 zstyle ':acceptline:*' rehash true
 
 # allow one error for every three characters typed in approximate completer
-zstyle ':completion:*:approximate:'    max-errors 'reply=( $((($#PREFIX+$#SUFFIX)/3 )) numeric )'
+zstyle ':completion:*:approximate:' max-errors 'reply=( $((($#PREFIX+$#SUFFIX)/3 )) numeric )'
 
 # don't complete backup files as executables
 zstyle ':completion:*:complete:-command-::commands' ignored-patterns '(aptitude-*|*\~)'
 
 # start menu completion only if it could find no unambiguous initial string
-zstyle ':completion:*:correct:*'       insert-unambiguous true
-zstyle ':completion:*:corrections'     format $'%{\e[0;31m%}%d (errors: %e)%{\e[0m%}'
-zstyle ':completion:*:correct:*'       original true
+zstyle ':completion:*:correct:*' insert-unambiguous true
+zstyle ':completion:*:corrections' format $'%{\e[0;31m%}%d (errors: %e)%{\e[0m%}'
+zstyle ':completion:*:correct:*' original true
 
 # activate color-completion
-zstyle ':completion:*:default'         list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
 # format on completion
-zstyle ':completion:*:descriptions'    format $'%{\e[0;31m%}completing %B%d%b%{\e[0m%}'
+zstyle ':completion:*:descriptions' format $'%{\e[0;31m%}completing %B%d%b%{\e[0m%}'
 
 # automatically complete 'cd -<tab>' and 'cd -<ctrl-d>' with menu
 # zstyle ':completion:*:*:cd:*:directory-stack' menu yes select
 
 # insert all expansions for expand completer
-zstyle ':completion:*:expand:*'        tag-order all-expansions
-zstyle ':completion:*:history-words'   list false
+zstyle ':completion:*:expand:*' tag-order all-expansions
+zstyle ':completion:*:history-words' list false
 
 # activate menu
-zstyle ':completion:*:history-words'   menu yes
+zstyle ':completion:*:history-words' menu yes
 
 # ignore duplicate entries
-zstyle ':completion:*:history-words'   remove-all-dups yes
-zstyle ':completion:*:history-words'   stop yes
+zstyle ':completion:*:history-words' remove-all-dups yes
+zstyle ':completion:*:history-words' stop yes
 
 # match uppercase from lowercase
-zstyle ':completion:*'                 matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 # separate matches into groups
-zstyle ':completion:*:matches'         group 'yes'
-zstyle ':completion:*'                 group-name ''
+zstyle ':completion:*:matches' group 'yes'
+zstyle ':completion:*' group-name ''
 
 # if there are more than 5 options allow selecting from a menu
-zstyle ':completion:*'               menu select=5
+zstyle ':completion:*' menu select=5
 
-zstyle ':completion:*:messages'        format '%d'
-zstyle ':completion:*:options'         auto-description '%d'
+zstyle ':completion:*:messages' format '%d'
+zstyle ':completion:*:options' auto-description '%d'
 
 # describe options in full
-zstyle ':completion:*:options'         description 'yes'
+zstyle ':completion:*:options' description 'yes'
 
 # on processes completion complete all user processes
-zstyle ':completion:*:processes'       command 'ps -au$USER'
+zstyle ':completion:*:processes' command 'ps -au$USER'
 
 # offer indexes before parameters in subscripts
 zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
 
 # provide verbose completion information
-zstyle ':completion:*'                 verbose true
+zstyle ':completion:*' verbose true
 
 # recent (as of Dec 2007) zsh versions are able to provide descriptions
 # for commands (read: 1st word in the line) that it will list for the user
 # to choose from. The following disables that, because it's not exactly fast.
-zstyle ':completion:*:-command-:*:'    verbose false
+zstyle ':completion:*:-command-:*:' verbose false
 
 # set format for warnings
-zstyle ':completion:*:warnings'        format $'%{\e[0;31m%}No matches for:%{\e[0m%} %d'
+zstyle ':completion:*:warnings' format $'%{\e[0;31m%}No matches for:%{\e[0m%} %d'
 
 # define files to ignore for zcompile
-zstyle ':completion:*:*:zcompile:*'    ignored-patterns '(*~|*.zwc)'
-zstyle ':completion:correct:'          prompt 'correct to: %e'
+zstyle ':completion:*:*:zcompile:*' ignored-patterns '(*~|*.zwc)'
+zstyle ':completion:correct:' prompt 'correct to: %e'
 
 # Ignore completion functions for commands you don't have:
 zstyle ':completion::(^approximate*):*:functions' ignored-patterns '_*'
@@ -2619,12 +2619,12 @@ zstyle ':completion::(^approximate*):*:functions' ignored-patterns '_*'
 zstyle ':completion:*:processes-names' command 'ps c -u ${USER} -o command | uniq'
 
 # complete manual by their section
-zstyle ':completion:*:manuals'          separate-sections true
-zstyle ':completion:*:manuals.*'        insert-sections   true
-zstyle ':completion:*:man:*'            menu yes select
+zstyle ':completion:*:manuals' separate-sections true
+zstyle ':completion:*:manuals.*' insert-sections true
+zstyle ':completion:*:man:*' menu yes select
 
 # provide .. as a completion
-zstyle ':completion:*'                  special-dirs ..
+zstyle ':completion:*' special-dirs ..
 
 # run rehash on completion so new installed program are found automatically:
 _force_rehash() {
@@ -2651,10 +2651,14 @@ fi'
     zstyle ':completion::complete:*' cache-path $ZSHDIR/cache/
 
 # host completion /* add brackets as vim can't parse zsh's complex cmdlines 8-) {{{ */
-[[ -r ~/.ssh/known_hosts ]] && _ssh_hosts=(${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[\|]*}%%\ *}%%,*}) || _ssh_hosts=()
-[[ -r /etc/hosts ]] && : ${(A)_etc_hosts:=${(s: :)${(ps:\t:)${${(f)~~"$(</etc/hosts)"}%%\#*}##[:blank:]#[^[:blank:]]#}}} || _etc_hosts=()
-hosts=($(hostname) "$_ssh_hosts[@]" "$_etc_hosts[@]" localhost)
-zstyle ':completion:*:hosts'        hosts $hosts
+zstyle -e ':completion:*:hosts' hosts 'reply=(
+    ${${${${${(f)"$(<${HOME}/.ssh/known_hosts)"//\[/}//\]:/ }:#[\|]*}%%\*}%%,*}
+    ${${${(@M)${(f)"$(<${HOME}/.ssh/config)"}:#Host *}#Host }:#*[*?]*}
+    ${(s: :)${(ps:\t:)${${(f)~~"$(</etc/hosts)"}%%\#*}#*[[:blank:]]}}
+)'
+zstyle ':completion:*:*:*:hosts' ignored-patterns 'ip6*' 'localhost*'
+zstyle -e ':completion:*:*:ssh:*:my-accounts' users-hosts \
+    '[[ -f ~/.ssh/config && $key = hosts  ]] && key=my_hosts reply=()'
 
 # completion order for git push
 zstyle ':completion:*:git-push:*' tag-order remotes '*'
@@ -2664,6 +2668,25 @@ zstyle ':completion:*:git-push:*' tag-order remotes '*'
 for compcom in cp df feh head mv tail uname; do
     [[ -z ${_comps[$compcom]} ]] && compdef _gnu_generic ${compcom}
 done; unset compcom
+
+# vcs_info
+# In a lot of cases, it is nice to automatically retrieve information from
+# version control systems (VCSs), such as subversion, CVS or git, to be able to
+# provide it to the user; possibly in the user's prompt. So that you can
+# instantly tell on which branch you are currently on, for example
+autoload -Uz vcs_info
+
+zstyle ':vcs_info:*' disable ALL
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:*' disable-patterns "${HOME}/norepositories(|/*)"
+
+zstyle ':vcs_info:*:prompt:*' actionformats "(${BOLD_BLACK}%s${NO_COLOR}) [ ${BOLD_CYAN}%b${NO_COLOR}|${BOLD_YELLOW}%a${NO_COLOR} ] "
+zstyle ':vcs_info:*:prompt:*' branchformat "${BOLD_CYAN}%b${NO_COLOR}: ${BOLD_GREEN}%r"
+zstyle ':vcs_info:*:prompt:*' check-for-changes true
+zstyle ':vcs_info:*:prompt:*' formats "%u%c${NO_COLOR} (${BOLD_BLACK}%s${NO_COLOR}) [${BOLD_CYAN}%b${NO_COLOR}] ${MAGENTA}%12.12i${NO_COLOR}"
+zstyle ':vcs_info:*:prompt:*' get-revision true
+zstyle ':vcs_info:*:prompt:*' stagedstr "${BOLD_GREEN}*"
+zstyle ':vcs_info:*:prompt:*' unstagedstr "${BOLD_YELLOW}*"
 
 # see upgrade function in this file
 compdef _hosts upgrade
@@ -3018,28 +3041,6 @@ autoload -Uz zsh/zutil
 # result, the destination was an existing regular file and -f was not given)
 # causes the entire function to abort without doing anything.
 autoload -Uz zmv
-#}}}
-
-# {{{ Other Functions
-################################################################################
-# vcs_info
-# In a lot of cases, it is nice to automatically retrieve information from
-# version control systems (VCSs), such as subversion, CVS or git, to be able to
-# provide it to the user; possibly in the user's prompt. So that you can
-# instantly tell on which branch you are currently on, for example
-autoload -Uz vcs_info
-
-zstyle ':vcs_info:*' disable           ALL
-zstyle ':vcs_info:*' enable            bzr git hg svn
-zstyle ':vcs_info:*' disable-patterns "${HOME}/norepositories(|/*)"
-
-zstyle ':vcs_info:*:prompt:*' actionformats     "(${BOLD_BLACK}%s${NO_COLOR}) [ ${BOLD_CYAN}%b${NO_COLOR}|${BOLD_YELLOW}%a${NO_COLOR} ] "
-zstyle ':vcs_info:*:prompt:*' branchformat      "${BOLD_CYAN}%b${NO_COLOR}: ${BOLD_GREEN}%r"
-zstyle ':vcs_info:*:prompt:*' check-for-changes true
-zstyle ':vcs_info:*:prompt:*' formats           "%u%c${NO_COLOR} (${BOLD_BLACK}%s${NO_COLOR}) [${BOLD_CYAN}%b${NO_COLOR}] ${MAGENTA}%12.12i${NO_COLOR}"
-zstyle ':vcs_info:*:prompt:*' get-revision      true
-zstyle ':vcs_info:*:prompt:*' stagedstr         "${BOLD_GREEN}*"
-zstyle ':vcs_info:*:prompt:*' unstagedstr       "${BOLD_YELLOW}*"
 #}}}
 
 # {{{ Load Resources
