@@ -1,27 +1,3 @@
-# {{{ OVERVIEW
-###############################################################################
-# Because zsh contains many features, the zsh manual has been split into a
-# number of sections. This manual page includes all the separate manual pages in
-# the following order:
-#
-#   zshroadmap	Informal introduction to the manual
-#   zshmisc	Anything not fitting into the other sections
-#   zshexpn	ZSh command and parameter expansion
-#   zshparam	ZSh parameters
-#   zshoptions	ZSh options
-#   zshbuiltins	ZSh built-in functions
-#   zshzle	ZSh command line editing
-#   zshcompwid	ZSh completion widgets
-#   zshcompsys	ZSh completion system
-#   zshcompctl	ZSh completion control
-#   zshmodules	ZSh loadable modules
-#   zshcalsys	ZSh built-in calendar functions
-#   zshtcpsys	ZSh built-in TCP functions
-#   zshzftpsys	ZSh built-in FTP client
-#   zshcontrib	Additional zsh functions and utilities
-###############################################################################
-#}}}
-
 # {{{ pre requirements
 # Test for an interactive shell. There is no need to set anything past this
 # point for scp and rcp, and it is important to refrain from outputting anything
@@ -33,181 +9,6 @@ fi
 
 # load /etc/profile.d files
 source ~/.shell/load-profile
-#}}}
-
-# {{{ CONDITIONAL EXPRESSIONS
-###############################################################################
-# A conditional expression is used with the [[ compound command to test
-# attributes of files and to compare strings. Each expression can be constructed
-# from one or more of the following unary or binary expressions:
-#
-#   -a file
-#	true if file exists.
-#
-#   -b file
-#	true if file exists and is a block special file.
-#
-#   -c file
-#	true if file exists and is a character special file.
-#
-#   -d file
-#	true if file exists and is a directory.
-#
-#   -e file
-#	true if file exists.
-#
-#   -f file
-#	true if file exists and is a regular file.
-#
-#   -g file
-#	true if file exists and has its setgid bit set.
-#
-#   -h file
-#	true if file exists and is a symbolic link.
-#
-#   -k file
-#	true if file exists and has its sticky bit set.
-#
-#   -n string
-#	true if length of string is non-zero.
-#
-#   -o option
-#	true if option named option is on. option may be a single character, in
-#	which case it is a single letter option name. (See the section
-#	`Specifying Options'.)
-#
-#   -p file
-#	true if file exists and is a FIFO special file (named pipe).
-#
-#   -r file
-#	true if file exists and is readable by current process.
-#
-#   -s file
-#	true if file exists and has size greater than zero.
-#
-#   -t fd
-#	true if file descriptor number fd is open and associated with a terminal
-#	device. (note: fd is not optional)
-#
-#   -u file
-#	true if file exists and has its setuid bit set.
-#
-#   -w file
-#	true if file exists and is writable by current process.
-#
-#   -x file
-#	true if file exists and is executable by current process. If file exists
-#	and is a directory, then the current process has permission to search in
-#	the directory.
-#
-#   -z string
-#	true if length of string is zero.
-#
-#   -L file
-#	true if file exists and is a symbolic link.
-#
-#   -O file
-#	true if file exists and is owned by the effective user ID of this
-#	process.
-#
-#   -G file
-#	true if file exists and its group matches the effective group ID of this
-#	process.
-#
-#   -S file
-#	true if file exists and is a socket.
-#
-#   -N file
-#	true if file exists and its access time is not newer than its
-#	modification time.
-#
-#   file1 -nt file2
-#	true if file1 exists and is newer than file2.
-#
-#   file1 -ot file2
-#	true if file1 exists and is older than file2.
-#
-#   file1 -ef file2
-#	true if file1 and file2 exist and refer to the same file.
-#
-#   string = pattern
-#   string == pattern
-#	true if string matches pattern. The `==' form is the preferred one. The
-#	`=' form is for backward compatibility and should be considered
-#	obsolete.
-#
-#   string != pattern
-#	true if string does not match pattern.
-#
-#   string =~ regexp
-#	true if string matches the regular expression regexp. If the option
-#	RE_MATCH_PCRE is set regexp is tested as a PCRE regular expression using
-#	the zsh/pcre module, else it is tested as a POSIX extended regular
-#	expression using the zsh/regex module. If the option BASH_REMATCH is set
-#	the array BASH_REMATCH is set to the substring that matched the pattern
-#	followed by the substrings that matched parenthesised subexpressions
-#	within the pattern; otherwise, the scalar parameter MATCH is set to the
-#	substring that matched the pattern and and the array match to the
-#	substrings that matched parenthesised subexpressions.
-#
-#   string1 < string2
-#	true if string1 comes before string2 based on ASCII value of their
-#	characters.
-#
-#   string1 > string2
-#	true if string1 comes after string2 based on ASCII value of their
-#	characters.
-#
-#   exp1 -eq exp2
-#	true if exp1 is numerically equal to exp2.
-#
-#   exp1 -ne exp2
-#	true if exp1 is numerically not equal to exp2.
-#
-#   exp1 -lt exp2
-#	true if exp1 is numerically less than exp2.
-#
-#   exp1 -gt exp2
-#	true if exp1 is numerically greater than exp2.
-#
-#   exp1 -le exp2
-#	true if exp1 is numerically less than or equal to exp2.
-#
-#   exp1 -ge exp2
-#	true if exp1 is numerically greater than or equal to exp2.
-#
-#   ( exp )
-#	true if exp is true.
-#
-#   ! exp
-#	true if exp is false.
-#
-#   exp1 && exp2
-#	true if exp1 and exp2 are both true.
-#
-#   exp1 || exp2
-#	true if either exp1 or exp2 is true.
-# Normal shell expansion is performed on the file, string and pattern arguments,
-# but the result of each expansion is constrained to be a single word, similar
-# to the effect of double quotes. However, pattern metacharacters are active for
-# the pattern arguments; the patterns are the same as those used for filename
-# generation, see zshexpn(1), but there is no special behaviour of `/' nor
-# initial dots, and no glob qualifiers are allowed.
-#
-# In each of the above expressions, if file is of the form `/dev/fd/n', where n
-# is an integer, then the test applied to the open file whose descriptor number
-# is n, even if the underlying system does not support the /dev/fd directory.
-#
-# In the forms which do numeric comparison, the expressions exp undergo
-# arithmetic expansion as if they were enclosed in $((...)).
-#
-# For example, the following:
-#
-#   [[ ( -f foo || -f bar ) && $report = y* ]] && print File exists.
-#
-# tests if either file foo or file bar exists, and if so, if the value of the
-# parameter report begins with `y'; if the complete condition is true, the
-# message `File exists.' is printed.
 #}}}
 
 # {{{ Parameters Used By The Shell
@@ -415,7 +216,7 @@ unset MAILPATH
 # The primary prompt string, printed before a command is read. the default is
 # `%m%# '. It undergoes a special form of expansion before being displayed; see
 # 12. Prompt Expansion.
-PROMPT="%(!.${BOLD_RED}.${BOLD_BLUE})%n${NO_COLOR} ${BOLD_YELLOW}(%m)${NO_COLOR} ${BOLD_CYAN}%(3~.%3~.%~)${NO_COLOR} ${BOLD_GREY}[%D{%Y-%m-%d %H:%M}]${NO_COLOR} Jobs: ${BOLD_WHITE}%j${NO_COLOR} | Exitstatus: %(?.${BOLD_GREEN}%?.${BOLD_RED}%?)${NO_COLOR}
+PROMPT="%(!.${BOLD_RED}.${BOLD_BLUE})%n${NO_COLOR} ${BOLD_YELLOW}(%m)${NO_COLOR} ${BOLD_CYAN}%(3~.%3~.%~)${NO_COLOR} ${BOLD_GREY}[%D{%Y-%m-%d %H:%M}]${NO_COLOR} Exitstatus: %(?.${BOLD_GREEN}%?.${BOLD_RED}%?)${NO_COLOR}
 ${BOLD_MAGENTA}%(!.#.$)${NO_COLOR}:> "
 
 [[ -n ${SSH_CLIENT} ]] && PROMPT="${WHITE}${BACK_RED}REMOTE${NO_COLOR} ${PROMPT}"
@@ -2002,52 +1803,11 @@ title Shell ${USER}@${HOST}
 # simply because the command line is redrawn, as happens, for example, when a
 # notification about an exiting job is displayed.
 function precmd() {
-    [[ $ZSH_VERSION == 4.3.<10->* || $ZSH_VERSION == 4.<4->* || $ZSH_VERSION == <5->* ]] && vcs_info prompt
+    vcs_info prompt
     if [[ -n ${vcs_info_msg_0_} ]]; then
         RPROMPT="${vcs_info_msg_0_} "
     else
         RPROMPT=""
-    fi
-}
-
-# Executed just after a command has been read and is about to be executed. If
-# the history mechanism is active (and the line was not discarded from the
-# history buffer), the string that the user typed is passed as the first
-# argument, otherwise it is an empty string. The actual command that will be
-# executed (including expanded aliases) is passed in two different forms: the
-# second argument is a single-line, size-limited version of the command (with
-# things like function bodies elided); the third argument contains the full text
-# that is being executed.
-# function preexec() {
-#     emulate -L zsh
-#     local -a cmd; cmd=(${(z)1})
-#     title $cmd[1]:t $cmd[2,-1]
-# }
-
-# Clean up directory - remove well known tempfiles
-function purge() {
-    emulate -L zsh
-    setopt HIST_SUBST_PATTERN
-    local -a TEXTEMPFILES GHCTEMPFILES PYTEMPFILES FILES
-    TEXTEMPFILES=(*.tex(N:s/%tex/'(log|toc|aux|nav|snm|out|tex.backup|bbl|blg|bib.backup|vrb|lof|lot|hd|idx)(N)'/))
-    GHCTEMPFILES=(*.(hs|lhs)(N:r:s/%/'.(hi|hc|(p|u|s)_(o|hi))(N)'/))
-    PYTEMPFILES=(*.py(N:s/%py/'(pyc|pyo)(N)'/))
-    LONELY_MOOD_FILES=((*.mood)(NDe:'local -a AF;AF=( ${${REPLY#.}%mood}(mp3|flac|ogg|asf|wmv|aac)(N) ); [[ -z "$AF" ]]':))
-    FILES=(*~(.N) \#*\#(.N) *.o(.N) a.out(.N) (*.|)core(.N) *.cmo(.N) *.cmi(.N) .*.swp(.N) *.(orig|rej)(.DN) *.dpkg-(old|dist|new)(DN) ._(cfg|mrg)[0-9][0-9][0-9][0-9]_*(N) ${~TEXTEMPFILES} ${~GHCTEMPFILES} ${~PYTEMPFILES} ${LONELY_MOOD_FILES})
-    local NBFILES=${#FILES}
-    local CURDIRSUDO=""
-    [[ ! -w ./ ]] && CURDIRSUDO=$SUDO
-    if [[ $NBFILES > 0 ]]; then
-        print -l $FILES
-        local ans
-        echo -n "Remove these files? [y/n] "
-        read -q ans
-        if [[ $ans == "y" ]]; then
-            $CURDIRSUDO rm ${FILES}
-            echo ">> $PWD purged, $NBFILES files removed"
-        else
-            echo "Ok. .. then not.."
-        fi
     fi
 }
 #}}}
@@ -2302,7 +2062,7 @@ bindkey -v
 # one of the directories named in your fpath array (see zshparam(1)). This
 # should already be the case if you have a standard zsh installation; if it
 # is not, copy Functions/Misc/zkbd to an appropriate directory.
-#autoload -Uz zkbd
+autoload -Uz zkbd
 
 if [[ "$TERM" != emacs ]]; then
     [[ -z "$terminfo[kdch1]" ]] || bindkey -M emacs "$terminfo[kdch1]" delete-char
@@ -2500,7 +2260,7 @@ bindkey -M menuselect '\e^M' accept-and-menu-complete
 #
 # If the number of completion files changes, compinit will recognise this and
 # produce a new dump file. However, if the name of a function or the arguments
-# in the first line of a #compdef function (as described below) change, it is
+# in the first line of a compdef function (as described below) change, it is
 # easiest to delete the dump file by hand so that compinit will re-create it the
 # next time it is run. The check performed to see if there are new functions can
 # be omitted by giving the option -C. In this case the dump file will only be
@@ -2532,37 +2292,21 @@ bindkey -M menuselect '\e^M' accept-and-menu-complete
 # directories, adding missing ones to fpath as necessary. To force a check of
 # exactly the directories currently named in fpath, set _compdir to an empty
 # string before calling compaudit or compinit.
-autoload -Uz compinit
-compinit
 
-compdef _functions edfunc
-compdef _aliases edalias
-
-# A newly added command will may not be found or will cause false
-# correction attempts, if you got auto-correction set. By setting the
-# following style, we force accept-line() to rehash, if it cannot
-# find the first word on the command line in the $command[] hash.
-zstyle ':acceptline:*' rehash true
-
-# allow one error for every three characters typed in approximate completer
-zstyle ':completion:*:approximate:' max-errors 'reply=( $((($#PREFIX+$#SUFFIX)/3 )) numeric )'
-
-# don't complete backup files as executables
-zstyle ':completion:*:complete:-command-::commands' ignored-patterns '(aptitude-*|*\~)'
+zstyle ':completion:*' completer _complete _ignored _approximate
 
 # start menu completion only if it could find no unambiguous initial string
 zstyle ':completion:*:correct:*' insert-unambiguous true
-zstyle ':completion:*:corrections' format $'%{\e[0;31m%}%d (errors: %e)%{\e[0m%}'
+zstyle ':completion:*:corrections' format \
+    $'%{\e[0;31m%}%d (errors: %e)%{\e[0m%}'
 zstyle ':completion:*:correct:*' original true
 
 # activate color-completion
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
 # format on completion
-zstyle ':completion:*:descriptions' format $'%{\e[0;31m%}completing %B%d%b%{\e[0m%}'
-
-# automatically complete 'cd -<tab>' and 'cd -<ctrl-d>' with menu
-# zstyle ':completion:*:*:cd:*:directory-stack' menu yes select
+zstyle ':completion:*:descriptions' format \
+    $'%{\e[0;31m%}completing %B%d%b%{\e[0m%}'
 
 # insert all expansions for expand completer
 zstyle ':completion:*:expand:*' tag-order all-expansions
@@ -2576,14 +2320,18 @@ zstyle ':completion:*:history-words' remove-all-dups yes
 zstyle ':completion:*:history-words' stop yes
 
 # match uppercase from lowercase
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion:*' matcher-list \
+    'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' \
+    'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' \
+    'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' \
+    'm:{[:lower:][:upper:]}={[:upper:][:lower:]}'
 
 # separate matches into groups
 zstyle ':completion:*:matches' group 'yes'
 zstyle ':completion:*' group-name ''
 
-# if there are more than 5 options allow selecting from a menu
-zstyle ':completion:*' menu select=5
+# if there are more than 3 options allow selecting from a menu
+zstyle ':completion:*' menu select=3
 
 zstyle ':completion:*:messages' format '%d'
 zstyle ':completion:*:options' auto-description '%d'
@@ -2594,19 +2342,19 @@ zstyle ':completion:*:options' description 'yes'
 # on processes completion complete all user processes
 zstyle ':completion:*:processes' command 'ps -au$USER'
 
+# Provide more processes in completion of programs like killall:
+zstyle ':completion:*:processes-names' command \
+    'ps c -u ${USER} -o command | uniq'
+
 # offer indexes before parameters in subscripts
 zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
 
 # provide verbose completion information
 zstyle ':completion:*' verbose true
 
-# recent (as of Dec 2007) zsh versions are able to provide descriptions
-# for commands (read: 1st word in the line) that it will list for the user
-# to choose from. The following disables that, because it's not exactly fast.
-zstyle ':completion:*:-command-:*:' verbose false
-
 # set format for warnings
-zstyle ':completion:*:warnings' format $'%{\e[0;31m%}No matches for:%{\e[0m%} %d'
+zstyle ':completion:*:warnings' format \
+    $'%{\e[0;31m%}No matches for:%{\e[0m%} %d'
 
 # define files to ignore for zcompile
 zstyle ':completion:*:*:zcompile:*' ignored-patterns '(*~|*.zwc)'
@@ -2615,16 +2363,10 @@ zstyle ':completion:correct:' prompt 'correct to: %e'
 # Ignore completion functions for commands you don't have:
 zstyle ':completion::(^approximate*):*:functions' ignored-patterns '_*'
 
-# Provide more processes in completion of programs like killall:
-zstyle ':completion:*:processes-names' command 'ps c -u ${USER} -o command | uniq'
-
 # complete manual by their section
 zstyle ':completion:*:manuals' separate-sections true
 zstyle ':completion:*:manuals.*' insert-sections true
 zstyle ':completion:*:man:*' menu yes select
-
-# provide .. as a completion
-zstyle ':completion:*' special-dirs ..
 
 # run rehash on completion so new installed program are found automatically:
 _force_rehash() {
@@ -2632,25 +2374,7 @@ _force_rehash() {
     return 1
 }
 
-## correction
-# try to be smart about when to use what completer...
-zstyle -e ':completion:*' completer '
-if [[ $_last_try != "$HISTNO$BUFFER$CURSOR" ]]; then
-    _last_try="$HISTNO$BUFFER$CURSOR"
-    reply=(_complete _match _ignored _prefix _files)
-else
-    if [[ $words[1] == (rm|mv) ]]; then
-        reply=(_complete _files)
-    else
-        reply=(_oldlist _expand _force_rehash _complete _ignored _correct _approximate _files)
-    fi
-fi'
-
-# caching
-[[ -d $ZSHDIR/cache ]] && zstyle ':completion:*' use-cache yes && \
-    zstyle ':completion::complete:*' cache-path $ZSHDIR/cache/
-
-# host completion /* add brackets as vim can't parse zsh's complex cmdlines 8-) {{{ */
+# host completion
 zstyle -e ':completion:*:hosts' hosts 'reply=(
     ${${${${${(f)"$(<${HOME}/.ssh/known_hosts)"//\[/}//\]:/ }:#[\|]*}%%\*}%%,*}
     ${${${(@M)${(f)"$(<${HOME}/.ssh/config)"}:#Host *}#Host }:#*[*?]*}
@@ -2658,16 +2382,13 @@ zstyle -e ':completion:*:hosts' hosts 'reply=(
 )'
 zstyle ':completion:*:*:*:hosts' ignored-patterns 'ip6*' 'localhost*'
 zstyle -e ':completion:*:*:ssh:*:my-accounts' users-hosts \
-    '[[ -f ~/.ssh/config && $key = hosts  ]] && key=my_hosts reply=()'
+    '[[ -f ~/.ssh/config && $key = hosts ]] && key=my_hosts reply=()'
 
 # completion order for git push
 zstyle ':completion:*:git-push:*' tag-order remotes '*'
 
-# use generic completion system for programs not yet defined; (_gnu_generic works
-# with commands that provide a --help option with "standard" gnu-like output.)
-for compcom in cp df feh head mv tail uname; do
-    [[ -z ${_comps[$compcom]} ]] && compdef _gnu_generic ${compcom}
-done; unset compcom
+autoload -Uz compinit
+compinit
 
 # vcs_info
 # In a lot of cases, it is nice to automatically retrieve information from
@@ -2678,64 +2399,23 @@ autoload -Uz vcs_info
 
 zstyle ':vcs_info:*' disable ALL
 zstyle ':vcs_info:*' enable git
-zstyle ':vcs_info:*' disable-patterns "${HOME}/norepositories(|/*)"
 
 zstyle ':vcs_info:*:prompt:*' actionformats "(${BOLD_BLACK}%s${NO_COLOR}) [ ${BOLD_CYAN}%b${NO_COLOR}|${BOLD_YELLOW}%a${NO_COLOR} ] "
 zstyle ':vcs_info:*:prompt:*' branchformat "${BOLD_CYAN}%b${NO_COLOR}: ${BOLD_GREEN}%r"
 zstyle ':vcs_info:*:prompt:*' check-for-changes true
-zstyle ':vcs_info:*:prompt:*' formats "%u%c${NO_COLOR} (${BOLD_BLACK}%s${NO_COLOR}) [${BOLD_CYAN}%b${NO_COLOR}] ${MAGENTA}%12.12i${NO_COLOR}"
+zstyle ':vcs_info:*:prompt:*' formats "%u%c${NO_COLOR} (${BOLD_BLACK}%s${NO_COLOR}) [${BOLD_CYAN}%b${NO_COLOR}] ${MAGENTA}%7.7i${NO_COLOR}"
 zstyle ':vcs_info:*:prompt:*' get-revision true
 zstyle ':vcs_info:*:prompt:*' stagedstr "${BOLD_GREEN}*"
 zstyle ':vcs_info:*:prompt:*' unstagedstr "${BOLD_YELLOW}*"
-
-# see upgrade function in this file
-compdef _hosts upgrade
+#}}}
 #}}}
 
-# {{{ Completion Using compctl
-################################################################################
-# THE ZSH/COMPCTL MODULE
-# The zsh/compctl module makes available two builtin commands. compctl, is the
-# old, deprecated way to control completions for ZLE. See zshcompctl(1). The
-# other builtin command, compcall can be used in user-defined completion
-# widgets, see zshcompwid(1).
-autoload -Uz zsh/compctl
-#}}}
-
-# {{{ ZSh Modules
+# # {{{ ZSh Modules
 ################################################################################
 # THE ZSH/COMPLETE MODULE
 # The zsh/complete module makes available several builtin commands which can be
 # used in user-defined completion widgets, see zshcompwid(1).
 autoload -Uz zsh/complete
-
-# THE ZSH/DATETIME MODULE
-# The zsh/datetime module makes available one builtin command:
-#
-# strftime [ -s scalar ] format epochtime
-# strftime -r [ -q ] [ -s scalar ] format timestring
-#   Output the date denoted by epochtime in the format specified.
-#
-#   With the option -r (reverse), use the format format to parse the input
-#   string timestring and output the number of seconds since the epoch at which
-#   the time occurred. If no timezone is parsed, the current timezone is used;
-#   other parameters are set to zero if not present. If timestring does not
-#   match format the command returns status 1; it will additionally print an
-#   error message unless the option -q (quiet) is given. If timestring matches
-#   format but not all characters in timestring were used, the conversion
-#   succeeds; however, a warning is issued unless the option -q is given. The
-#   matching is implemented by the system function strptime; see strptime(3).
-#   This means that zsh format extensions are not available, however for reverse
-#   lookup they are not required. If the function is not implemented, the
-#   command returns status 2 and (unless -q is given) prints a message.
-#
-#   If -s scalar is given, assign the date string (or epoch time in seconds if
-#   -r is given) to scalar instead of printing it.
-#
-# The zsh/datetime module makes available one parameter:
-# EPOCHSECONDS
-#   An integer value representing the number of seconds since the epoch.
-#autoload -Uz zsh/datetime
 
 # THE ZSH/TERMCAP MODULE
 # The zsh/termcap module makes available one builtin command:
@@ -2748,299 +2428,6 @@ autoload -Uz zsh/complete
 # termcap
 #   An associative array that maps termcap capability codes to their values.
 autoload -Uz zsh/termcap
-
-# THE ZSH/TERMINFO MODULE
-# The zsh/terminfo module makes available one builtin command:
-#
-# echoti cap [ arg ]
-#   Output the terminfo value corresponding to the capability cap, instantiated
-#   with arg if applicable.
-#
-# The zsh/terminfo module makes available one parameter:
-# terminfo
-#   An associative array that maps terminfo capability names to their values.
-#autoload -Uz zsh/terminfo
-
-# THE ZSH/ZUTIL MODULE
-# The zsh/zutil module only adds some builtins:
-#
-# zstyle [ -L [ pattern [ style ] ] ]
-# zstyle [ -e | - | -- ] pattern style strings ...
-# zstyle -d [ pattern [ styles ... ] ]
-# zstyle -g name [ pattern [ style ] ]
-# zstyle -abs context style name [ sep ]
-# zstyle -Tt context style [ strings ...]
-# zstyle -m context style pattern
-#   This builtin command is used to define and lookup styles. Styles are pairs
-#   of names and values, where the values consist of any number of strings. They
-#   are stored together with patterns and lookup is done by giving a string,
-#   called the `context', which is compared to the patterns. The definition
-#   stored for the first matching pattern will be returned.
-#
-#   For ordering of comparisons, patterns are searched from most specific to
-#   least specific, and patterns that are equally specific keep the order in
-#   which they were defined. A pattern is considered to be more specific than
-#   another if it contains more components (substrings separated by colons) or
-#   if the patterns for the components are more specific, where simple strings
-#   are considered to be more specific than patterns and complex patterns are
-#   considered to be more specific than the pattern `*'.
-#
-#   The first form (without arguments) lists the definitions. Styles are shown
-#   in alphabetic order and patterns are shown in the order zstyle will test
-#   them.
-#
-#   If the -L option is given, listing is done in the form of calls to zstyle.
-#   The optional first argument is a pattern which will be matched against the
-#   string supplied as the pattern for the context; note that this means, for
-#   example, `zstyle -L ":completion:*"' will match any supplied pattern
-#   beginning `:completion:', not just ":completion:*": use ":completion:\*" to
-#   match that. The optional second argument limits the output to a specific
-#   style (not a pattern). -L is not compatible with any other options.
-#
-#   The other forms are the following:
-#
-#   zstyle [ - | -- | -e ] pattern style strings ...
-#       Defines the given style for the pattern with the strings as the value.
-#       If the -e option is given, the strings will be concatenated (separated
-#       by spaces) and the resulting string will be evaluated (in the same way
-#       as it is done by the eval builtin command) when the style is looked up.
-#       In this case the parameter `reply' must be assigned to set the strings
-#       returned after the evaluation. Before evaluating the value, reply is
-#       unset, and if it is still unset after the evaluation, the style is
-#       treated as if it were not set.
-#
-#   zstyle -d [ pattern [ styles ... ] ]
-#       Delete style definitions. Without arguments all definitions are deleted,
-#       with a pattern all definitions for that pattern are deleted and if any
-#       styles are given, then only those styles are deleted for the pattern.
-#
-#   zstyle -g name [ pattern [ style ] ]
-#       Retrieve a style definition. The name is used as the name of an array in
-#       which the results are stored. Without any further arguments, all
-#       patterns defined are returned. With a pattern the styles defined for
-#       that pattern are returned and with both a pattern and a style, the value
-#       strings of that combination is returned.
-#
-#   The other forms can be used to look up or test patterns.
-#
-#   zstyle -s context style name [ sep ]
-#       The parameter name is set to the value of the style interpreted as a
-#       string. If the value contains several strings they are concatenated with
-#       spaces (or with the sep string if that is given) between them.
-#
-#   zstyle -b context style name
-#       The value is stored in name as a boolean, i.e. as the string `yes' if
-#       the value has only one string and that string is equal to one of `yes',
-#       `true', `on', or `1'. If the value is any other string or has more than
-#       one string, the parameter is set to `no'.
-#
-#   zstyle -a context style name
-#       The value is stored in name as an array. If name is declared as an
-#       associative array, the first, third, etc. strings are used as the keys
-#       and the other strings are used as the values.
-#
-#   zstyle -t context style [ strings ...]
-#   zstyle -T context style [ strings ...]
-#       Test the value of a style, i.e. the -t option only returns a status
-#       (sets $?). Without any strings the return status is zero if the style is
-#       defined for at least one matching pattern, has only one string in its
-#       value, and that is equal to one of `true', `yes', `on' or `1'. If any
-#       strings are given the status is zero if and only if at least one of the
-#       strings is equal to at least one of the strings in the value. If the
-#       style is not defined, the status is 2.
-#
-#       The -T option tests the values of the style like -t, but it returns
-#       status zero (rather than 2) if the style is not defined for any matching
-#       pattern.
-#
-#   zstyle -m context style pattern
-#       Match a value. Returns status zero if the pattern matches at least one
-#       of the strings in the value.
-#
-# zformat -f param format specs ...
-# zformat -a array sep specs ...
-#   This builtin provides two different forms of formatting. The first form is
-#   selected with the -f option. In this case the format string will be modified
-#   by replacing sequences starting with a percent sign in it with strings from
-#   the specs. Each spec should be of the form `char:string' which will cause
-#   every appearance of the sequence `%char' in format to be replaced by the
-#   string. The `%' sequence may also contain optional minimum and maximum field
-#   width specifications between the `%' and the `char' in the form `%min.maxc',
-#   i.e. the minimum field width is given first and if the maximum field width
-#   is used, it has to be preceded by a dot. Specifying a minimum field width
-#   makes the result be padded with spaces to the right if the string is shorter
-#   than the requested width. Padding to the left can be achieved by giving a
-#   negative minimum field width. If a maximum field width is specified, the
-#   string will be truncated after that many characters. After all `%' sequences
-#   for the given specs have been processed, the resulting string is stored in
-#   the parameter param.
-#
-#   The %-escapes also understand ternary expressions in the form used by
-#   prompts. The % is followed by a `(' and then an ordinary format specifier
-#   character as described above. There may be a set of digits either before or
-#   after the `('; these specify a test number, which defaults to zero. Negative
-#   numbers are also allowed. An arbitrary delimiter character follows the
-#   format specifier, which is followed by a piece of `true' text, the delimiter
-#   character again, a piece of `false' text, and a closing parenthesis. The
-#   complete expression (without the digits) thus looks like `%(X.text1.text2)',
-#   except that the `.' character is arbitrary. The value given for the format
-#   specifier in the char:string expressions is evaluated as a mathematical
-#   expression, and compared with the test number. If they are the same, text1
-#   is output, else text2 is output. A parenthesis may be escaped in text2 as
-#   %). Either of text1 or text2 may contain nested %-escapes.
-#
-#   For example:
-#       zformat -f REPLY "The answer is '%3(c.yes.no)'." c:3
-#   outputs "The answer is 'yes'." to REPLY since the value for the format
-#   specifier c is 3, agreeing with the digit argument to the ternary
-#   expression.
-#
-#   The second form, using the -a option, can be used for aligning strings.
-#   Here, the specs are of the form `left:right' where `left' and `right' are
-#   arbitrary strings. These strings are modified by replacing the colons by the
-#   sep string and padding the left strings with spaces to the right so that the
-#   sep strings in the result (and hence the right strings after them) are all
-#   aligned if the strings are printed below each other. All strings without a
-#   colon are left unchanged and all strings with an empty right string have the
-#   trailing colon removed. In both cases the lengths of the strings are not
-#   used to determine how the other strings are to be aligned. The resulting
-#   strings are stored in the array.
-#
-# zregexparse
-#   This implements some internals of the _regex_arguments function.
-#
-# zparseopts [ -D ] [ -K ] [ -E ] [ -a array ] [ -A assoc ] specs
-#   This builtin simplifies the parsing of options in positional parameters,
-#   i.e. the set of arguments given by $*. Each spec describes one option and
-#   must be of the form `opt[=array]'. If an option described by opt is found in
-#   the positional parameters it is copied into the array specified with the -a
-#   option; if the optional `=array' is given, it is instead copied into that
-#   array.
-#
-#   Note that it is an error to give any spec without an `=array' unless one of
-#   the -a or -A options is used.
-#
-#   Unless the -E option is given, parsing stops at the first string that isn't
-#   described by one of the specs. Even with -E, parsing always stops at a
-#   positional parameter equal to `-' or `--'.
-#
-#   The opt description must be one of the following. Any of the special
-#   characters can appear in the option name provided it is preceded by a
-#   backslash.
-#
-#       name
-#       name+ The name is the name of the option without the leading `-'. To
-#             specify a GNU-style long option, one of the usual two leading `-'
-#             must be included in name; for example, a `--file' option is
-#             represented by a name of `-file'.
-#
-#             If a `+' appears after name, the option is appended to array each
-#             time it is found in the positional parameters; without the `+'
-#             only the last occurrence of the option is preserved.
-#
-#             If one of these forms is used, the option takes no argument, so
-#             parsing stops if the next positional parameter does not also begin
-#             with `-' (unless the -E option is used).
-#
-#       name:
-#       name:-
-#       name:: If one or two colons are given, the option takes an argument;
-#              with one colon, the argument is mandatory and with two colons it
-#              is optional. The argument is appended to the array after the
-#              option itself.
-#
-#              An optional argument is put into the same array element as the
-#              option name (note that this makes empty strings as arguments
-#              indistinguishable). A mandatory argument is added as a separate
-#              element unless the `:-' form is used, in which case the argument
-#              is put into the same element.
-#
-#              A `+' as described above may appear between the name and the
-#              first colon.
-#
-#   The options of zparseopts itself are:
-#   -a array
-#       As described above, this names the default array in which to store the
-#       recognised options.
-#
-#   -A assoc
-#       If this is given, the options and their values are also put into an
-#       associative array with the option names as keys and the arguments (if
-#       any) as the values.
-#
-#   -D
-#       If this option is given, all options found are removed from the
-#       positional parameters of the calling shell or shell function, up to but
-#       not including any not described by the specs. This is similar to using
-#       the shift builtin.
-#
-#   -K
-#       With this option, the arrays specified with the -a and -A options and
-#       with the `=array' forms are kept unchanged when none of the specs for
-#       them is used. This allows assignment of default values to them before
-#       calling zparseopts.
-#
-#   -E
-#       This changes the parsing rules to not stop at the first string that
-#       isn't described by one of the specs. It can be used to test for or (if
-#       used together with -D) extract options and their arguments, ignoring all
-#       other options and arguments that may be in the positional parameters.
-#
-#   For example,
-#       set -- -a -bx -c y -cz baz -cend
-#       zparseopts a=foo b:=bar c+:=bar
-#   will have the effect of
-#       foo=(-a)
-#       bar=(-b x -c y -c z)
-#   The arguments from `baz' on will not be used.
-#
-#   As an example for the -E option, consider:
-#       set -- -a x -b y -c z arg1 arg2
-#       zparseopts -E -D b:=bar
-#   will have the effect of
-#       bar=(-b y)
-#       set -- -a x -c z arg1 arg2
-#   I.e., the option -b and its arguments are taken from the positional
-#   parameters and put into the array bar.
-autoload -Uz zsh/zutil
-#}}}
-
-# {{{ Prompt Themes
-################################################################################
-# You should make sure all the functions from the Functions/Prompts directory of
-# the source distribution are available; they all begin with the string
-# `prompt_' except for the special function`promptinit'. You also need the
-# `colors' function from Functions/Misc. All of these functions may already have
-# been installed on your system; if not, you will need to find them and copy
-# them. The directory should appear as one of the elements of the fpath array
-# (this should already be the case if they were installed), and at least the
-# function promptinit should be autoloaded; it will autoload the rest. Finally,
-# to initialize the use of the system you need to call the promptinit function.
-# The following code in your .zshrc will arrange for this; assume the functions
-# are stored in the directory ~/myfns:
-#
-#   fpath=(~/myfns $fpath)
-#   autoload -U promptinit
-#   promptinit
-#autoload -Uz promptinit
-#}}}
-
-# {{{ ZMV
-################################################################################
-# Move (usually, rename) files matching the pattern srcpat to corresponding
-# files having names of the form given by dest, where srcpat contains
-# parentheses surrounding patterns which will be replaced in turn by $1, $2, ...
-# in dest. For example,
-#   zmv '(*).lis' '$1.txt'
-# renames `foo.lis' to `foo.txt', `my.old.stuff.lis' to `my.old.stuff.txt', and
-# so on.
-#
-# The pattern is always treated as an EXTENDED_GLOB pattern. Any file whose name
-# is not changed by the substitution is simply ignored. Any error (a
-# substitution resulted in an empty string, two substitutions gave the same
-# result, the destination was an existing regular file and -f was not given)
-# causes the entire function to abort without doing anything.
-autoload -Uz zmv
 #}}}
 
 # {{{ Load Resources
