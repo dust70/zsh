@@ -10,12 +10,6 @@
 [[ -r ~/.shell/exports ]] && source ~/.shell/exports || true
 #}}}
 
-# {{{ ZSHDIR
-[[ -L ~/.zsh ]] && ZSHDIR=$(readlink -f ~/.zsh)
-[[ -d ~/.zsh ]] && ZSHDIR="~/.zsh"
-export ZSHDIR
-#}}}
-
 # {{{ load colors
 if [[ $- = *i* ]]; then
     autoload -Uz colors zsh/terminfo
