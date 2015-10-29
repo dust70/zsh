@@ -2388,7 +2388,7 @@ zstyle -e ':completion:*:*:ssh:*:my-accounts' users-hosts \
 zstyle ':completion:*:git-push:*' tag-order remotes '*'
 
 autoload -Uz compinit
-compinit
+compinit -u
 
 # vcs_info
 # In a lot of cases, it is nice to automatically retrieve information from
