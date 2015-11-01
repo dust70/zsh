@@ -13,50 +13,15 @@ source ~/.shell/load-profile
 
 # {{{ Parameters Used By The Shell
 ###############################################################################
-# In cases where there are two parameters with an upper- and lowercase form of
-# the same name, such as path and PATH, the lowercase form is an array and the
-# uppercase form is a scalar with the elements of the array joined together by
-# colons. These are similar to tied parameters created via `typeset -T'. The
-# normal use for the colon-separated form is for exporting to the environment,
-# while the array form is easier to manipulate within the shell. Note that
-# unsetting either of the pair will unset the other; they retain their special
-# properties when recreated, and recreating one of the pair will recreate the
-# other.
-
-# ARGV0
-# If exported, its value is used as the argv[0] of external commands. Usually
-# used in constructs like `ARGV0=emacs nethack'.
-
-# BAUD
-# The baud rate of the current connection. Used by the line editor update
-# mechanism to compensate for a slow terminal by delaying updates until
-# necessary. This may be profitably set to a lower value in some circumstances,
-# e.g. for slow modems dialing into a communications server which is connected
-# to a host via a fast link; in this case, this variable would be set by default
-# to the speed of the fast link, and not the modem. This parameter should be set
-# to the baud rate of the slowest part of the link for best performance. The
-# compensation mechanism can be turned off by setting the variable to zero.
-
 # cdpath <S> <Z> (CDPATH <S>)
 # An array (colon-separated list) of directories specifying the search path for
 # the cd command.
 export CDPATH=".:~"
 
-# COLUMNS <S>
-# The number of columns for this terminal session. Used for printing select
-# lists and for the line editor.
-
 # DIRSTACKSIZE
 # The maximum size of the directory stack. If the stack gets larger than this,
 # it will be truncated automatically. This is useful with the AUTO_PUSHD option.
 export DIRSTACKSIZE="32"
-
-# ENV
-# If the ENV environment variable is set when zsh is invoked as sh or ksh, ${ENV}
-# is sourced after the profile scripts. The value of ENV is subjected to
-# parameter expansion, command substitution, and arithmetic expansion before
-# being interpreted as a pathname. Note that ENV is not used unless zsh is
-# emulating sh or ksh.
 
 # FCEDIT
 # The default editor for the fc builtin.
@@ -65,23 +30,6 @@ if [[ -x /usr/bin/vim ]]; then
 elif [[ -x /usr/bin/vi ]]; then
     export FCEDIT="vi"
 fi
-
-# fignore <S> <Z> (FIGNORE <S>)
-# An array (colon separated list) containing the suffixes of files to be ignored
-# during filename completion. However, if completion only generates files with
-# suffixes in this list, then these files are completed anyway.
-
-# fpath <S> <Z> (FPATH <S>)
-# An array (colon separated list) of directories specifying the search path for
-# function definitions. This path is searched when a function with the -u
-# attribute is referenced. If an executable file is found, then it is read and
-# executed in the current environment.
-
-# histchars <S>
-# Three characters used by the shell's history and lexical analysis mechanism.
-# The first character signals the start of a history expansion (default `!').
-# The second character signals the start of a quick history substitution
-# (default `^'). The third character is the comment character (default `#').
 
 # HISTFILE
 # The file to save the history in when an interactive shell exits. If unset, the
@@ -94,24 +42,6 @@ export HISTFILE=~/.zsh/history
 # size will give you the difference as a cushion for saving duplicated history
 # events.
 export HISTSIZE="10000"
-
-# HOME <S>
-# The default argument for the cd command.
-
-# IFS <S>
-# Internal field separators (by default space, tab, newline and NUL), that are
-# used to separate words which result from command or parameter expansion and
-# words read by the read builtin. Any characters from the set space, tab and
-# newline that appear in the IFS are called IFS white space. One or more IFS
-# white space characters or one non-IFS white space character together with any
-# adjacent IFS white space character delimit a field. If an IFS white space
-# character appears twice consecutively in the IFS, this character is treated as
-# if it were not an IFS white space character.
-
-# KEYTIMEOUT
-# The time the shell waits, in hundredths of seconds, for another key to be
-# pressed when reading bound multi-character sequences.
-export KEYTIMEOUT="400"
 
 # LANG <S>
 # This variable determines the locale category for any category not specifically
@@ -185,31 +115,6 @@ unset MAILCHECK
 # every subdirectory of the element.
 unset MAILPATH
 
-# manpath <S> <Z> (MANPATH <S> <Z>)
-# An array (colon-separated list) whose value is not used by the shell. The
-# manpath array can be useful, however, since setting it also sets MANPATH, and
-# vice versa.
-
-# module_path <S> <Z> (MODULE_PATH <S>)
-# An array (colon-separated list) of directories that zmodload searches for
-# dynamically loadable modules. This is initialized to a standard pathname,
-# usually `/usr/local/lib/zsh/${ZSH_VERSION}'. (The `/usr/local/lib' part varies
-# from installation to installation.) For security reasons, any value set in the
-# environment when the shell is started will be ignored.
-#
-# These parameters only exist if the installation supports dynamic module
-# loading.
-
-# NULLCMD <S>
-# The command name to assume if a redirection is specified with no command.
-# Defaults to cat. For sh/ksh behavior, change this to :. For csh-like behavior,
-# unset this parameter; the shell will print an error message if null commands
-# are entered.
-
-# POSTEDIT <S>
-# This string is output whenever the line editor exits. It usually contains
-# termcap strings to reset the terminal.
-
 # PROMPT <S> <Z>
 # prompt <S> <Z>
 # PS1 <S>
@@ -243,30 +148,11 @@ export PROMPT3="${BOLD_RED}?#${NO_COLOR}> "
 # emulation, the default is `+ '.
 export PROMPT4="${BOLD_YELLOW}+%N:%i${NO_COLOR}> "
 
-# psvar <S> <Z> (PSVAR <S>)
-# An array (colon-separated list) whose first nine values can be used in PROMPT
-# strings. Setting psvar also sets PSVAR, and vice versa.
-
-# READNULLCMD <S>
-# The command name to assume if a single input redirection is specified with no
-# command. Defaults to more.
-
 # REPORTTIME
 # If nonnegative, commands whose combined user and system execution times
 # (measured in seconds) are greater than this value have timing statistics
 # printed for them.
 export REPORTTIME="300"
-
-# REPLY
-# This parameter is reserved by convention to pass string values between shell
-# scripts and shell builtins in situations where a function call or redirection
-# are impossible or undesirable. The read builtin and the select complex command
-# may set REPLY, and filename generation both sets and examines its value when
-# evaluating certain expressions. Some modules also employ REPLY for similar
-# purposes.
-
-# reply
-# As REPLY, but for array values rather than strings.
 
 # RPROMPT <S>
 # RPS1 <S>
@@ -275,35 +161,15 @@ export REPORTTIME="300"
 # option is set. It is expanded in the same way as PS1.
 export RPROMPT
 
-# RPROMPT2 <S>
-# RPS2 <S>
-# This prompt is displayed on the right-hand side of the screen when the
-# secondary prompt is being displayed on the left. This does not work if the
-# SINGLELINEZLE option is set. It is expanded in the same way as PS2.
-
 # SAVEHIST
 # The maximum number of history events to save in the history file.
-export SAVEHIST="10240"
+export SAVEHIST="10000"
 
 # SPROMPT <S>
 # The prompt used for spelling correction. The sequence `%R' expands to the
 # string which presumably needs spelling correction, and `%r' expands to the
 # proposed correction. All other prompt escapes are also allowed.
 export SPROMPT="correct '%R' to '%r' [nyae]?"
-
-# STTY
-# If this parameter is set in a command's environment, the shell runs the stty
-# command with the value of this parameter as arguments in order to set up the
-# terminal before executing the command. The modes apply only to the command,
-# and are reset when it finishes or is suspended. If the command is suspended
-# and continued later with the fg or wait builtins it will see the modes
-# specified by STTY, as if it were not suspended. This (intentionally) does not
-# apply if the command is continued via `kill -CONT'. STTY is ignored if the
-# command is run in the background, or if it is in the environment of the shell
-# but not explicitly assigned to in the input line. This avoids running stty at
-# every external command by accidentally exporting it. Also note that STTY
-# should not be used for window size specifications; these will not be local to
-# the command.
 
 # TERM <S>
 # The type of terminal in use. This is used when looking up termcap sequences.
@@ -317,26 +183,6 @@ case "${TERM}" in
         ;;
 esac
 
-# TIMEFMT
-# The format of process time reports with the time keyword. The default is
-# `%E real %U user %S system %P %J'. Recognizes the following escape sequences:
-#   %% - A `%'.
-#   %U - CPU seconds spent in user mode.
-#   %S - CPU seconds spent in kernel mode.
-#   %E - Elapsed time in seconds.
-#   %P - The CPU percentage, computed as (%U+%S)/%E.
-#   %J - The name of this job.
-#
-# A star may be inserted between the percent sign and flags printing time. This
-# cause the time to be printed in `hh:mm:ss.ttt' format (hours and minutes are
-# only printed if they are not zero).
-export TIMEFMT="%*U user %S system %P cpu %*E total '%J'"
-
-# TMPPREFIX
-# A pathname prefix which the shell will use for all temporary files. Note that
-# this should include an initial part for the file name as well as any directory
-# names. The default is `/tmp/zsh'.
-
 # watch <S> <Z> (WATCH <S>)
 # An array (colon-separated list) of login/logout events to report. If it
 # contains the single word `all', then all login/logout events are reported. If
@@ -346,75 +192,10 @@ export TIMEFMT="%*U user %S system %P cpu %*E total '%J'"
 # all of these components may be present in an entry; if a login/logout event
 # matches all of them, it is reported.
 watch=(notme root)
-
-# WATCHFMT
-# The format of login/logout reports if the watch parameter is set. Default is
-# `%n has %a %l from %m'. Recognizes the following escape sequences:
-#   %n	- The name of the user that logged in/out.
-#   %a	- The observed action, i.e. "logged on" or "logged off".
-#   %l	- The line (tty) the user is logged in on.
-#   %M	- The full hostname of the remote host.
-#   %m	- The hostname up to the first `.'. If only the IP address is
-#	  available or the utmp field contains the name of an X-windows display,
-#	  the whole name is printed.
-#
-#	  NOTE: The `%m' and `%M' escapes will work only if there is a host name
-#	  field in the utmp on your machine. Otherwise they are treated as
-#	  ordinary strings.
-#   %S (%s) - Start (stop) standout mode.
-#   %U (%u) - Start (stop) underline mode.
-#   %B (%b) - Start (stop) boldface mode.
-#   %t %@   - The time, in 12-hour, am/pm format.
-#   %T      - The time, in 24-hour format.
-#   %w      - The date in `day-dd' format.
-#   %W      - The date in `mm/dd/yy' format.
-#   %D      - The date in `yy-mm-dd' format.
-#   %(x:true-text:false-text)
-#	    - Specifies a ternary expression. The character following the x is
-#	      arbitrary; the same character is used to separate the text for the
-#	      "true" result from that for the "false" result. Both the separator
-#	      and the right parenthesis may be escaped with a backslash. Ternary
-#	      expressions may be nested.
-#
-#	      The test character x may be any one of `l', `n', `m' or `M', which
-#	      indicate a `true' result if the corresponding escape sequence
-#	      would return a non-empty value; or it may be `a', which indicates
-#	      a `true' result if the watched user has logged in, or `false' if
-#	      he has logged out. Other characters evaluate to neither true nor
-#	      false; the entire expression is omitted in this case.
-#
-#	      If the result is `true', then the true-text is formatted according
-#	      to the rules above and printed, and the false-text is skipped. If
-#	      `false', the true-text is skipped and the false-text is formatted
-#	      and printed. Either or both of the branches may be empty, but both
-#	      separators must be present in any case.
-
-# WORDCHARS <S>
-# A list of non-alphanumeric characters considered part of a word by the line
-# editor.
-
-# ZBEEP
-# If set, this gives a string of characters, which can use all the same codes as
-# the bindkey command as described in 21.26 The zsh/zle Module, that will be
-# output to the terminal instead of beeping. This may have a visible instead of
-# an audible effect; for example, the string `\e[?5h\e[?5l' on a vt100 or xterm
-# will have the effect of flashing reverse video on and off (if you usually use
-# reverse video, you should use the string `\e[?5l\e[?5h' instead). This takes
-# precedence over the NOBEEP option.
-
-# ZDOTDIR
-# The directory to search for shell startup files (.zshrc, etc), if not ${HOME}.
 #}}}
 
 # {{{ Description of Options
 ###############################################################################
-# In the following list, options set by default in all emulations are marked
-# <D>; those set by default only in csh, ksh, sh, or zsh emulations are marked
-# <C>, <K>, <S>, <Z> as appropriate. When listing options (by `setopt',
-# `unsetopt', `set -o' or `set +o'), those turned on by default appear in the
-# list prefixed with `no'. Hence (unless KSH_OPTION_PRINT is set), `setopt'
-# shows all options whose settings are changed from the default.
-
 # {{{ Changing Directories
 ################################################################################
 # {{{ AUTO_CD (-J)
@@ -436,146 +217,13 @@ setopt auto_pushd
 setopt cdable_vars
 #}}}
 
-# {{{ CHASE_DOTS
-# When changing to a directory containing a path segment ".." which would
-# otherwise be treated as canceling the previous segment in the path (in other
-# words, "foo/.." would be removed from the path, or if ".." is the first part
-# of the path, the last part of ${PWD} would be deleted), instead resolve the path
-# to the physical directory. This option is overridden by CHASE_LINKS.
-#
-# For example, suppose /foo/bar is a link to the directory /alt/rod. Without
-# this option set, "cd /foo/bar/.." changes to /foo; with it set, it changes to
-# /alt. The same applies if the current directory is /foo/bar and "cd .." is
-# used. Note that all other sym‐ bolic links in the path will also be resolved.
-#}}}
-
-# {{{ CHASE_LINKS (-w)
-# Resolve symbolic links to their true values when changing directory. This also
-# has the effect of CHASE_DOTS, i.e. a ".." path segment will be treated as
-# referring to the physical parent, even if the preceding path segment is a
-# symbolic link.
-#}}}
-
 # {{{ PUSHD_IGNORE_DUPS
 # Don"t push multiple copies of the same directory onto the directory stack.
 setopt pushd_ignore_dups
 #}}}
 
-# {{{ PUSHD_MINUS
-# Exchanges the meanings of "+" and "-" when used with a number to specify a
-# directory in the stack.
-#}}}
-
-# {{{ PUSHD_SILENT (-E)
-# Do not print the directory stack after pushd or popd.
-#}}}
-
-# {{{ PUSHD_TO_HOME (-D)
-# Have pushd with no arguments act like "pushd ${HOME}".
-#}}}
-#}}}
-
 # {{{ Completion
 ################################################################################
-# {{{ ALWAYS_LAST_PROMPT <D>
-# If unset, key functions that list completions try to return to the last prompt
-# if given a numeric argument. If set these functions try to return to the last
-# prompt if given no numeric argument.
-#}}}
-
-# {{{ ALWAYS_TO_END
-# If a completion is performed with the cursor within a word, and a full
-# completion is inserted, the cursor is moved to the end of the word. That is,
-# the cursor is moved to the end of the word if either a single match is
-# inserted or menu completion is performed.
-#}}}
-
-# {{{ AUTO_LIST (-) <D>
-# Automatically list choices on an ambiguous completion.
-#}}}
-
-# {{{ AUTO_MENU <D>
-# Automatically use menu completion after the second consecutive request for
-# completion, for example by pressing the tab key repeatedly. This option is
-# overridden by MENU_COMPLETE.
-#}}}
-
-# {{{ AUTO_NAME_DIRS
-# Any parameter that is set to the absolute name of a directory immediately
-# becomes a name for that directory, that will be used by the "%~" and related
-# prompt sequences, and will be available when completion is performed on a word
-# starting with "~". (Otherwise, the parameter must be used in the form "~param"
-# first.)
-#}}}
-
-# {{{ AUTO_PARAM_KEYS <D>
-# If a parameter name was completed and a following character (normally a space)
-# automatically inserted, and the next character typed is one of those that have
-# to come directly after the name (like "}", ":", etc.), the automatically added
-# character is deleted, so that the character typed comes immediately after the
-# parameter name. Completion in a brace expansion is affected similarly: the
-# added character is a ",", which will be removed if "}" is typed next.
-#}}}
-
-# {{{ AUTO_PARAM_SLASH <D>
-# If a parameter is completed whose content is the name of a directory, then add
-# a trailing slash instead of a space.
-#}}}
-
-# {{{ AUTO_REMOVE_SLASH <D>
-# When the last character resulting from a completion is a slash and the next
-# character typed is a word delimiter, a slash, or a character that ends a
-# command (such as a semicolon or an ampersand), remove the slash.
-#}}}
-
-# {{{ BASH_AUTO_LIST
-# On an ambiguous completion, automatically list choices when the completion
-# function is called twice in succession. This takes precedence over AUTO_LIST.
-# The setting of LIST_AMBIGUOUS is respected. If AUTO_MENU is set, the menu
-# behaviour will then start with the third press. Note that this will not work
-# with MENU_COMPLETE, since repeated completion calls immediately cycle through
-# the list in that case.
-#}}}
-
-# {{{ COMPLETE_ALIASES
-# Prevents aliases on the command line from being internally substituted before
-# completion is attempted. The effect is to make the alias a distinct command
-# for completion purposes.
-#}}}
-
-# {{{ COMPLETE_IN_WORD
-# If unset, the cursor is set to the end of the word if completion is started.
-# Otherwise it stays there and completion is done from both ends.
-setopt complete_in_word
-#}}}
-
-# {{{ GLOB_COMPLETE
-# When the current word has a glob pattern, do not insert all the words
-# resulting from the expansion but generate matches as for completion and cycle
-# through them like MENU_COMPLETE. The matches are generated as if a "*" was
-# added to the end of the word, or inserted at the cursor when COMPLETE_IN_WORD
-# is set. This actually uses pattern matching, not globbing, so it works not
-# only for files but for any completion, such as options, user names, etc.
-#
-# Note that when the pattern matcher is used, matching control (for example,
-# case-insensitive or anchored matching) cannot be used. This limitation only
-# applies when the current word contains a pattern; simply turning on the
-# GLOB_COMPLETE option does not have this effect.
-#}}}
-
-# {{{ HASH_LIST_ALL <D>
-# Whenever a command completion is attempted, make sure the entire command path
-# is hashed first. This makes the first completion slower.
-#}}}
-
-# {{{ LIST_AMBIGUOUS <D>
-# This option works when AUTO_LIST or BASH_AUTO_LIST is also set. If there is an
-# unambiguous prefix to insert on the command line, that is done without a
-# completion list being displayed; in other words, auto-listing behaviour only
-# takes place when nothing would be inserted. In the case of BASH_AUTO_LIST,
-# this means that the list will be delayed to the third call of the function.
-#}}}
-
 # {{{ LIST_BEEP <D>
 # Beep on an ambiguous completion. More accurately, this forces the completion
 # widgets to return status 1 on an ambiguous completion, which causes the shell
@@ -589,50 +237,10 @@ setopt no_list_beep
 # matches in columns with different widths.
 setopt list_packed
 #}}}
-
-# {{{ LIST_ROWS_FIRST
-# Lay out the matches in completion lists sorted horizontally, that is, the
-# second match is to the right of the first one, not under it as usual.
-#}}}
-
-# {{{ LIST_TYPES (-X) <D>
-# When listing files that are possible completions, show the type of each file
-# with a trailing identifying mark.
-#}}}
-
-# {{{ MENU_COMPLETE (-Y)
-# On an ambiguous completion, instead of listing possibilities or beeping,
-# insert the first match immediately. Then when completion is requested again,
-# remove the first match and insert the second match, etc. When there are no
-# more matches, go back to the first one again. reverse-menu-complete may be
-# used to loop through the list in the other direction. This option overrides
-# AUTO_MENU.
-#}}}
-
-# {{{ REC_EXACT (-S)
-# In completion, recognize exact matches even if they are ambiguous.
-#}}}
 #}}}
 
 # {{{ Expansion and Globbing
 ################################################################################
-# {{{ BAD_PATTERN (+) <C> <Z>
-# If a pattern for filename generation is badly formed, print an error message.
-# (If this option is unset, the pattern will be left unchanged.)
-#}}}
-
-# {{{ BARE_GLOB_QUAL <Z>
-# In a glob pattern, treat a trailing set of parentheses as a qualifier list, if
-# it contains no "|", "(" or (if special) "~" characters. See the section
-# "Filename Generation".
-#}}}
-
-# {{{ BRACE_CCL
-# Expand expressions in braces which would not otherwise undergo brace expansion
-# to a lexically ordered list of all the characters. See the section "Brace
-# Expansion".
-#}}}
-
 # {{{ CASE_GLOB <D>
 # Make globbing (filename generation) sensitive to case. Note that other uses of
 # patterns are always sensitive to case. If the option is unset, the presence of
@@ -643,83 +251,11 @@ setopt list_packed
 setopt no_case_glob
 #}}}
 
-# {{{ CASE_MATCH <D>
-# Make regular expressions using the zsh/regex module (including matches with
-# =~) sensitive to case.
-#}}}
-
-# {{{ CSH_NULL_GLOB <C>
-# If a pattern for filename generation has no matches, delete the pattern from
-# the argument list; do not report an error unless all the patterns in a command
-# have no matches. Overrides NOMATCH.
-#}}}
-
-# {{{ EQUALS <Z>
-# Perform = filename expansion. (See the section "Filename Expansion".)
-#}}}
-
 # {{{ EXTENDED_GLOB
 # Treat the "#", "~" and "^" characters as part of patterns for filename
 # generation, etc. (An initial unquoted "~" always produces named directory
 # expansion.)
 setopt extended_glob
-#}}}
-
-# {{{ GLOB (+F, ksh: +f) <D>
-# Perform filename generation (globbing). (See the section "Filename
-# Generation".)
-#}}}
-
-# {{{ GLOB_ASSIGN <C>
-# If this option is set, filename generation (globbing) is performed on the
-# right hand side of scalar parameter assignments of the form "name=pattern
-# (e.g. "foo=*"). If the result has more than one word the parameter will become
-# an array with those words as arguments. This option is provided for backwards
-# compatibility only: globbing is always performed on the right hand side of
-# array assignments of the form "name=(value)" (e.g. "foo=(*)") and this form is
-# recommended for clarity; with this option set, it is not possible to predict
-# whether the result will be an array or a scalar.
-#}}}
-
-# {{{ GLOB_DOTS (-)
-# Do not require a leading "." in a filename to be matched explicitly.
-#}}}
-
-# {{{ GLOB_SUBST <C> <K> <S>
-# Treat any characters resulting from parameter expansion as being eligible for
-# file expansion and filename generation, and any characters resulting from
-# command substitution as being eligible for filename generation. Braces (and
-# commas in between) do not become eligible for expansion.
-#}}}
-
-# {{{ HIST_SUBST_PATTERN
-# Substitutions using the :s and :& history modifiers are performed with pattern
-# matching instead of string matching. This occurs wherever history modifiers
-# are valid, including glob qualifiers and parameters. See the section Modifiers
-# in zshexp(1).
-#}}}
-
-# {{{ IGNORE_BRACES (-I) <S>
-# Do not perform brace expansion.
-#}}}
-
-# {{{ KSH_GLOB <K>
-# In pattern matching, the interpretation of parentheses is affected by a
-# preceding "@", "*", "+", "?" or "!". See the section "File‐ name Generation".
-#}}}
-
-# {{{ MAGIC_EQUAL_SUBST
-# All unquoted arguments of the form "anything=expression" appearing after the
-# command name have filename expansion (that is, where expression has a leading
-# "~" or "=") performed on expression as if it were a parameter assignment. The
-# argument is not otherwise treated specially; it is passed to the command as a
-# single argument, and not used as an actual parameter assignment. For example,
-# in echo foo=~/bar:~/rod, both occurrences of ~ would be replaced. Note that
-# this happens anyway with typeset and similar statements.
-#
-# This option respects the setting of the KSH_TYPESET option. In other words, if
-# both options are in effect, arguments looking like assignments will not
-# undergo word splitting.
 #}}}
 
 # {{{ MARK_DIRS (-, ksh: -X)
@@ -758,50 +294,6 @@ setopt no_multibyte
 # expansion of an initial "~" or "=".
 setopt nonomatch
 #}}}
-
-# {{{ NULL_GLOB (-G)
-# If a pattern for filename generation has no matches, delete the pattern from
-# the argument list instead of reporting an error. Overrides NOMATCH.
-#}}}
-
-# {{{ NUMERIC_GLOB_SORT
-# If numeric filenames are matched by a filename generation pattern, sort the
-# filenames numerically rather than lexicographically.
-#}}}
-
-# {{{ RC_EXPAND_PARAM (-P)
-# Array expansions of the form "foo${xx}bar", where the parameter xx is set to
-# (a b c), are substituted with "fooabar foobbar foocbar" instead of the default
-# "fooa b cbar".
-#}}}
-
-# {{{ REMATCH_PCRE <Z>
-# If set, regular expression matching with the =~ operator will use
-# Perl-Compatible Regular Expressions from the PCRE library, if available. If
-# not set, regular expressions will use the extended regexp syntax provided by
-# the system libraries.
-#}}}
-
-# {{{ SH_GLOB <K> <S>
-# Disables the special meaning of "(", "|", ")" and "<" for globbing the result
-# of parameter and command substitutions, and in some other places where the
-# shell accepts patterns. This option is set by default if zsh is invoked as sh
-# or ksh.
-#}}}
-
-# {{{ UNSET (+u, ksh: +u) <K> <S> <Z>
-# Treat unset parameters as if they were empty when substituting. Otherwise they
-# are treated as an error.
-#}}}
-
-# {{{ WARN_CREATE_GLOBAL
-# Print a warning message when a global parameter is created in a function by an
-# assignment. This often indicates that a parameter has not been declared local
-# when it should have been. Parameters explicitly declared global from within a
-# function using typeset -g do not cause a warning. Note that there is no
-# warning when a local parameter is assigned to in a nested function, which may
-# also indicate an error.
-#}}}
 #}}}
 
 # {{{ History
@@ -814,25 +306,6 @@ setopt nonomatch
 # trim it when the number of lines grows 20% beyond the value specified by
 # ${SAVEHIST} (see also the HIST_SAVE_BY_COPY option).
 setopt append_history
-#}}}
-
-# {{{ BANG_HIST (+K) <C> <Z>
-# Perform textual history expansion, csh-style, treating the character "!"
-# specially.
-#}}}
-
-# {{{ EXTENDED_HISTORY <C>
-# Save each command"s beginning timestamp (in seconds since the epoch) and the
-# duration (in seconds) to the history file. The format of this prefixed data
-# is:
-#
-#   ":<beginning time>:<elapsed seconds>:<command>".
-setopt extended_history
-#}}}
-
-# {{{ HIST_ALLOW_CLOBBER
-# Add "|" to output redirections in the history. This allows history references
-# to clobber files even when CLOBBER is unset.
 #}}}
 
 # {{{ HIST_BEEP <D>
@@ -928,133 +401,15 @@ setopt hist_save_no_dups
 # editing buffer.
 setopt hist_verify
 #}}}
-
-# {{{ INC_APPEND_HISTORY
-# This options works like APPEND_HISTORY except that new history lines are added
-# to the ${HISTFILE} incrementally (as soon as they are entered), rather than
-# waiting until the shell exits. The file will still be periodically re-written
-# to trim it when the number of lines grows 20% beyond the value specified by
-# ${SAVEHIST} (see also the HIST_SAVE_BY_COPY option).
-#}}}
-
-# {{{ SHARE_HISTORY <K>
-# This option both imports new commands from the history file, and also causes
-# your typed commands to be appended to the history file (the latter is like
-# specifying INC_APPEND_HISTORY). The history lines are also output with
-# timestamps ala EXTENDED_HISTORY (which makes it easier to find the spot where
-# we left off reading the file after it gets re-written).
-#
-# By default, history movement commands visit the imported lines as well as the
-# local lines, but you can toggle this on and off with the set-local-history zle
-# binding. It is also possible to create a zle widget that will make some
-# commands ignore imported commands, and some include them.
-#
-# If you find that you want more control over when commands get imported, you
-# may wish to turn SHARE_HISTORY off, INC_APPEND_HISTORY on, and then manually
-# import commands whenever you need them using "fc -RI".
-#}}}
-#}}}
-
-# {{{ Initialisation
-################################################################################
-# {{{ ALL_EXPORT (-a, ksh: -a)
-# All parameters subsequently defined are automatically exported.
-#}}}
-
-# {{{ GLOBAL_EXPORT (<Z>)
-# If this option is set, passing the -x flag to the builtins declare, float,
-# integer, readonly and typeset (but not local) will also set the -g flag; hence
-# parameters exported to the environment will not be made local to the enclosing
-# function, unless they were already or the flag +g is given explicitly. If the
-# option is unset, exported parameters will be made local in just the same way
-# as any other parameter.
-#
-# This option is set by default for backward compatibility; it is not
-# recommended that its behaviour be relied upon. Note that the builtin export
-# always sets both the -x and -g flags, and hence its effect extends beyond the
-# scope of the enclosing function; this is the most portable way to achieve this
-# behaviour.
-#}}}
-
-# {{{ GLOBAL_RCS (-d) <D>
-# If this option is unset, the startup files /etc/zprofile, /etc/zshrc,
-# /etc/zlogin and /etc/zlogout will not be run. It can be disabled and
-# re-enabled at any time, including inside local startup files (.zshrc, etc.).
-#}}}
-
-# {{{ RCS (+f) <D>
-# After /etc/zshenv is sourced on startup, source the .zshenv, /etc/zprofile,
-# .zprofile, /etc/zshrc, .zshrc, /etc/zlogin, .zlogin, and .zlogout files, as
-# described in the section "Files". If this option is unset, the /etc/zshenv
-# file is still sourced, but any of the others will not be; it can be set at any
-# time to prevent the remaining startup files after the currently executing one
-# from being sourced.
-#}}}
 #}}}
 
 # {{{ Input/Output
 ################################################################################
-# {{{ ALIASES <D>
-# Expand aliases.
-#}}}
-
-# {{{ CLOBBER (+C, ksh: +C) <D>
-# Allows ">" redirection to truncate existing files, and ">>" to create files.
-# Otherwise ">!" or ">|" must be used to truncate a file, and ">>!" or ">>|" to
-# create a file.
-#}}}
-
 # {{{ CORRECT (-)
 # Try to correct the spelling of commands. Note that, when the HASH_LIST_ALL
 # option is not set or when some directories in the path are not readable, this
 # may falsely report spelling errors the first time some commands are used.
 setopt correct
-#}}}
-
-# {{{ CORRECT_ALL (-O)
-# Try to correct the spelling of all arguments in a line.
-#}}}
-
-# {{{ DVORAK
-# Use the Dvorak keyboard instead of the standard qwerty keyboard as a basis for
-# examining spelling mistakes for the CORRECT and CORRECT_ALL options and the
-# spell-word editor command.
-#}}}
-
-# {{{ FLOW_CONTROL <D>
-# If this option is unset, output flow control via start/stop characters
-# (usually assigned to ^S/^Q) is disabled in the shell"s editor.
-#}}}
-
-# {{{ IGNORE_EOF (-)
-# Do not exit on end-of-file. Require the use of exit or logout instead.
-# However, ten consecutive EOFs will cause the shell to exit anyway, to avoid
-# the shell hanging if its tty goes away.
-#
-# Also, if this option is set and the ZSh Line Editor is used, widgets
-# implemented by shell functions can be bound to EOF (normally Control-D)
-# without printing the normal warning message. This works only for normal
-# widgets, not for completion widgets.
-#}}}
-
-# {{{ INTERACTIVE_COMMENTS (-k) <K> <S>
-# Allow comments even in interactive shells.
-#}}}
-
-# {{{ HASH_CMDS <D>
-# Note the location of each command the first time it is executed. Subsequent
-# invocations of the same command will use the saved location, avoiding a path
-# search. If this option is unset, no path hashing is done at all. However, when
-# CORRECT is set, commands whose names do not appear in the functions or aliases
-# hash tables are hashed in order to avoid reporting them as spelling errors.
-setopt hash_cmds
-#}}}
-
-# {{{ HASH_DIRS <D>
-# Whenever a command name is hashed, hash the directory containing it, as well
-# as all directories that occur earlier in the path. Has no effect if neither
-# HASH_CMDS nor CORRECT is set.
-setopt hash_dirs
 #}}}
 
 # {{{ MAIL_WARNING (-U)
@@ -1063,58 +418,9 @@ setopt hash_dirs
 setopt no_mail_warning
 #}}}
 
-# {{{ PATH_DIRS (-Q)
-# Perform a path search even on command names with slashes in them. Thus if
-# "/usr/local/bin" is in the user"s path, and he or she types "X11/xinit", the
-# command "/usr/local/bin/X11/xinit" will be executed (assuming it exists).
-# Commands explicitly beginning with "/", "./" or "../" are not subject to the
-# path search. This also applies to the . builtin.
-#
-# Note that subdirectories of the current directory are always searched for
-# executables specified in this form. This takes place before any search
-# indicated by this option, and regardless of whether "." or the current
-# directory appear in the command search path.
-setopt path_dirs
-#}}}
-
-# {{{ PRINT_EIGHT_BIT
-# Print eight bit characters literally in completion lists, etc. This option is
-# not necessary if your system correctly returns the printability of eight bit
-# characters (see ctype(3)).
-#}}}
-
-# {{{ PRINT_EXIT_VALUE (-)
-# Print the exit value of programs with non-zero exit status.
-#}}}
-
-# {{{ RC_QUOTES
-# Allow the character sequence """" to signify a single quote within singly
-# quoted strings. Note this does not apply in quoted strings using the format
-# $"...", where a backslashed single quote can be used.
-#}}}
-
-# {{{ RM_STAR_SILENT (-H) <K> <S>
-# Do not query the user before executing "rm *" or "rm path/*".
-setopt rm_star_silent
-#}}}
-
-# {{{ RM_STAR_WAIT
-# If querying the user before executing "rm *" or "rm path/*", first wait ten
-# seconds and ignore anything typed in that time. This avoids the problem of
-# reflexively answering "yes" to the query when one didn"t really mean it. The
-# wait and query can always be avoided by expanding the "*" in ZLE (with tab).
-#}}}
-
 # {{{ SHORT_LOOPS <C> <Z>
 # Allow the short forms of for, repeat, select, if, and function constructs.
 setopt short_loops
-#}}}
-
-# {{{ SUN_KEYBOARD_HACK (-L)
-# If a line ends with a backquote, and there are an odd number of backquotes on
-# the line, ignore the trailing backquote. This is useful on some keyboards
-# where the return key is too small, and the backquote key lies annoyingly close
-# to it.
 #}}}
 #}}}
 
@@ -1125,16 +431,6 @@ setopt short_loops
 # the disown builtin command are automatically sent a CONT signal to make them
 # running.
 setopt auto_continue
-#}}}
-
-# {{{ AUTO_RESUME (-W)
-# Treat single word simple commands without redirection as candidates for
-# resumption of an existing job.
-#}}}
-
-# {{{ BG_NICE (-) <C> <Z>
-# Run all background jobs at a lower priority. This option is set by default.
-setopt bg_nice
 #}}}
 
 # {{{ CHECK_JOBS <Z>
@@ -1149,11 +445,6 @@ setopt bg_nice
 # functions defined in the section SPECIAL FUNCTIONS in zshmisc(1) is not
 # counted for this purpose.
 setopt no_check_jobs
-#}}}
-
-# {{{ HUP <Z>
-# Send the HUP signal to running jobs when the shell exits.
-setopt no_hup
 #}}}
 
 # {{{ LONG_LIST_JOBS (-R)
@@ -1173,259 +464,17 @@ setopt notify
 #}}}
 #}}}
 
-# {{{ Prompting
-################################################################################
-# {{{ PROMPT_BANG <K>
-# If set, "!" is treated specially in prompt expansion. See the section "Prompt
-# Expansion".
-#}}}
-
-# {{{ PROMPT_CR (+V) <D>
-# Print a carriage return just before printing a prompt in the line editor. This
-# is on by default as multi-line editing is only possible if the editor knows
-# where the start of the line appears.
-#}}}
-
-# {{{ PROMPT_SP <D>
-# Attempt to preserve a partial line (i.e. a line that did not end with a
-# newline) that would otherwise be covered up by the command prompt due to the
-# PROMPT_CR option. This works by outputting some cursor-control characters,
-# including a series of spaces, that should make the terminal wrap to the next
-# line when a partial line is present (note that this is only successful if your
-# terminal has automatic margins, which is typical).
-#
-# When a partial line is preserved, you will see an inverse+bold character at
-# the end of the partial line: a "%" for a normal user or a "#" for root.
-#
-# NOTE: if the PROMPT_CR option is not set, enabling this option will have no
-#	effect. This option is on by default.
-#}}}
-
-# {{{ PROMPT_PERCENT <C> <Z>
-# If set, "%" is treated specially in prompt expansion. See the section "Prompt
-# Expansion".
-#}}}
-
-# {{{ PROMPT_SUBST <K>
-# If set, parameter expansion, command substitution and arithmetic expansion are
-# performed in prompts. Substitutions within prompts do not affect the command
-# status.
-#}}}
-
-# {{{ TRANSIENT_RPROMPT
-# Remove any right prompt from display when accepting a command line. This may
-# be useful with terminals with other cut/paste methods.
-# }}}
-#}}}
-
 # {{{ Scripts and Functions
 ################################################################################
-# {{{ C_BASES
-# Output hexadecimal numbers in the standard C format, for example "0xFF"
-# instead of the usual "16#FF". If the option OCTAL_ZEROES is also set (it is
-# not by default), octal numbers will be treated similarly and hence appear as
-# "" instead of "8#". This option has no effect on the choice of the output
-# base, nor on the output of bases other than hexadecimal and octal. Note that
-# these formats will be understood on input irrespective of the setting of
-# C_BASES.
-#}}}
-
-# {{{ DEBUG_BEFORE_CMD
-# Run the DEBUG trap before each command; otherwise it is run after each
-# command. Setting this option mimics the behaviour of ksh 93; with the option
-# unset the behaviour is that of ksh 88.
-#}}}
-
-# {{{ ERR_EXIT (-e, ksh: -e)
-# If a command has a non-zero exit status, execute the ZERR trap, if set, and
-# exit. This is disabled while running initialization scripts.
-#}}}
-
-# {{{ ERR_RETURN
-# If a command has a non-zero exit status, return immediately from the enclosing
-# function. The logic is identical to that for ERR_EXIT, except that an implicit
-# return statement is executed instead of an exit. This will trigger an exit at
-# the outermost level of a non-interactive script.
-#}}}
-
-# {{{ EVAL_LINENO <Z>
-# If set, line numbers of expressions evaluated using the builtin eval are
-# tracked separately of the enclosing environment. This applies both to the
-# parameter LINENO and the line number output by the prompt escape %i. If the
-# option is set, the prompt escape %N will output the string "(eval)" instead of
-# the script or function name as an indication. (The two prompt escapes are
-# typically used in the parameter PS4 to be output when the option XTRACE is
-# set.) If EVAL_LINENO is unset, the line number of the surrounding script or
-# function is retained during the evaluation.
-#}}}
-
-# {{{ EXEC (+n, ksh: +n) <D>
-# Do execute commands. Without this option, commands are read and checked for
-# syntax errors, but not executed. This option cannot be turned off in an
-# interactive shell, except when "-n" is supplied to the shell at startup.
-#}}}
-
-# {{{ FUNCTION_ARGZERO <C> <Z>
-# When executing a shell function or sourcing a script, set ${0} temporarily to
-# the name of the function/script.
-#}}}
-
-# {{{ LOCAL_OPTIONS <K>
-# If this option is set at the point of return from a shell function, all the
-# options (including this one) which were in force upon entry to the function
-# are restored. Otherwise, only this option and the XTRACE and PRINT_EXIT_VALUE
-# options are restored. Hence if this is explicitly unset by a shell function
-# the other options in force at the point of return will remain so. A shell
-# function can also guarantee itself a known shell configuration with a
-# formulation like "emulate -L zsh"; the -L activates LOCAL_OPTIONS.
-#}}}
-
-# {{{ LOCAL_TRAPS <K>
-# If this option is set when a signal trap is set inside a function, then the
-# previous status of the trap for that signal will be restored when the function
-# exits. Note that this option must be set prior to altering the trap behaviour
-# in a function; unlike LOCAL_OPTIONS, the value on exit from the function is
-# irrelevant. However, it does not need to be set before any global trap for
-# that to be correctly restored by a function. For example,
-#
-#   unsetopt localtraps
-#   trap - INT
-#   fn() { setopt localtraps; trap "" INT; sleep 3; }
-#
-# will restore normally handling of SIGINT after the function exits.
-#}}}
-
 # {{{ MULTIOS <Z>
 # Perform implicit tees or cats when multiple redirections are attempted (see
 # the section "Redirection").
 setopt multios
 #}}}
-
-# {{{ OCTAL_ZEROES <S>
-# Interpret any integer constant beginning with a 0 as octal, per IEEE Std
-# 1003.2-1992 (ISO 9945-2:1993). This is not enabled by default as it causes
-# problems with parsing of, for example, date and time strings with leading
-# zeroes.
-#
-# Sequences of digits indicating a numeric base such as the "" component in
-# "08#" are always interpreted as decimal, regardless of leading zeroes.
-#}}}
-
-# {{{ TYPESET_SILENT
-# If this is unset, executing any of the "typeset" family of commands with no
-# options and a list of parameters that have no values to be assigned but
-# already exist will display the value of the parameter. If the option is set,
-# they will only be shown when parameters are selected with the "-m" option. The
-# option "-p" is available whether or not the option is set.
-#}}}
-
-# {{{ VERBOSE (-v, ksh: -v)
-# Print shell input lines as they are read.
-#}}}
-
-# {{{ XTRACE (-x, ksh: -x)
-# Print commands and their arguments as they are executed.
-#}}}
 #}}}
 
 # {{{ Shell Emulation
 ################################################################################
-# {{{ BASH_REMATCH
-# When set, matches performed with the =~ operator will set the BASH_REMATCH
-# array variable, instead of the default MATCH and match variables. The first
-# element of the BASH_REMATCH array will contain the entire matched text and
-# subsequent elements will contain extracted substrings. This option makes more
-# sense when KSH_ARRAYS is also set, so that the entire matched portion is
-# stored at index 0 and the first substring is at index 1. Without this option,
-# the MATCH variable contains the entire matched text and the match array
-# variable contains substrings.
-#}}}
-
-# {{{ BSD_ECHO <S>
-# Make the echo builtin compatible with the BSD echo(1) command. This disables
-# backslashed escape sequences in echo strings unless the -e option is
-# specified.
-setopt bsd_echo
-#}}}
-
-# {{{ CSH_JUNKIE_HISTORY <C>
-# A history reference without an event specifier will always refer to the
-# previous command. Without this option, such a history reference refers to the
-# same event as the previous history reference, defaulting to the previous
-# command.
-#}}}
-
-# {{{ CSH_JUNKIE_LOOPS <C>
-# Allow loop bodies to take the form "list; end" instead of "do list; done".
-#}}}
-
-# {{{ CSH_JUNKIE_QUOTES <C>
-# Changes the rules for single- and double-quoted text to match that of csh.
-# These require that embedded newlines be preceded by a backslash; unescaped
-# newlines will cause an error message. In double-quoted strings, it is made
-# impossible to escape "$", """ or """ (and "\" itself no longer needs
-# escaping). Command substitutions are only expanded once, and cannot be nested.
-#}}}
-
-# {{{ CSH_NULLCMD <C>
-# Do not use the values of NULLCMD and READNULLCMD when running redirections
-# with no command. This make such redirections fail (see the section
-# "Redirection").
-#}}}
-
-# {{{ KSH_ARRAYS <K> <S>
-# Emulate ksh array handling as closely as possible. If this option is set,
-# array elements are numbered from zero, an array parameter without subscript
-# refers to the first element instead of the whole array, and braces are
-# required to delimit a subscript ("${path[2]}" rather than just "$path[2]").
-#}}}
-
-# {{{ KSH_AUTOLOAD <K> <S>
-# Emulate ksh function autoloading. This means that when a function is
-# autoloaded, the corresponding file is merely executed, and must define the
-# function itself. (By default, the function is defined to the contents of the
-# file. However, the most common ksh-style case - of the file containing only a
-# simple definition of the function - is always handled in the ksh-compatible
-# manner.)
-#}}}
-
-# {{{ KSH_OPTION_PRINT <K>
-# Alters the way options settings are printed: instead of separate lists of set
-# and unset options, all options are shown, marked "on" if they are in the
-# non-default state, "off" otherwise.
-#}}}
-
-# {{{ KSH_TYPESET <K>
-# Alters the way arguments to the typeset family of commands, including declare,
-# export, float, integer, local and readonly, are processed. Without this
-# option, zsh will perform normal word splitting after command and parameter
-# expansion in arguments of an assignment; with it, word splitting does not take
-# place in those cases.
-#}}}
-
-# {{{ KSH_ZERO_SUBSCRIPT
-# Treat use of a subscript of value zero in array or string expressions as a
-# reference to the first element, i.e. the element that usually has the
-# subscript 1. Ignored if KSH_ARRAYS is also set.
-#
-# If neither this option nor KSH_ARRAYS is set, accesses to an element of an
-# array or string with subscript zero return an empty element or string, while
-# attempts to set element zero of an array or string are treated as an error.
-# However, attempts to set an otherwise valid subscript range that includes zero
-# will succeed. For example, if KSH_ZERO_SUBSCRIPT is not set,
-#
-#   array[0]=(element)
-#
-# is an error, while
-#
-#   array[0,1]=(element)
-#
-# is not and will replace the first element of the array.
-#
-# This option is for compatibility with older versions of the shell and is not
-# recommended in new code.
-#}}}
-
 # {{{ POSIX_BUILTINS <K> <S>
 # When this option is set the command builtin can be used to execute shell
 # builtin commands. Parameter assignments specified before shell functions and
@@ -1434,110 +483,6 @@ setopt bsd_echo
 # break, continue, declare, eval, exit, export, integer, local, readonly,
 # return, set, shift, source, times, trap and unset.
 setopt posix_builtins
-#}}}
-
-# {{{ POSIX_IDENTIFIERS <K> <S>
-# When this option is set, only the ASCII characters a to z, A to Z, 0 to 9 and
-# _ may be used in identifiers (names of shell parameters and modules).
-#
-# When the option is unset and multibyte character support is enabled (i.e. it
-# is compiled in and the option MULTIBYTE is set), then additionally any
-# alphanumeric characters in the local character set may be used in identifiers.
-# Note that scripts and functions written with this feature are not portable,
-# and also that both options must be set before the script or function is
-# parsed; setting them during execution is not sufficient as the syntax
-# variable=value has already been parsed as a command rather than an assignment.
-#
-# If multibyte character support is not compiled into the shell this option is
-# ignored; all octets with the top bit set may be used in identifiers. This is
-# non-standard but is the traditional zsh behaviour.
-setopt posix_identifiers
-#}}}
-
-# {{{ SH_FILE_EXPANSION <K> <S>
-# Perform filename expansion (e.g., ~ expansion) before parameter expansion,
-# command substitution, arithmetic expansion and brace expansion. If this option
-# is unset, it is performed after brace expansion, so things like "~${USERNAME}"
-# and "~{pfalstad,rc}" will work.
-#}}}
-
-# {{{ SH_NULLCMD <K> <S>
-# Do not use the values of NULLCMD and READNULLCMD when doing redirections, use
-# ":" instead (see the section "Redirection").
-#}}}
-
-# {{{ SH_OPTION_LETTERS <K> <S>
-# If this option is set the shell tries to interpret single letter options
-# (which are used with set and setopt) like ksh does. This also affects the
-# value of the - special parameter.
-#}}}
-
-# {{{ SH_WORD_SPLIT (-y) <K> <S>
-# Causes field splitting to be performed on unquoted parameter expansions. Note
-# that this option has nothing to do with word splitting. (See the section
-# "Parameter Expansion".)
-#}}}
-
-# {{{ TRAPS_ASYNC
-# While waiting for a program to exit, handle signals and run traps immediately.
-# Otherwise the trap is run after a child process has exited. Note this does not
-# affect the point at which traps are run for any case other than when the shell
-# is waiting for a child process.
-#}}}
-#}}}
-
-# {{{ Shell State
-################################################################################
-# {{{ INTERACTIVE (-i, ksh: -i)
-# This is an interactive shell. This option is set upon initialisation if the
-# standard input is a tty and commands are being read from standard input. (See
-# the discussion of SHIN_STDIN.) This heuristic may be overridden by specifying
-# a state for this option on the command line. The value of this option cannot
-# be changed anywhere other than the command line.
-#}}}
-
-# {{{ LOGIN (-l, ksh: -l)
-# This is a login shell. If this option is not explicitly set, the shell is a
-# login shell if the first character of the argv[0] passed to the shell is a
-# "-".
-setopt LOGIN
-#}}}
-
-# {{{ PRIVILEGED (-p, ksh: -p)
-# Turn on privileged mode. This is enabled automatically on startup if the
-# effective user (group) ID is not equal to the real user (group) ID. Turning
-# this option off causes the effective user and group IDs to be set to the real
-# user and group IDs. This option disables sourcing user startup files. If zsh
-# is invoked as "sh" or "ksh" with this option set, /etc/suid_profile is sourced
-# (after /etc/profile on interactive shells). Sourcing ~/.profile is disabled
-# and the contents of the ENV variable is ignored. This option cannot be changed
-# using the -m option of setopt and unsetopt, and changing it inside a function
-# always changes it globally regardless of the LOCAL_OPTIONS option.
-#}}}
-
-# {{{ RESTRICTED (-r)
-# Enables restricted mode. This option cannot be changed using unsetopt, and
-# setting it inside a function always changes it globally regardless of the
-# LOCAL_OPTIONS option. See the section "Restricted Shell".
-#}}}
-
-# {{{ SHIN_STDIN (-s, ksh: -s)
-# Commands are being read from the standard input. Commands are read from
-# standard input if no command is specified with -c and no file of commands is
-# specified. If SHIN_STDIN is set explicitly on the command line, any argument
-# that would otherwise have been taken as a file to run will instead be treated
-# as a normal positional parameter. Note that setting or unsetting this option
-# on the command line does not necessarily affect the state the option will have
-# while the shell is running - that is purely an indicator of whether on not
-# commands are actually being read from standard input. The value of this option
-# cannot be changed anywhere other than the command line.
-#}}}
-
-# {{{ SINGLE_COMMAND (-t, ksh: -t)
-# If the shell is reading from standard input, it exits after a single command
-# has been executed. This also makes the shell non-interactive, unless the
-# INTERACTIVE option is explicitly set on the command line. The value of this
-# option cannot be changed anywhere other than the command line.
 #}}}
 #}}}
 
@@ -1556,14 +501,6 @@ setopt nobeep
 setopt no_emacs
 #}}}
 
-# {{{ OVERSTRIKE
-# Start up the line editor in overstrike mode.
-#}}}
-
-# {{{ SINGLE_LINE_ZLE (-M) <K>
-# Use single-line command line editing instead of multi-line.
-#}}}
-
 # {{{ VI
 # If ZLE is loaded, turning on this option has the equivalent effect of "bindkey
 # -v". In addition, the EMACS option is unset. Turning it off has no effect. The
@@ -1574,11 +511,6 @@ setopt vi
 
 # {{{ PromptSubst
 setopt promptsubst
-#}}}
-
-# {{{ ZLE (-Z)
-# Use the zsh line editor. Set by default in interactive shells connected to a
-# terminal.
 #}}}
 #}}}
 #}}}
@@ -1628,11 +560,6 @@ setopt promptsubst
 # of a call to hash.
 unhash -dm "*"
 
-[[ -d /usr/share/doc ]] && hash -d doc=/usr/share/doc
-[[ -d /var/log ]] && hash -d log=/var/log
-[[ -d /usr/src ]] && hash -d src=/usr/src
-[[ -d /var/www ]] && hash -d www=/var/www
-
 if [[ -d ~/.dotfiles ]]; then
     hash -d dotfiles=~/.dotfiles
     for i in ~/.dotfiles/*(/); do
@@ -1640,39 +567,9 @@ if [[ -d ~/.dotfiles ]]; then
     done
 fi
 
-if [[ -d ~/Documents ]]; then
-    for i in ~/Documents/*(/); do
-        hash -d "doc$(basename ${i})"="${i}"
-    done
-fi
-
-if [[ -d ~/norepositories ]]; then
-    for i in ~/norepositories/*(/); do
-        hash -d "norepo$(basename ${i})"="${i}"
-    done
-fi
-
 if [[ -d ~/repositories ]]; then
     for i in ~/repositories/*(/); do
         hash -d "repo$(basename ${i})"="${i}"
-    done
-fi
-
-if [[ -d ~/repositories/cbn ]]; then
-    for i in ~/repositories/cbn/*(/); do
-        hash -d "cbn$(basename ${i})"="${i}"
-    done
-fi
-
-if [[ -d ~/repositories/dotfiles ]]; then
-    for i in ~/repositories/dotfiles/*(/); do
-        hash -d "repoDot$(basename ${i})"="${i}"
-    done
-fi
-
-if [[ -d ~/repositories/projects ]]; then
-    for i in ~/repositories/projects/*(/); do
-        hash -d "proj$(basename ${i})"="${i}"
     done
 fi
 #}}}
@@ -1720,15 +617,10 @@ unhash -ms "*"
 # Global aliases
 alias -g G='|& egrep --ignore-case'
 alias -g N='&> /dev/null'
-alias -g S='|& sort -fu'
-alias -g V='|& ${PAGER} -'
 
 # remap the buildin commads
 alias which='whence -vas'
 alias where='whence -cas'
-
-# display full history
-alias history='fc -l 1'
 
 # search an specific alias
 alias aliasgrep='alias G'
@@ -1747,40 +639,40 @@ alias mkdir='nocorrect mkdir -v'
 # Provides useful information on globbing
 function zsh_help() {
 echo -e "
-/	directories
-.	plain files
-@	symbolic links
-=	sockets
-p	named pipes (FIFOs)
-*	executable plain files (0100)
-%	device files (character or block special)
-%b	block special files
-%c	character special files
-r	owner-readable files (0400)
-w	owner-writable files (0200)
-x	owner-executable files (0100)
-A	group-readable files (0040)
-I	group-writable files (0020)
-E	group-executable files (0010)
-R	world-readable files (0004)
-W	world-writable files (0002)
-X	world-executable files (0001)
-s	setuid files (04000)
-S	setgid files (02000)
-t	files with the sticky bit (01000)
+/       directories
+.       plain files
+@       symbolic links
+=       sockets
+p       named pipes (FIFOs)
+*       executable plain files (0100)
+%       device files (character or block special)
+%b      block special files
+%c      character special files
+r       owner-readable files (0400)
+w       owner-writable files (0200)
+x       owner-executable files (0100)
+A       group-readable files (0040)
+I       group-writable files (0020)
+E       group-executable files (0010)
+R       world-readable files (0004)
+W       world-writable files (0002)
+X       world-executable files (0001)
+s       setuid files (04000)
+S       setgid files (02000)
+t       files with the sticky bit (01000)
 
-print *(m-1)			# Files modified up to a day ago
-print *(a1)			# Files accessed a day ago
-print *(@)			# Just symlinks
-print *(Lk+50)			# Files bigger than 50 kilobytes
-print *(Lk-50)			# Files smaller than 50 kilobytes
-print **/*.c			# All *.c files recursively starting in \${PWD}
-print **/*.c~file.c		# Same as above, but excluding 'file.c'
-print (foo|bar).*		# Files starting with 'foo' or 'bar'
-print *~*.*			# All Files that do not contain a dot
-chmod 644 *(.^x)		# make all plain non-executable files publically readable
-print -l *(.c|.h)		# Lists *.c and *.h
-print **/*(g:users:)		# Recursively match all files that are owned by group 'users'
+print *(m-1)                    # Files modified up to a day ago
+print *(a1)                     # Files accessed a day ago
+print *(@)                      # Just symlinks
+print *(Lk+50)                  # Files bigger than 50 kilobytes
+print *(Lk-50)                  # Files smaller than 50 kilobytes
+print **/*.c                    # All *.c files recursively starting in \${PWD}
+print **/*.c~file.c             # Same as above, but excluding 'file.c'
+print (foo|bar).*               # Files starting with 'foo' or 'bar'
+print *~*.*                     # All Files that do not contain a dot
+chmod 644 *(.^x)                # make all plain non-executable files publically readable
+print -l *(.c|.h)               # Lists *.c and *.h
+print **/*(g:users:)            # Recursively match all files that are owned by group 'users'
 echo /proc/*/cwd(:h:t:s/self//) # Analogous to >ps ax | awk '{print ${1}}'<"
 }
 
@@ -1866,53 +758,6 @@ umask 077
 
 # {{{ Keymaps
 ###############################################################################
-# A keymap in ZLE contains a set of bindings between key sequences and ZLE
-# commands. The empty key sequence cannot be bound.
-#
-# There can be any number of keymaps at any time, and each keymap has one or
-# more names. If all of a keymap's names are deleted, it disappears. bindkey can
-# be used to manipulate keymap names.
-#
-# Initially, there are four keymaps:
-#   emacs   - EMACS emulation
-#   viins   - vi emulation - insert mode
-#   vicmd   - vi emulation - command mode
-#   .safe   - fallback keymap
-#
-# The `.safe' keymap is special. It can never be altered, and the name can never
-# be removed. However, it can be linked to other names, which can be removed. In
-# the future other special keymaps may be added; users should avoid using names
-# beginning with `.' for their own keymaps.
-#
-# In addition to these four names, either `emacs' or `viins' is also linked to
-# the name `main'. If one of the VISUAL or EDITOR environment variables contain
-# the string `vi' when the shell starts up then it will be `viins', otherwise it
-# will be `emacs'. bindkey's -e and -v options provide a convenient way to
-# override this default choice.
-#
-# When the editor starts up, it will select the `main' keymap. If that keymap
-# doesn't exist, it will use `.safe' instead.
-#
-# In the `.safe' keymap, each single key is bound to self-insert, except for ^J
-# (line feed) and ^M (return) which are bound to accept-line. This is
-# deliberately not pleasant to use; if you are using it, it means you deleted
-# the main keymap, and you should put it back.
-#
-# The ZLE module contains three related builtin commands. The bindkey command
-# manipulates keymaps and key bindings; the vared command invokes ZLE on the
-# value of a shell parameter; and the zle command manipulates editing widgets
-# and allows command line access to ZLE commands from within shell functions.
-# bindkey [ options ] -l
-# bindkey [ options ] -d
-# bindkey [ options ] -D keymap ...
-# bindkey [ options ] -A old-keymap new-keymap
-# bindkey [ options ] -N new-keymap [ old-keymap ]
-# bindkey [ options ] -m
-# bindkey [ options ] -r in-string ...
-# bindkey [ options ] -s in-string out-string ...
-# bindkey [ options ] in-string command ...
-# bindkey [ options ] [ in-string ]
-#
 # bindkey's options can be divided into three categories: keymap selection,
 # operation selection, and others. The keymap selection options are:
 #   -e          - Selects keymap `emacs', and also links it to `main'.
@@ -1998,32 +843,7 @@ umask 077
 #   When the -R option is used as noted above, a valid range consists of two
 #   characters, with an optional `-' between them. All characters between the
 #   two specified, inclusive, are bound as specified.
-#
-#   For either in-string or out-string, the following escape sequences are
-#   recognised:
-#
-#       \a     bell character
-#       \b     backspace
-#       \e, \E escape
-#       \f     form feed
-#       \n     linefeed (newline)
-#       \r     carriage return
-#       \t     horizontal tab
-#       \v     vertical tab
-#       \NNN   character code in octal
-#       \xNN   character code in hexadecimal
-#       \M[-]X character with meta bit set
-#       \C[-]X control character
-#       ^X     control character
-#
-#   In all other cases, `\' escapes the following character. Delete is written
-#   as `^?'. Note that `\M^?' and `^\M?' are not the same, and that (unlike
-#   emacs), the bindings `\M-X' and `\eX' are entirely distinct, although they
-#   are initialized to the same bindings by `bindkey -m'.
-#
 bindkey -v
-# add builtin meta-keys bindigs (and surpress warning message)
-# bindkey -m &> /dev/null
 #}}}
 
 # {{{ Keyboard Definition
@@ -2065,9 +885,6 @@ bindkey -v
 autoload -Uz zkbd
 
 if [[ "$TERM" != emacs ]]; then
-    [[ -z "$terminfo[kdch1]" ]] || bindkey -M emacs "$terminfo[kdch1]" delete-char
-    [[ -z "$terminfo[khome]" ]] || bindkey -M emacs "$terminfo[khome]" beginning-of-line
-    [[ -z "$terminfo[kend]" ]] || bindkey -M emacs "$terminfo[kend]" end-of-line
     [[ -z "$terminfo[kdch1]" ]] || bindkey -M vicmd "$terminfo[kdch1]" vi-delete-char
     [[ -z "$terminfo[khome]" ]] || bindkey -M vicmd "$terminfo[khome]" vi-beginning-of-line
     [[ -z "$terminfo[kend]" ]] || bindkey -M vicmd "$terminfo[kend]" vi-end-of-line
@@ -2092,21 +909,15 @@ if [[ "$TERM" != emacs ]]; then
     [[ "$terminfo[kcub1]" == $'\eO'* ]] && bindkey -M viins "${terminfo[kcub1]/O/[}" vi-backward-char
     [[ "$terminfo[khome]" == $'\eO'* ]] && bindkey -M viins "${terminfo[khome]/O/[}" beginning-of-line
     [[ "$terminfo[kend]" == $'\eO'* ]] && bindkey -M viins "${terminfo[kend]/O/[}" end-of-line
-    [[ "$terminfo[khome]" == $'\eO'* ]] && bindkey -M emacs "${terminfo[khome]/O/[}" beginning-of-line
-    [[ "$terminfo[kend]" == $'\eO'* ]] && bindkey -M emacs "${terminfo[kend]/O/[}" end-of-line
 fi
 
-bindkey '\e[1~' beginning-of-line	# home
-bindkey '\e[4~' end-of-line		# end
-bindkey '\e[A' up-line-or-search	# cursor up
-bindkey '\e[B' down-line-or-search	# <ESC>-
+bindkey '\e[1~' beginning-of-line       # home
+bindkey '\e[4~' end-of-line             # end
+bindkey '\e[A' up-line-or-search        # cursor up
+bindkey '\e[B' down-line-or-search      # <ESC>-
 
 bindkey '^xp' history-beginning-search-backward
 bindkey '^xP' history-beginning-search-forward
-
-# if terminal type is set to 'rxvt':
-bindkey '\e[7~' beginning-of-line	# home
-bindkey '\e[8~' end-of-line		# end
 
 # beginning-of-line (^A) (unbound) (unbound)
 # Move to the beginning of the line. If already at the beginning of the line,
@@ -2152,19 +963,11 @@ fi
 # up-line-or-search
 # Move up a line in the buffer, or if already at the top line, search backward
 # in the history for a line beginning with the first word in the buffer.
-#
-# If called from a function by the zle command with arguments, the first
-# argument is taken as the string for which to search, rather than the first
-# word in the buffer.
 [[ -n "${key[Up]}" ]] && bindkey "${key[Up]}" up-line-or-search
 
 # down-line-or-search
 # Move down a line in the buffer, or if already at the bottom line, search
 # forward in the history for a line beginning with the first word in the buffer.
-#
-# If called from a function by the zle command with arguments, the first
-# argument is taken as the string for which to search, rather than the first
-# word in the buffer.
 [[ -n "${key[Down]}" ]] && bindkey "${key[Down]}" down-line-or-search
 
 # history-incremental-search-backward (^R ^Xr) (unbound) (unbound)
@@ -2172,37 +975,6 @@ fi
 # case-insensitive if the search string does not have uppercase letters and no
 # numeric argument was given. The string may begin with "^" to anchor the search
 # to the beginning of the line.
-#
-# A restricted set of editing functions is available in the mini-buffer. An
-# interrupt signal, as defined by the stty setting, will stop the search and go
-# back to the original line. An undefined key will have the same effect. The
-# supported functions are: backward-delete-char, vi-backward-delete-char,
-# clear-screen, redisplay, quoted-insert, vi-quoted-insert, accept-and-hold,
-# accept-and-infer-next-history, accept-line and accept-line-and-down-history.
-#
-# magic-space just inserts a space. vi-cmd-mode toggles between the "main" and
-# "vicmd" keymaps; the "main" keymap (insert mode) will be selected initially.
-# history-incremental-search-backward will get the next occurrence of the
-# contents of the mini-buffer. history-incremental-search-forward inverts the
-# sense of the search. vi-repeat-search and vi-rev-repeat-search are similarly
-# supported. The direction of the search is indicated in the mini-buffer.
-#
-# Any multi-character string that is not bound to one of the above functions
-# will beep and interrupt the search, leaving the last found line in the buffer.
-# Any single character that is not bound to one of the above functions, or
-# self-insert or self-insert-unmeta, will have the same effect but the function
-# will be executed.
-#
-# When called from a widget function by the zle command, the incremental search
-# commands can take a string argument. This will be treated as a string of keys,
-# as for arguments to the bindkey command, and used as initial input for the
-# command. Any characters in the string which are unused by the incremental
-# search will be silently ignored. For example,
-#
-#   zle history-incremental-search-backward forceps
-#
-# will search backwards for forceps, leaving the minibuffer containing the
-# string "forceps".
 bindkey -M vicmd "\C-r" history-incremental-search-backward
 bindkey -M viins "\C-r" history-incremental-search-backward
 
@@ -2230,69 +1002,9 @@ bindkey -M menuselect '\e^M' accept-and-menu-complete
 
 # {{{ Completion System
 ################################################################################
-#
 # This section describes the use of compinit to initialize completion for the
 # current session when called directly; if you have run compinstall it will be
 # called automatically from your .zshrc.
-#
-# To initialize the system, the function compinit should be in a directory
-# mentioned in the fpath parameter, and should be autoloaded (`autoload -U
-# compinit' is recommended), and then run simply as `compinit'. This will define
-# a few utility functions, arrange for all the necessary shell functions to be
-# autoloaded, and will then re-define all widgets that do completion to use the
-# new system. If you use the menu-select widget, which is part of the
-# zsh/complist module, you should make sure that that module is loaded before
-# the call to compinit so that that widget is also re-defined. If completion
-# styles (see below) are set up to perform expansion as well as completion by
-# default, and the TAB key is bound to expand-or-complete, compinit will rebind
-# it to complete-word; this is necessary to use the correct form of expansion.
-#
-# Should you need to use the original completion commands, you can still bind
-# keys to the old widgets by putting a `.' in front of the widget name, e.g.
-# `.expand-or-complete'.
-# To speed up the running of compinit, it can be made to produce a dumped
-# configuration that will be read in on future invocations; this is the default,
-# but can be turned off by calling compinit with the option -D. The dumped file
-# is .zcompdump in the same directory as the startup files (i.e. ${ZDOTDIR} or
-# ${HOME}); alternatively, an explicit file name can be given by `compinit -d
-# dumpfile'. The next invocation of compinit will read the dumped file instead
-# of performing a full initialization.
-#
-# If the number of completion files changes, compinit will recognise this and
-# produce a new dump file. However, if the name of a function or the arguments
-# in the first line of a compdef function (as described below) change, it is
-# easiest to delete the dump file by hand so that compinit will re-create it the
-# next time it is run. The check performed to see if there are new functions can
-# be omitted by giving the option -C. In this case the dump file will only be
-# created if there isn't one already.
-#
-# The dumping is actually done by another function, compdump, but you will only
-# need to run this yourself if you change the configuration (e.g. using compdef)
-# and then want to dump the new one. The name of the old dumped file will be
-# remembered for this purpose.
-#
-# If the parameter _compdir is set, compinit uses it as a directory where
-# completion functions can be found; this is only necessary if they are not
-# already in the function search path.
-#
-# For security reasons compinit also checks if the completion system would use
-# files not owned by root or by the current user, or files in directories that
-# are world- or group-writable or that are not owned by root or by the current
-# user. If such files or directories are found, compinit will ask if the
-# completion system should really be used. To avoid these tests and make all
-# files found be used without asking, use the option -u, and to make compinit
-# silently ignore all insecure files and directories use the option -i. This
-# security check is skipped entirely when the -C option is given.
-#
-# The security check can be retried at any time by running the function
-# compaudit. This is the same check used by compinit, but when it is executed
-# directly any changes to fpath are made local to the function so they do not
-# persist. The directories to be checked may be passed as arguments; if none are
-# given, compaudit uses fpath and _compdir to find completion system
-# directories, adding missing ones to fpath as necessary. To force a check of
-# exactly the directories currently named in fpath, set _compdir to an empty
-# string before calling compaudit or compinit.
-
 zstyle ':completion:*' completer _complete _ignored _approximate
 
 # start menu completion only if it could find no unambiguous initial string
@@ -2321,10 +1033,7 @@ zstyle ':completion:*:history-words' stop yes
 
 # match uppercase from lowercase
 zstyle ':completion:*' matcher-list \
-    'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' \
-    'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' \
-    'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' \
-    'm:{[:lower:][:upper:]}={[:upper:][:lower:]}'
+    'm:{[:lower:]}={[:upper:]} m:{[:lower:][:upper:]}={[:upper:][:lower:]}'
 
 # separate matches into groups
 zstyle ':completion:*:matches' group 'yes'
@@ -2349,9 +1058,6 @@ zstyle ':completion:*:processes-names' command \
 # offer indexes before parameters in subscripts
 zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
 
-# provide verbose completion information
-zstyle ':completion:*' verbose true
-
 # set format for warnings
 zstyle ':completion:*:warnings' format \
     $'%{\e[0;31m%}No matches for:%{\e[0m%} %d'
@@ -2367,12 +1073,6 @@ zstyle ':completion::(^approximate*):*:functions' ignored-patterns '_*'
 zstyle ':completion:*:manuals' separate-sections true
 zstyle ':completion:*:manuals.*' insert-sections true
 zstyle ':completion:*:man:*' menu yes select
-
-# run rehash on completion so new installed program are found automatically:
-_force_rehash() {
-    (( CURRENT == 1 )) && rehash
-    return 1
-}
 
 # host completion
 zstyle -e ':completion:*:hosts' hosts 'reply=(
