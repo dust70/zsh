@@ -536,6 +536,12 @@ if [[ -d ~/repositories ]]; then
         hash -d "repo$(basename ${i})"="${i}"
     done
 fi
+
+if [[ -d ~/git ]]; then
+    for i in ~/git; do
+        hash -d "git$(basename ${i})"="${i}"
+    done
+fi
 #}}}
 
 # {{{ Aliases
