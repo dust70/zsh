@@ -11,7 +11,7 @@
 #}}}
 
 # {{{ load colors
-if [[ $- = *i* ]]; then
+if [[ $- = *i* ]] || [[ -n "${PS1}" ]]; then
     autoload -Uz colors zsh/terminfo
     [[ $terminfo[colors] -ge 8 ]] && colors
 
