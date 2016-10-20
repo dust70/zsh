@@ -2,7 +2,7 @@
 # Test for an interactive shell. There is no need to set anything past this
 # point for scp and rcp, and it is important to refrain from outputting anything
 # in those cases.
-if [[ $- != *i* ]]; then
+if [[ $- != *i* ]] || [[ -n "${PS1}" ]]; then
     # Shell is non-interactive. Be done now
     return
 fi
@@ -1106,6 +1106,7 @@ autoload -Uz zsh/termcap
 for sh in ~/.shell/*.sh; do
     [[ -r "${sh}" ]] && source "${sh}" || true
 done
+hash direnv >> /dev/null 2>&1 && eval $(direnv hook zsh)
 #}}}
 
 # vim: filetype=zsh textwidth=80 foldmethod=marker
