@@ -1100,22 +1100,13 @@ autoload -Uz zsh/complete
 autoload -Uz zsh/termcap
 #}}}
 
-# {{{ enable direnv
-if hash direnv >> /dev/null 2>&1; then
-    _direnv_hook() {
-        eval "$(direnv export zsh)";
-    }
-    typeset -ag precmd_functions;
-    if [[ -z ${precmd_functions[(r)_direnv_hook]}  ]]; then
-        precmd_functions+=_direnv_hook;
-    fi
-fi
-#}}}
-
 # {{{ Load Resources
 # load none ZSH components and/or configurations for all shells but jump to HOME
 # before
 for sh in ~/.shell/*.sh; do
+    [[ -r "${sh}" ]] && source "${sh}" || true
+done
+for zsh in ~/.zsh/local/*.sh; do
     [[ -r "${sh}" ]] && source "${sh}" || true
 done
 #}}}
