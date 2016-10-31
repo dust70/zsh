@@ -1103,12 +1103,16 @@ autoload -Uz zsh/termcap
 # {{{ Load Resources
 # load none ZSH components and/or configurations for all shells but jump to HOME
 # before
-for sh in ~/.shell/*.sh; do
-    [[ -r "${sh}" ]] && source "${sh}" || true
-done
-for zsh in ~/.zsh/local/*.sh; do
-    [[ -r "${sh}" ]] && source "${sh}" || true
-done
+if [[ -d ~/.shell ]]; then
+    for sh in ~/.shell/*.sh; do
+        [[ -r "${sh}" ]] && source "${sh}" || true
+    done
+fi
+if [[ -d ~/.zsh/local ]]; then
+    for sh in ~/.zsh/local/*.sh; do
+        [[ -r "${sh}" ]] && source "${sh}" || true
+    done
+fi
 #}}}
 
 # vim: filetype=zsh textwidth=80 foldmethod=marker
