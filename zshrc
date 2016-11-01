@@ -531,15 +531,9 @@ if [[ -d ~/.dotfiles ]]; then
     done
 fi
 
-if [[ -d ~/repositories ]]; then
-    for i in ~/repositories/*(/); do
-        hash -d "repo$(basename ${i})"="${i}"
-    done
-fi
-
 if [[ -d ~/git ]]; then
     for i in ~/git; do
-        hash -d "git$(basename ${i})"="${i}"
+        hash -d "repo$(basename ${i})"="${i}"
     done
 fi
 #}}}
