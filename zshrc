@@ -532,7 +532,7 @@ if [[ -d ~/.dotfiles ]]; then
 fi
 
 if [[ -d ~/git ]]; then
-    for i in ~/git; do
+    for i in ~/git/*(/); do
         hash -d "repo$(basename ${i})"="${i}"
     done
 fi
