@@ -11,6 +11,12 @@ fi
 source ~/.shell/load-profile
 #}}}
 
+# {{{ Add Plugin
+if [[ -r ~/.zsh/plugin/suggestions/zsh-autosuggestions.zsh ]]; then
+    source ~/.zsh/plugin/suggestions/zsh-autosuggestions.zsh
+fi
+#}}}
+
 # {{{ Parameters Used By The Shell
 ###############################################################################
 # cdpath <S> <Z> (CDPATH <S>)
