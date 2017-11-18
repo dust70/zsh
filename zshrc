@@ -12,8 +12,8 @@ source ~/.shell/load-profile
 #}}}
 
 # {{{ Add Plugin
-if [[ -r ~/.zsh/plugin/suggestions/zsh-autosuggestions.zsh ]]; then
-    source ~/.zsh/plugin/suggestions/zsh-autosuggestions.zsh
+if [[ -r ~/.zsh/plugin/autosuggestions/zsh-autosuggestions.zsh ]]; then
+    source ~/.zsh/plugin/autosuggestions/zsh-autosuggestions.zsh
 fi
 #}}}
 
