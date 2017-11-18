@@ -15,6 +15,10 @@ source ~/.shell/load-profile
 if [[ -r ~/.zsh/plugin/autosuggestions/zsh-autosuggestions.zsh ]]; then
     source ~/.zsh/plugin/autosuggestions/zsh-autosuggestions.zsh
 fi
+
+if [[ -r ~/.zsh/plugin/completions/src ]]; then
+    fpath=(~/.zsh/plugin/completions/src $fpath)
+fi
 #}}}
 
 # {{{ Parameters Used By The Shell
