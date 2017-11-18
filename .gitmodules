@@ -1,0 +1,4 @@
+[submodule "Auto Suggestions"]
+    branch = master
+    path = plugin/autosuggestions
+    url = git://github.com/zsh-users/zsh-autosuggestions
