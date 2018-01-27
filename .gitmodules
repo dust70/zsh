@@ -1,8 +1,0 @@
-[submodule "Auto Suggestions"]
-    branch = master
-    path = plugin/autosuggestions
-    url = git://github.com/zsh-users/zsh-autosuggestions
-[submodule "Completions"]
-    branch = master
-    path = plugin/completions
-    url = git://github.com/zsh-users/zsh-completions.git
