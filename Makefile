@@ -20,3 +20,9 @@ install:
 	ln -snf ${SOURCE}/zshenv ${HOME}/.zshenv
 	ln -snf ${SOURCE}/zshrc ${HOME}/.zshrc
 	mkdir -p ${SHARE}
+
+update:
+	git --work-tree=plugin/autosuggestions checkout -f
+	git --work-tree=plugin/autosuggestions pull
+	git --work-tree=plugin/completions checkout -f
+	git --work-tree=plugin/completions pull
