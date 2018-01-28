@@ -1,5 +1,5 @@
 SOURCE = ${HOME}/.dotfiles/zsh
-SHARE = ${HOME}/.local/share/zsh
+SHARE = ${HOME}/.cache/zsh
 
 clean:
 	rm -f ${HOME}/.zcompdump
