@@ -3,7 +3,8 @@
 [[ -r /etc/zlogout ]]     && source /etc/zlogout     || true
 
 # clean maybe broken zcompdump file
-[[ -e ~/.zcompdump ]] && rm -f ~/.zcompdump
+[[ -e ~/.zcompdump ]]          && rm -f ~/.zcompdump
+[[ -e ~/.cache/zsh/compinit ]] && rm -f ~/.cache/zsh/compinit
 
 # finally run commands
 setopt null_glob
