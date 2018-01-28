@@ -44,7 +44,7 @@ fi
 # HISTFILE
 # The file to save the history in when an interactive shell exits. If unset, the
 # history is not saved.
-export HISTFILE=~/.zsh/history
+export HISTFILE=~/.cache/zsh/history
 
 # HISTSIZE <S>
 # The maximum number of events stored in the internal history list. If you use
@@ -1062,7 +1062,7 @@ zstyle -e ':completion:*:*:ssh:*:my-accounts' users-hosts \
 zstyle ':completion:*:git-push:*' tag-order remotes '*'
 
 autoload -Uz compinit
-compinit -u -d ~/.local/share/zsh/compinit
+compinit -u -d ~/.cache/zsh/compinit
 
 # vcs_info
 # In a lot of cases, it is nice to automatically retrieve information from
