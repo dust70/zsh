@@ -1,4 +1,4 @@
-SOURCE = ${HOME}/.dotfiles/zsh
+ROOT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 SHARE = ${HOME}/.cache/zsh
 
 clean:
@@ -14,11 +14,10 @@ clean:
 install:
 	git clone git://github.com/zsh-users/zsh-autosuggestions plugin/autosuggestions
 	git clone git://github.com/zsh-users/zsh-completions.git plugin/completions
-	ln -snf ${SOURCE} ${HOME}/.zsh
-	ln -snf ${SOURCE}/zlogin ${HOME}/.zlogin
-	ln -snf ${SOURCE}/zlogout ${HOME}/.zlogout
-	ln -snf ${SOURCE}/zshenv ${HOME}/.zshenv
-	ln -snf ${SOURCE}/zshrc ${HOME}/.zshrc
+	ln -snf ${ROOT_DIR}/zlogin ${HOME}/.zlogin
+	ln -snf ${ROOT_DIR}/zlogout ${HOME}/.zlogout
+	ln -snf ${ROOT_DIR}/zshenv ${HOME}/.zshenv
+	ln -snf ${ROOT_DIR}/zshrc ${HOME}/.zshrc
 	mkdir -p ${SHARE}
 
 update:
