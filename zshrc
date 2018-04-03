@@ -8,7 +8,7 @@ if [[ $- != *i* ]]; then
 fi
 
 # load /etc/profile.d files
-source ~/.shell/load-profile
+[[ -r ~/.shell/load-profile ]] && source ~/.shell/load-profile
 #}}}
 
 # {{{ Add Plugin
@@ -1108,12 +1108,12 @@ autoload -Uz zsh/termcap
 # load none ZSH components and/or configurations for all shells but jump to HOME
 # before
 if [[ -d ~/.shell ]]; then
-    for sh in ~/.shell/*.sh; do
+    for sh in ~/.shell/*.sh(.); do
         [[ -r "${sh}" ]] && source "${sh}" || true
     done
 fi
 if [[ -d ~/.zsh/local ]]; then
-    for sh in ~/.zsh/local/*.sh; do
+    for sh in ~/.zsh/local/*.sh(.); do
         [[ -r "${sh}" ]] && source "${sh}" || true
     done
 fi
