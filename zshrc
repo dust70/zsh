@@ -89,6 +89,34 @@ unset MAILCHECK
 # every subdirectory of the element.
 unset MAILPATH
 
+# path <S> <Z> (PATH <S>)
+# An array (colon-separated list) of directories to search for commands. When
+# this parameter is set, each directory is scanned and all files found are put
+# in a hash table.
+typeset -U path
+
+[ -d /sbin ]           && path+="/sbin"
+[ -d /usr/sbin ]       && path+="/usr/sbin"
+[ -d /usr/local/sbin ] && path+="/usr/local/sbin"
+
+# should be in system path, but isn't in Max OS X
+[ -d /usr/local/bin ]  && path+="/usr/local/bin"
+
+# add local rubygems installs
+if which ruby > /dev/null 2>&1 && which gem > /dev/null 2>&1; then
+    path+="$(ruby -rubygems -e 'puts Gem.user_dir')/bin"
+fi
+
+# add homebrew paths
+if which brew > /dev/null 2>&1; then
+    path+="$(brew --prefix)/bin:${PATH}"
+fi
+
+# set PATH so it includes user's private bin if it exists
+[ -d ~/git/bin ]       && path+="~/git/bin"
+[ -d ~/.dotfiles/bin ] && path+="~/.dotfiles/bin"
+export PATH
+
 # PROMPT <S> <Z>
 # prompt <S> <Z>
 # PS1 <S>
