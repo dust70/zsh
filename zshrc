@@ -104,7 +104,7 @@ typeset -U path
 
 # add local rubygems installs
 if which ruby > /dev/null 2>&1 && which gem > /dev/null 2>&1; then
-    path+="$(ruby -rubygems -e 'puts Gem.user_dir')/bin"
+    path+="$(ruby -e 'puts Gem.user_dir')/bin"
 fi
 
 # add homebrew paths
