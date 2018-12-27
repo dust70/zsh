@@ -11,7 +11,7 @@ clean:
 	rm -fr ${SHARE}
 	rm -fr plugin
 
-install: plugin/autosuggestions plugin/completions
+install: install_repos
 	ln -snf ${ROOT_DIR}/zlogin ${HOME}/.zlogin
 	ln -snf ${ROOT_DIR}/zlogout ${HOME}/.zlogout
 	ln -snf ${ROOT_DIR}/zprofile ${HOME}/.zprofile
