@@ -115,6 +115,8 @@ fi
 # set PATH so it includes user's private bin if it exists
 [ -d ~/git/bin ]       && path+="~/git/bin"
 [ -d ~/.dotfiles/bin ] && path+="~/.dotfiles/bin"
+
+[ -d ~/.local/share/umake/bin ] && path+="~/.local/share/umake/bin"
 export PATH
 
 # PROMPT <S> <Z>
