@@ -10,12 +10,12 @@ if [[ $- != *i* ]]; then
 fi
 
 # load /etc/profile.d files
-[ -r ~/.shell/load-profile ] && source ~/.shell/load-profile
+[[ -r ~/.shell/load-profile ]] && source ~/.shell/load-profile
 #}}}
 
 # {{{ Add Plugin
-[ -r ~/.zsh/plugin/autosuggestions/zsh-autosuggestions.zsh ] && source ~/.zsh/plugin/autosuggestions/zsh-autosuggestions.zsh
-[ -r ~/.zsh/plugin/completions/src ] && fpath=(~/.zsh/plugin/completions/src $fpath)
+[[ -r ~/.zsh/plugin/autosuggestions/zsh-autosuggestions.zsh ]] && source ~/.zsh/plugin/autosuggestions/zsh-autosuggestions.zsh
+[[ -r ~/.zsh/plugin/completions/src ]]                         && fpath=(~/.zsh/plugin/completions/src $fpath)
 #}}}
 
 # {{{ Parameters Used By The Shell
@@ -32,9 +32,9 @@ export DIRSTACKSIZE="32"
 
 # FCEDIT
 # The default editor for the fc builtin.
-if [ -x /usr/bin/vim ]; then
+if [[ -x /usr/bin/vim ]]; then
     export FCEDIT="vim"
-elif [ -x /usr/bin/vi ]; then
+elif [[ -x /usr/bin/vi ]]; then
     export FCEDIT="vi"
 fi
 
@@ -92,12 +92,12 @@ unset MAILPATH
 # in a hash table.
 typeset -U path
 
-[ -d /sbin ]           && path+=/sbin
-[ -d /usr/sbin ]       && path+=/usr/sbin
-[ -d /usr/local/sbin ] && path+=/usr/local/sbin
+[[ -d /sbin ]]           && path+=/sbin
+[[ -d /usr/sbin ]]       && path+=/usr/sbin
+[[ -d /usr/local/sbin ]] && path+=/usr/local/sbin
 
 # should be in system path, but isn't in Max OS X
-[ -d /usr/local/bin ]  && path+=/usr/local/bin
+[[ -d /usr/local/bin ]]  && path+=/usr/local/bin
 
 # add local rubygems installs
 if which ruby > /dev/null 2>&1 && which gem > /dev/null 2>&1; then
@@ -110,10 +110,10 @@ if which brew > /dev/null 2>&1; then
 fi
 
 # set PATH so it includes user's private bin if it exists
-[ -d ~/git/bin ]                      && path+=~/git/bin
-[ -d ~/.dotfiles/bin ]                && path+=~/.dotfiles/bin
-[ -d ~/.local/share/umake/bin ]       && path+=~/.local/share/umake/bin
-[ -d ~/.zsh/plugin/fuzzy-search/bin ] && path+=~/.zsh/plugin/fuzzy-search/bin/
+[[ -d ~/git/bin ]]                      && path+=~/git/bin
+[[ -d ~/.dotfiles/bin ]]                && path+=~/.dotfiles/bin
+[[ -d ~/.local/share/umake/bin ]]       && path+=~/.local/share/umake/bin
+[[ -d ~/.zsh/plugin/fuzzy-search/bin ]] && path+=~/.zsh/plugin/fuzzy-search/bin/
 export PATH
 
 # PROMPT <S> <Z>
@@ -125,7 +125,7 @@ export PATH
 PROMPT="%(!.${BOLD_RED}.${BOLD_BLUE})%n${NO_COLOR} ${BOLD_YELLOW}(%m)${NO_COLOR} ${BOLD_CYAN}%(3~.%3~.%~)${NO_COLOR} ${BOLD_GREY}[%D{%Y-%m-%d %H:%M}]${NO_COLOR} Exitstatus: %(?.${BOLD_GREEN}%?.${BOLD_RED}%?)${NO_COLOR}
 ${BOLD_MAGENTA}%(!.#.$)${NO_COLOR}:> "
 
-[ -n ${SSH_CLIENT} ] && PROMPT="${WHITE}${BACK_RED}REMOTE${NO_COLOR} ${PROMPT}"
+[[ -n ${SSH_CLIENT} ]] && PROMPT="${WHITE}${BACK_RED}REMOTE${NO_COLOR} ${PROMPT}"
 export PROMPT
 
 # PROMPT2 <S> <Z>
@@ -561,7 +561,7 @@ setopt promptsubst
 # of a call to hash.
 unhash -dm "*"
 
-if [ -d ~/git ]; then
+if [[ -d ~/git ]]; then
     for i in ~/git/*(/); do
         hash -d "repo$(basename ${i})"="${i}"
     done
@@ -690,7 +690,7 @@ title Shell ${USER}@${HOST}
 # notification about an exiting job is displayed.
 function precmd() {
     vcs_info prompt
-    if [ -n ${vcs_info_msg_0_} ]; then
+    if [[ -n ${vcs_info_msg_0_} ]]; then
         RPROMPT="${vcs_info_msg_0_} "
     else
         RPROMPT=""
@@ -878,31 +878,31 @@ bindkey -v
 # is not, copy Functions/Misc/zkbd to an appropriate directory.
 autoload -Uz zkbd
 
-if [ "$TERM" != emacs ]; then
-    [ -z "$terminfo[kdch1]" ] || bindkey -M vicmd "$terminfo[kdch1]" vi-delete-char
-    [ -z "$terminfo[khome]" ] || bindkey -M vicmd "$terminfo[khome]" vi-beginning-of-line
-    [ -z "$terminfo[kend]" ] || bindkey -M vicmd "$terminfo[kend]" vi-end-of-line
-    [ -z "$terminfo[cuu1]" ] || bindkey -M viins "$terminfo[cuu1]" vi-up-line-or-history
-    [ -z "$terminfo[cuf1]" ] || bindkey -M viins "$terminfo[cuf1]" vi-forward-char
-    [ -z "$terminfo[kcuu1]" ] || bindkey -M viins "$terminfo[kcuu1]" vi-up-line-or-history
-    [ -z "$terminfo[kcud1]" ] || bindkey -M viins "$terminfo[kcud1]" vi-down-line-or-history
-    [ -z "$terminfo[kcuf1]" ] || bindkey -M viins "$terminfo[kcuf1]" vi-forward-char
-    [ -z "$terminfo[kcub1]" ] || bindkey -M viins "$terminfo[kcub1]" vi-backward-char
+if [[ "$TERM" != emacs ]]; then
+    [[ -z "$terminfo[kdch1]" ]] || bindkey -M vicmd "$terminfo[kdch1]" vi-delete-char
+    [[ -z "$terminfo[khome]" ]] || bindkey -M vicmd "$terminfo[khome]" vi-beginning-of-line
+    [[ -z "$terminfo[kend]" ]]  || bindkey -M vicmd "$terminfo[kend]" vi-end-of-line
+    [[ -z "$terminfo[cuu1]" ]]  || bindkey -M viins "$terminfo[cuu1]" vi-up-line-or-history
+    [[ -z "$terminfo[cuf1]" ]]  || bindkey -M viins "$terminfo[cuf1]" vi-forward-char
+    [[ -z "$terminfo[kcuu1]" ]] || bindkey -M viins "$terminfo[kcuu1]" vi-up-line-or-history
+    [[ -z "$terminfo[kcud1]" ]] || bindkey -M viins "$terminfo[kcud1]" vi-down-line-or-history
+    [[ -z "$terminfo[kcuf1]" ]] || bindkey -M viins "$terminfo[kcuf1]" vi-forward-char
+    [[ -z "$terminfo[kcub1]" ]] || bindkey -M viins "$terminfo[kcub1]" vi-backward-char
 
     # k Shift-tab Perform backwards menu completion
-    if [ -n "$terminfo[kcbt]" ]; then
+    if [[ -n "$terminfo[kcbt]" ]]; then
         bindkey -M viins "$terminfo[kcbt]" reverse-menu-complete
-    elif [ -n "$terminfo[cbt]" ]; then
+    elif [[ -n "$terminfo[cbt]" ]]; then
         bindkey -M viins "$terminfo[cbt]" reverse-menu-complete
     fi
 
     # ncurses stuff:
-    [ "$terminfo[kcuu1]" == $'\eO'* ] && bindkey -M viins "${terminfo[kcuu1]/O/[}" vi-up-line-or-history
-    [ "$terminfo[kcud1]" == $'\eO'* ] && bindkey -M viins "${terminfo[kcud1]/O/[}" vi-down-line-or-history
-    [ "$terminfo[kcuf1]" == $'\eO'* ] && bindkey -M viins "${terminfo[kcuf1]/O/[}" vi-forward-char
-    [ "$terminfo[kcub1]" == $'\eO'* ] && bindkey -M viins "${terminfo[kcub1]/O/[}" vi-backward-char
-    [ "$terminfo[khome]" == $'\eO'* ] && bindkey -M viins "${terminfo[khome]/O/[}" beginning-of-line
-    [ "$terminfo[kend]" == $'\eO'* ] && bindkey -M viins "${terminfo[kend]/O/[}" end-of-line
+    [[ "$terminfo[kcuu1]" == $'\eO'* ]] && bindkey -M viins "${terminfo[kcuu1]/O/[}" vi-up-line-or-history
+    [[ "$terminfo[kcud1]" == $'\eO'* ]] && bindkey -M viins "${terminfo[kcud1]/O/[}" vi-down-line-or-history
+    [[ "$terminfo[kcuf1]" == $'\eO'* ]] && bindkey -M viins "${terminfo[kcuf1]/O/[}" vi-forward-char
+    [[ "$terminfo[kcub1]" == $'\eO'* ]] && bindkey -M viins "${terminfo[kcub1]/O/[}" vi-backward-char
+    [[ "$terminfo[khome]" == $'\eO'* ]] && bindkey -M viins "${terminfo[khome]/O/[}" beginning-of-line
+    [[ "$terminfo[kend]" == $'\eO'* ]]  && bindkey -M viins "${terminfo[kend]/O/[}" end-of-line
 fi
 
 bindkey '\e[1~' beginning-of-line       # home
@@ -916,7 +916,7 @@ bindkey '^xP' history-beginning-search-forward
 # beginning-of-line (^A) (unbound) (unbound)
 # Move to the beginning of the line. If already at the beginning of the line,
 # move to the beginning of the previous line, if any.
-if [ -n "${key[Home]}" ]; then
+if [[ -n "${key[Home]}" ]]; then
     bindkey "${key[Home]}" beginning-of-line
     bindkey -M vicmd "${key[Home]}" vi-beginning-of-line
     bindkey -M viins "${key[Home]}" vi-beginning-of-line
@@ -925,7 +925,7 @@ fi
 # end-of-line (^E) (unbound) (unbound)
 # Move to the end of the line. If already at the end of the line, move to the
 # end of the next line, if any.
-if [ -n "${key[End]}" ]; then
+if [[ -n "${key[End]}" ]]; then
     bindkey "${key[End]}" end-of-line
     bindkey -M vicmd "${key[End]}" vi-end-of-line
     bindkey -M viins "${key[End]}" vi-end-of-line
@@ -933,7 +933,7 @@ fi
 
 # vi-delete-char (unbound) (x) (unbound)
 # Delete the character under the cursor, without going past the end of the line.
-if [ -n "${key[Delete]}" ]; then
+if [[ -n "${key[Delete]}" ]]; then
     bindkey "${key[Delete]}" delete-char
     bindkey -M vicmd "${key[Delete]}" vi-delete-char
     bindkey -M viins "${key[Delete]}" vi-delete-char
@@ -941,7 +941,7 @@ fi
 
 # backward-delete-char (^H ^?) (unbound) (unbound)
 # Delete the character behind the cursor.
-if [ -n "${key[Backspace]}" ]; then
+if [[ -n "${key[Backspace]}" ]]; then
     bindkey "${key[Backspace]}" backward-delete-char
     bindkey -M viins "${key[Backspace]}" backward-delete-char
     #bindkey -M vicmd "${key[Backspace]}" backward-delete-char
@@ -949,7 +949,7 @@ fi
 
 # overwrite-mode (^X^O) (unbound) (unbound)
 # Toggle between overwrite mode and insert mode.
-if [ -n "${key[Insert]}" ]; then
+if [[ -n "${key[Insert]}" ]]; then
     bindkey -M viins "${key[Insert]}" overwrite-mode
     bindkey -M emacs "${key[Insert]}" overwrite-mode
 fi
@@ -957,12 +957,12 @@ fi
 # up-line-or-search
 # Move up a line in the buffer, or if already at the top line, search backward
 # in the history for a line beginning with the first word in the buffer.
-[ -n "${key[Up]}" ] && bindkey "${key[Up]}" up-line-or-search
+[[ -n "${key[Up]}" ]] && bindkey "${key[Up]}" up-line-or-search
 
 # down-line-or-search
 # Move down a line in the buffer, or if already at the bottom line, search
 # forward in the history for a line beginning with the first word in the buffer.
-[ -n "${key[Down]}" ] && bindkey "${key[Down]}" down-line-or-search
+[[ -n "${key[Down]}" ]] && bindkey "${key[Down]}" down-line-or-search
 
 # history-incremental-search-backward (^R ^Xr) (unbound) (unbound)
 # Search backward incrementally for a specified string. The search is
@@ -994,7 +994,7 @@ zmodload -i zsh/complist
 bindkey -M menuselect '\e^M' accept-and-menu-complete
 
 # {{{ activate fuzzy search plugin keybindings
-[ -r ~/.zsh/plugin/fuzzy-search/shell/key-bindings.zsh ] && source ~/.zsh/plugin/fuzzy-search/shell/key-bindings.zsh
+[[ -r ~/.zsh/plugin/fuzzy-search/shell/key-bindings.zsh ]] && source ~/.zsh/plugin/fuzzy-search/shell/key-bindings.zsh
 #}}}
 #}}}
 
@@ -1080,7 +1080,7 @@ zstyle -e ':completion:*:hosts' hosts 'reply=(
 )'
 zstyle ':completion:*:*:*:hosts' ignored-patterns 'ip6*' 'localhost*'
 zstyle -e ':completion:*:*:ssh:*:my-accounts' users-hosts \
-    '[ -f ~/.ssh/config && $key = hosts ] && key=my_hosts reply=()'
+    '[[ -f ~/.ssh/config && $key = hosts ]] && key=my_hosts reply=()'
 
 # completion order for git push
 zstyle ':completion:*:git-push:*' tag-order remotes '*'
@@ -1108,7 +1108,7 @@ zstyle ':vcs_info:*:prompt:*' unstagedstr "${BOLD_YELLOW}*"
 #}}}
 
 # {{{ activate fuzzy search plugin autocomplete
-[ -r ~/.zsh/plugin/fuzzy-search/shell/completion.zsh ] && source ~/.zsh/plugin/fuzzy-search/shell/completion.zsh
+[[ -r ~/.zsh/plugin/fuzzy-search/shell/completion.zsh ]] && source ~/.zsh/plugin/fuzzy-search/shell/completion.zsh
 #}}}
 #}}}
 
@@ -1135,9 +1135,9 @@ autoload -Uz zsh/termcap
 # {{{ Load Resources
 # load none ZSH components and/or configurations for all shells but jump to HOME
 # before
-if [ -d ~/.shell ]; then
+if [[ -d ~/.shell ]]; then
     for sh in ~/.shell/*.sh(.); do
-        [ -r "${sh}" ] && source "${sh}" || true
+        [[ -r "${sh}" ]] && source "${sh}" || true
     done
 fi
 #}}}
