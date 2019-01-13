@@ -5,9 +5,9 @@
 [[ -r /etc/environment ]] && source /etc/environment || true
 
 # source the default .zshenv, especialy interisting in Gentoo Linux systems
-[[ -r /etc/zsh/zshenv ]]    && source /etc/zsh/zshenv    || true
-[[ -r /etc/zshenv ]]        && source /etc/zshenv        || true
-[[ -r ~/.shell/export.sh ]] && source ~/.shell/export.sh || true
+[[ -r /etc/zsh/zshenv ]] && source /etc/zsh/zshenv || true
+[[ -r /etc/zshenv ]]     && source /etc/zshenv     || true
+[[ -r ~/.shell/export ]] && source ~/.shell/export || true
 #}}}
 
 # {{{ load colors
