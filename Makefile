@@ -20,6 +20,7 @@ install: install_repos
 	mkdir -p ${SHARE}
 
 install_repos:
+	git clone git://github.com/junegunn/fzf.git plugin/fuzzy-search
 	git clone git://github.com/zsh-users/zsh-autosuggestions plugin/autosuggestions
 	git clone git://github.com/zsh-users/zsh-completions.git plugin/completions
 
@@ -28,3 +29,5 @@ update:
 	git --work-tree=plugin/autosuggestions pull
 	git --work-tree=plugin/completions checkout -f
 	git --work-tree=plugin/completions pull
+	git --work-tree=plugin/fuzzy-search checkout -f
+	git --work-tree=plugin/fuzzy-search pull
