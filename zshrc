@@ -4,10 +4,7 @@
 # in those cases.
 
 # Shell is non-interactive. Be done now
-if [[ $- != *i* ]]; then
-    # Shell is non-interactive. Be done now
-    return
-fi
+[[ $- != *i* ]] && return
 
 # load /etc/profile.d files
 [[ -r ~/.shell/load-profile ]] && source ~/.shell/load-profile
