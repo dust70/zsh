@@ -41,4 +41,4 @@ $(PLUGIN_DIRECTORY)/completions:
 
 $(PLUGIN_DIRECTORY)/fuzzy-search:
 	git clone git://github.com/junegunn/fzf.git $(PLUGIN_DIRECTORY)/fuzzy-search
-	$(shell $(PLUGIN_DIRECTORY)/fuzzy-search/install)
+	$(PLUGIN_DIRECTORY)/fuzzy-search/install --64 --completion --key-bindings --no-bash --no-fish --no-update-rc
