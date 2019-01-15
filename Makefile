@@ -1,6 +1,10 @@
 ROOT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 SHARE = ${HOME}/.cache/zsh
 
+PLUGIN_DIRECTORY = plugin
+
+.PHONE: install
+
 clean:
 	rm -f ${HOME}/.zcompdump
 	rm -f ${HOME}/.zlogin
@@ -11,7 +15,7 @@ clean:
 	rm -fr ${SHARE}
 	rm -fr plugin
 
-install: install_repos
+install: | install_repos
 	ln -snf ${ROOT_DIR}/zlogin ${HOME}/.zlogin
 	ln -snf ${ROOT_DIR}/zlogout ${HOME}/.zlogout
 	ln -snf ${ROOT_DIR}/zprofile ${HOME}/.zprofile
@@ -19,15 +23,21 @@ install: install_repos
 	ln -snf ${ROOT_DIR}/zshrc ${HOME}/.zshrc
 	mkdir -p ${SHARE}
 
-install_repos:
-	git clone git://github.com/junegunn/fzf.git plugin/fuzzy-search
-	git clone git://github.com/zsh-users/zsh-autosuggestions plugin/autosuggestions
-	git clone git://github.com/zsh-users/zsh-completions.git plugin/completions
+update: install_repos
+	git --work-tree=$(PLUGIN_DIRECTORY)/autosuggestions checkout -f
+	git --work-tree=$(PLUGIN_DIRECTORY)/autosuggestions pull
+	git --work-tree=$(PLUGIN_DIRECTORY)/completions checkout -f
+	git --work-tree=$(PLUGIN_DIRECTORY)/completions pull
+	git --work-tree=$(PLUGIN_DIRECTORY)/fuzzy-search checkout -f
+	git --work-tree=$(PLUGIN_DIRECTORY)/fuzzy-search pull
 
-update:
-	git --work-tree=plugin/autosuggestions checkout -f
-	git --work-tree=plugin/autosuggestions pull
-	git --work-tree=plugin/completions checkout -f
-	git --work-tree=plugin/completions pull
-	git --work-tree=plugin/fuzzy-search checkout -f
-	git --work-tree=plugin/fuzzy-search pull
+install_repos: | $(PLUGIN_DIRECTORY)/autosuggestions $(PLUGIN_DIRECTORY)/completions $(PLUGIN_DIRECTORY)/fuzzy-search
+
+$(PLUGIN_DIRECTORY)/autosuggestions:
+	git clone git://github.com/zsh-users/zsh-autosuggestions $(PLUGIN_DIRECTORY)/autosuggestions
+
+$(PLUGIN_DIRECTORY)/completions:
+	git clone git://github.com/zsh-users/zsh-completions.git $(PLUGIN_DIRECTORY)/completions
+
+$(PLUGIN_DIRECTORY)/fuzzy-search:
+	git clone git://github.com/junegunn/fzf.git $(PLUGIN_DIRECTORY)/fuzzy-search
