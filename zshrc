@@ -107,10 +107,12 @@ if which brew > /dev/null 2>&1; then
 fi
 
 # set PATH so it includes user's private bin if it exists
-[[ -d ~/git/bin ]]                      && path+=~/git/bin
 [[ -d ~/.dotfiles/bin ]]                && path+=~/.dotfiles/bin
+[[ -d ~/.local/bin ]]                   && path+=~/.local/bin
 [[ -d ~/.local/share/umake/bin ]]       && path+=~/.local/share/umake/bin
 [[ -d ~/.zsh/plugin/fuzzy-search/bin ]] && path+=~/.zsh/plugin/fuzzy-search/bin/
+[[ -d ~/git/bin ]]                      && path+=~/git/bin
+
 export PATH
 
 # PROMPT <S> <Z>
