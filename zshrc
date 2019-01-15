@@ -13,6 +13,7 @@
 # {{{ Add Plugin
 [[ -r ~/.zsh/plugin/autosuggestions/zsh-autosuggestions.zsh ]] && source ~/.zsh/plugin/autosuggestions/zsh-autosuggestions.zsh
 [[ -r ~/.zsh/plugin/completions/src ]]                         && fpath=(~/.zsh/plugin/completions/src $fpath)
+[[ -r ~/.fzf.zsh ]]                                            && source ~/.fzf.zsh
 #}}}
 
 # {{{ Parameters Used By The Shell
@@ -110,7 +111,6 @@ fi
 [[ -d ~/.dotfiles/bin ]]                && path+=~/.dotfiles/bin
 [[ -d ~/.local/bin ]]                   && path+=~/.local/bin
 [[ -d ~/.local/share/umake/bin ]]       && path+=~/.local/share/umake/bin
-[[ -d ~/.zsh/plugin/fuzzy-search/bin ]] && path+=~/.zsh/plugin/fuzzy-search/bin/
 [[ -d ~/git/bin ]]                      && path+=~/git/bin
 
 export PATH
@@ -991,10 +991,6 @@ zmodload -i zsh/complist
 # In a menu completion, insert the current completion into the buffer, and
 # advance to the next possible completion.
 bindkey -M menuselect '\e^M' accept-and-menu-complete
-
-# {{{ activate fuzzy search plugin keybindings
-[[ -r ~/.zsh/plugin/fuzzy-search/shell/key-bindings.zsh ]] && source ~/.zsh/plugin/fuzzy-search/shell/key-bindings.zsh
-#}}}
 #}}}
 
 # {{{ Completion System
@@ -1104,10 +1100,6 @@ zstyle ':vcs_info:*:prompt:*' formats "%u%c${NO_COLOR} (${BOLD_BLACK}%s${NO_COLO
 zstyle ':vcs_info:*:prompt:*' get-revision true
 zstyle ':vcs_info:*:prompt:*' stagedstr "${BOLD_GREEN}*"
 zstyle ':vcs_info:*:prompt:*' unstagedstr "${BOLD_YELLOW}*"
-#}}}
-
-# {{{ activate fuzzy search plugin autocomplete
-[[ -r ~/.zsh/plugin/fuzzy-search/shell/completion.zsh ]] && source ~/.zsh/plugin/fuzzy-search/shell/completion.zsh
 #}}}
 #}}}
 
