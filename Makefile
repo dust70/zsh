@@ -14,7 +14,7 @@ clean:
 	rm -fr $(SHARE)
 	rm -fr $(PLUGIN_DIRECTORY)
 
-install: | install_repos
+install: | ${HOME}/.zsh install_repos
 	mkdir -p $(SHARE)
 	#
 	ln -snf ${ROOT_DIR}/zlogin ${HOME}/.zlogin
@@ -45,6 +45,9 @@ $(PLUGIN_DIRECTORY)/completions:
 $(PLUGIN_DIRECTORY)/fuzzy-search:
 	git clone git://github.com/junegunn/fzf.git $(PLUGIN_DIRECTORY)/fuzzy-search
 	$(PLUGIN_DIRECTORY)/fuzzy-search/install --64 --completion --key-bindings --no-bash --no-fish --no-update-rc
+
+${HOME}/.zsh:
+	ln -snf $(ROOT_DIR) ${HOME}.zsh
 
 install_repos: | $(PLUGIN_DIRECTORY)/autosuggestions $(PLUGIN_DIRECTORY)/completions $(PLUGIN_DIRECTORY)/fuzzy-search
 
