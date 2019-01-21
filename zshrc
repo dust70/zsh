@@ -90,28 +90,24 @@ unset MAILPATH
 # in a hash table.
 typeset -U path
 
-[[ -d /sbin ]]           && path+=/sbin
-[[ -d /usr/sbin ]]       && path+=/usr/sbin
-[[ -d /usr/local/sbin ]] && path+=/usr/local/sbin
-
-# should be in system path, but isn't in Max OS X
-[[ -d /usr/local/bin ]]  && path+=/usr/local/bin
+[[ -d /sbin ]]           && path=(/sbin $path)
+[[ -d /usr/sbin ]]       && path=(/usr/sbin $path)
+[[ -d /usr/local/sbin ]] && path=(/usr/local/sbin $path)
+[[ -d /bin ]]            && path=(/bin $path)
+[[ -d /usr/bin ]]        && path=(/usr/bin $path)
+[[ -d /usr/local/bin ]]  && path=(/usr/local/bin $path)
 
 # add local rubygems installs
-if which ruby > /dev/null 2>&1 && which gem > /dev/null 2>&1; then
-    path+="$(ruby -e 'puts Gem.user_dir')"/bin
-fi
+which ruby > /dev/null 2>&1 && which gem > /dev/null 2>&1 && path=("$(ruby -e 'puts Gem.user_dir')"/bin $path)
 
 # add homebrew paths
-if which brew > /dev/null 2>&1; then
-    path+="$(brew --prefix)"/bin
-fi
+which brew > /dev/null 2>&1 && path=("$(brew --prefix)"/bin $path)
 
 # set PATH so it includes user's private bin if it exists
-[[ -d ~/.dotfiles/bin ]]                && path+=~/.dotfiles/bin
-[[ -d ~/.local/bin ]]                   && path+=~/.local/bin
-[[ -d ~/.local/share/umake/bin ]]       && path+=~/.local/share/umake/bin
-[[ -d ~/git/bin ]]                      && path+=~/git/bin
+[[ -d ~/.dotfiles/bin ]]          && path=(~/.dotfiles/bin $path)
+[[ -d ~/.local/bin ]]             && path=(~/.local/bin $path)
+[[ -d ~/.local/share/umake/bin ]] && path=(~/.local/share/umake/bin $path)
+[[ -d ~/git/bin ]]                && path=(~/git/bin $path)
 
 export PATH
 
