@@ -10,7 +10,6 @@ clean:
 	rm -f ${HOME}/.zprofile
 	rm -f ${HOME}/.zshenv
 	rm -f ${HOME}/.zshrc
-	rm -f ${HOME}/.zcompdump
 	rm -fr $(SHARE)
 	rm -fr $(PLUGIN_DIRECTORY)
 
@@ -22,8 +21,6 @@ install: | ${HOME}/.zsh install_repos
 	ln -snf ${ROOT_DIR}/zprofile ${HOME}/.zprofile
 	ln -snf ${ROOT_DIR}/zshenv ${HOME}/.zshenv
 	ln -snf ${ROOT_DIR}/zshrc ${HOME}/.zshrc
-	#
-	ln -snf ${HOME}/.zcompdump $(SHARE)/zcompdump
 
 update: install_repos
 	git --work-tree=$(PLUGIN_DIRECTORY)/autosuggestions checkout -f
