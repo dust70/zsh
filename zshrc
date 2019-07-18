@@ -1127,6 +1127,10 @@ if [[ -d ~/.shell ]]; then
         [[ -r "${sh}" ]] && source "${sh}" || true
     done
 fi
+
+for sh in ~/.zsh/local/*.sh(.); do
+    [[ -r "${sh}" ]] && source "${sh}" || true
+done
 #}}}
 
 # vim: filetype=zsh textwidth=80 foldmethod=marker
