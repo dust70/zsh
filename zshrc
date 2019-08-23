@@ -1131,6 +1131,7 @@ fi
 for sh in ~/.zsh/local/*.sh(.); do
     [[ -r "${sh}" ]] && source "${sh}" || true
 done
+unset sh
 #}}}
 
 # vim: filetype=zsh textwidth=80 foldmethod=marker
