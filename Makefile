@@ -44,7 +44,7 @@ $(PLUGIN_DIRECTORY)/fuzzy-search:
 	$(PLUGIN_DIRECTORY)/fuzzy-search/install --64 --completion --key-bindings --no-bash --no-fish --no-update-rc
 
 ${HOME}/.zsh:
-	ln -snf $(ROOT_DIR) ${HOME}.zsh
+	ln -snf $(ROOT_DIR) ${HOME}/.zsh
 
 install_repos: | $(PLUGIN_DIRECTORY)/autosuggestions $(PLUGIN_DIRECTORY)/completions $(PLUGIN_DIRECTORY)/fuzzy-search
 
