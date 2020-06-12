@@ -11,9 +11,8 @@
 #}}}
 
 # {{{ Add Plugin
-[[ -r ~/.zsh/plugin/autosuggestions/zsh-autosuggestions.zsh ]] && source ~/.zsh/plugin/autosuggestions/zsh-autosuggestions.zsh
-[[ -r ~/.zsh/plugin/completions/src ]]                         && fpath=(~/.zsh/plugin/completions/src $fpath)
-[[ -r ~/.fzf.zsh ]]                                            && source ~/.fzf.zsh
+[[ -r ~/.fzf.zsh ]]        && source ~/.fzf.zsh
+[[ -r ~/.zsh/bundle.zsh ]] && source ~/.zsh/bundle.zsh
 #}}}
 
 # {{{ Parameters Used By The Shell
@@ -111,39 +110,6 @@ which brew > /dev/null 2>&1 && path=("$(brew --prefix)"/bin $path)
 
 export PATH
 
-# PROMPT <S> <Z>
-# prompt <S> <Z>
-# PS1 <S>
-# The primary prompt string, printed before a command is read. the default is
-# `%m%# '. It undergoes a special form of expansion before being displayed; see
-# 12. Prompt Expansion.
-PROMPT="%(!.${BOLD_RED}.${BOLD_BLUE})%n${NO_COLOR} ${BOLD_YELLOW}(%m)${NO_COLOR} ${BOLD_CYAN}%(3~.%3~.%~)${NO_COLOR} ${BOLD_GREY}[%D{%Y-%m-%d %H:%M}]${NO_COLOR} Exitstatus: %(?.${BOLD_GREEN}%?.${BOLD_RED}%?)${NO_COLOR}
-${BOLD_MAGENTA}%(!.#.$)${NO_COLOR}:> "
-
-[[ -n ${SSH_CLIENT} ]] && PROMPT="${WHITE}${BACK_RED}REMOTE${NO_COLOR} ${PROMPT}"
-export PROMPT
-
-# PROMPT2 <S> <Z>
-# PS2 <S>
-# The secondary prompt, printed when the shell needs more information to
-# complete a command. It is expanded in the same way as PS1. The default is `%_>
-# ', which displays any shell constructs or quotation marks which are currently
-# being processed.
-export PROMPT2="${BOLD_RED}%_${NO_COLOR}> "
-
-# PROMPT3 <S> <Z>
-# PS3 <S>
-# Selection prompt used within a select loop. It is expanded in the same way as
-# PS1. The default is `?# '.
-export PROMPT3="${BOLD_RED}?#${NO_COLOR}> "
-
-# PROMPT4 <S> <Z>
-# PS4 <S>
-# The execution trace prompt. Default is `+%N:%i> ', which displays the name of
-# the current shell structure and the line number within it. In sh or ksh
-# emulation, the default is `+ '.
-export PROMPT4="${BOLD_YELLOW}+%N:%i${NO_COLOR}> "
-
 # REPORTTIME
 # If nonnegative, commands whose combined user and system execution times
 # (measured in seconds) are greater than this value have timing statistics
@@ -160,12 +126,6 @@ export RPROMPT
 # SAVEHIST
 # The maximum number of history events to save in the history file.
 export SAVEHIST="10000"
-
-# SPROMPT <S>
-# The prompt used for spelling correction. The sequence `%R' expands to the
-# string which presumably needs spelling correction, and `%r' expands to the
-# proposed correction. All other prompt escapes are also allowed.
-export SPROMPT="correct '%R' to '%r' [nyae]?"
 
 # TERM <S>
 # The type of terminal in use. This is used when looking up termcap sequences.
@@ -554,8 +514,6 @@ setopt promptsubst
 #
 # If the -L flag is present, then each hash table entry is printed in the form
 # of a call to hash.
-unhash -dm "*"
-
 if [[ -d ~/git ]]; then
     for i in ~/git/*(/); do
         hash -d "repo$(basename ${i})"="${i}"
@@ -599,10 +557,6 @@ fi
 # putting in a startup script. The exit status is nonzero if a name (with no
 # value) is given for which no alias has been defined.
 
-# resetting aliases
-unhash -ma "*"
-unhash -ms "*"
-
 # Global aliases
 alias -g G='|& egrep --ignore-case'
 alias -g N='&> /dev/null'
@@ -621,65 +575,7 @@ alias ln='nocorrect ln -v'
 alias mkdir='nocorrect mkdir -v'
 #}}}
 
-# {{{ function
-###############################################################################
-#unhash -mf "*"
-
-# Provides useful information on globbing
-function zsh_help() {
-echo -e "
-/       directories
-.       plain files
-@       symbolic links
-=       sockets
-p       named pipes (FIFOs)
-*       executable plain files (0100)
-%       device files (character or block special)
-%b      block special files
-%c      character special files
-r       owner-readable files (0400)
-w       owner-writable files (0200)
-x       owner-executable files (0100)
-A       group-readable files (0040)
-I       group-writable files (0020)
-E       group-executable files (0010)
-R       world-readable files (0004)
-W       world-writable files (0002)
-X       world-executable files (0001)
-s       setuid files (04000)
-S       setgid files (02000)
-t       files with the sticky bit (01000)
-
-print *(m-1)                    # Files modified up to a day ago
-print *(a1)                     # Files accessed a day ago
-print *(@)                      # Just symlinks
-print *(Lk+50)                  # Files bigger than 50 kilobytes
-print *(Lk-50)                  # Files smaller than 50 kilobytes
-print **/*.c                    # All *.c files recursively starting in \${PWD}
-print **/*.c~file.c             # Same as above, but excluding 'file.c'
-print (foo|bar).*               # Files starting with 'foo' or 'bar'
-print *~*.*                     # All Files that do not contain a dot
-chmod 644 *(.^x)                # make all plain non-executable files publically readable
-print -l *(.c|.h)               # Lists *.c and *.h
-print **/*(g:users:)            # Recursively match all files that are owned by group 'users'
-echo /proc/*/cwd(:h:t:s/self//) # Analogous to >ps ax | awk '{print ${1}}'<"
-}
-
-# setting the windowtitle
-function title() {
-    case ${TERM} in
-        *rxvt*|*screen*|*term*)
-            # Use this one instead for XTerms:
-            print -nR $'\033]0;'$*$'\a'
-            ;;
-        *)
-            ;;
-    esac
-}
-
-# setting title once
-title Shell ${USER}@${HOST}
-
+# {{{ Functions
 # Executed before each prompt. Note that precommand functions are not reexecuted
 # simply because the command line is redrawn, as happens, for example, when a
 # notification about an exiting job is displayed.
@@ -728,6 +624,7 @@ function precmd() {
 #       K-bytes on the size of virtual memory. On some systems this refers to
 #       the limit called `address space'.
 unlimit
+
 limit stack 8192
 limit core 0
 limit -s
@@ -742,342 +639,7 @@ limit -s
 # Otherwise, the mask is printed as an octal number. Note that in the symbolic
 # form the permissions you specify are those which are to be allowed (not
 # denied) to the users specified.
-umask 077
-#}}}
-
-# {{{ Keymaps
-###############################################################################
-# bindkey's options can be divided into three categories: keymap selection,
-# operation selection, and others. The keymap selection options are:
-#   -e          - Selects keymap `emacs', and also links it to `main'.
-#   -v          - Selects keymap `viins', and also links it to `main'.
-#   -a          - Selects keymap `vicmd'.
-#   -M keymap   - The keymap specifies a keymap name.
-#
-#   If a keymap selection is required and none of the options above are used,
-#   the `main' keymap is used. Some operations do not permit a keymap to be
-#   selected, namely:
-#   -l          - List all existing keymap names. If the -L option is also used,
-#                 list in the form of bindkey commands to create the keymaps.
-#   -d          - Delete all existing keymaps and reset to the default state.
-#   -D keymap ...
-#                 Delete the named keymaps.
-#   -A old-keymap new-keymap
-#                 Make the new-keymap name an alias for old-keymap, so that both
-#                 names refer to the same keymap. The names have equal standing;
-#                 if either is deleted, the other remains. If there is already a
-#                 keymap with the new-keymap name, it is deleted.
-#   -N new-keymap [ old-keymap ]
-#                 Create a new keymap, named new-keymap. If a keymap already has
-#                 that name, it is deleted. If an old-keymap name is given, the
-#                 new keymap is initialized to be a duplicate of it, otherwise
-#                 the new keymap will be empty.
-#
-#   To use a newly created keymap, it should be linked to main. Hence the
-#   sequence of commands to create and use a new keymap `mymap' initialized from
-#   the emacs keymap (which remains unchanged) is:
-#
-#       bindkey -N mymap emacs
-#       bindkey -A mymap main
-#
-#   Note that while `bindkey -A newmap main' will work when newmap is emacs or
-#   viins, it will not work for vicmd, as switching from vi insert to command
-#   mode becomes impossible.
-#
-#   The following operations act on the `main' keymap if no keymap selection
-#   option was given:
-#   -m  Add the built-in set of meta-key bindings to the selected keymap. Only
-#       keys that are unbound or bound to self-insert are affected.
-#
-#   -r in-string ...
-#       Unbind the specified in-strings in the selected keymap. This is exactly
-#       equivalent to binding the strings to undefined-key.
-#
-#       When -R is also used, interpret the in-strings as ranges.
-#
-#       When -p is also used, the in-strings specify prefixes. Any binding that
-#       has the given in-string as a prefix, not including the binding for the
-#       in-string itself, if any, will be removed. For example,
-#
-#           bindkey -rpM viins '^['
-#
-#       will remove all bindings in the vi-insert keymap beginning with an
-#       escape character (probably cursor keys), but leave the binding for the
-#       escape character itself (probably vi-cmd-mode). This is incompatible
-#       with the option -R.
-#
-#   -s in-string out-string ...
-#       Bind each in-string to each out-string. When in-string is typed,
-#       out-string will be pushed back and treated as input to the line editor.
-#       When -R is also used, interpret the in-strings as ranges.
-#
-#   in-string command ...
-#       Bind each in-string to each command. When -R is used, interpret the
-#       in-strings as ranges.
-#
-#   [ in-string ]
-#       List key bindings. If an in-string is specified, the binding of that
-#       string in the selected keymap is displayed. Otherwise, all key bindings
-#       in the selected keymap are displayed. (As a special case, if the -e or
-#       -v option is used alone, the keymap is not displayed - the implicit
-#       linking of keymaps is the only thing that happens.)
-#
-#       When the option -p is used, the in-string must be present. The listing
-#       shows all bindings which have the given key sequence as a prefix, not
-#       including any bindings for the key sequence itself.
-#
-#       When the -L option is used, the list is in the form of bindkey commands
-#       to create the key bindings.
-#
-#   When the -R option is used as noted above, a valid range consists of two
-#   characters, with an optional `-' between them. All characters between the
-#   two specified, inclusive, are bound as specified.
-bindkey -v
-#}}}
-
-# {{{ Keyboard Definition
-###############################################################################
-# The large number of possible combinations of keyboards, workstations,
-# terminals, emulators, and window systems makes it impossible for zsh to have
-# builtin key bindings for every situation. The zkbd utility, found in
-# Functions/Misc, can help you quickly create key bindings for your
-# configuration.
-#
-# Run zkbd either as an autoloaded function, or as a shell script:
-#
-#   zsh -f ~/zsh-4.3.6/Functions/Misc/zkbd
-#
-# When you run zkbd, it first asks you to enter your terminal type; if the
-# default it offers is correct, just press return. It then asks you to press a
-# number of different keys to determine characteristics of your keyboard and
-# terminal; zkbd warns you if it finds anything out of the ordinary, such as a
-# Delete key that sends neither ^H nor ^?.
-#
-# The keystrokes read by zkbd are recorded as a definition for an associative
-# array named key, written to a file in the subdirectory .zkbd within either
-# your HOME or ZDOTDIR directory. The name of the file is composed from the
-# TERM, VENDOR and OSTYPE parameters, joined by hyphens.
-#
-# You may read this file into your .zshrc or another startup file with the
-# `source' or `.' commands, then reference the key parameter in bindkey
-# commands, like this:
-#
-#   source ${ZDOTDIR:-~}/.zkbd/${TERM-}${VENDOR-}${OSTYPE}
-#   [ -n ${key[Left]} ] && bindkey "${key[Left]}" backward-char
-#   [ -n ${key[Right]} ] && bindkey "${key[Right]}" forward-char
-#   # etc.
-#
-# Note that in order for `autoload zkbd' to work, the zkdb file must be in
-# one of the directories named in your fpath array (see zshparam(1)). This
-# should already be the case if you have a standard zsh installation; if it
-# is not, copy Functions/Misc/zkbd to an appropriate directory.
-autoload -Uz zkbd
-
-if [[ "$TERM" != emacs ]]; then
-    [[ -z "$terminfo[kdch1]" ]] || bindkey -M vicmd "$terminfo[kdch1]" vi-delete-char
-    [[ -z "$terminfo[khome]" ]] || bindkey -M vicmd "$terminfo[khome]" vi-beginning-of-line
-    [[ -z "$terminfo[kend]" ]]  || bindkey -M vicmd "$terminfo[kend]" vi-end-of-line
-    [[ -z "$terminfo[cuu1]" ]]  || bindkey -M viins "$terminfo[cuu1]" vi-up-line-or-history
-    [[ -z "$terminfo[cuf1]" ]]  || bindkey -M viins "$terminfo[cuf1]" vi-forward-char
-    [[ -z "$terminfo[kcuu1]" ]] || bindkey -M viins "$terminfo[kcuu1]" vi-up-line-or-history
-    [[ -z "$terminfo[kcud1]" ]] || bindkey -M viins "$terminfo[kcud1]" vi-down-line-or-history
-    [[ -z "$terminfo[kcuf1]" ]] || bindkey -M viins "$terminfo[kcuf1]" vi-forward-char
-    [[ -z "$terminfo[kcub1]" ]] || bindkey -M viins "$terminfo[kcub1]" vi-backward-char
-
-    # k Shift-tab Perform backwards menu completion
-    if [[ -n "$terminfo[kcbt]" ]]; then
-        bindkey -M viins "$terminfo[kcbt]" reverse-menu-complete
-    elif [[ -n "$terminfo[cbt]" ]]; then
-        bindkey -M viins "$terminfo[cbt]" reverse-menu-complete
-    fi
-
-    # ncurses stuff:
-    [[ "$terminfo[kcuu1]" == $'\eO'* ]] && bindkey -M viins "${terminfo[kcuu1]/O/[}" vi-up-line-or-history
-    [[ "$terminfo[kcud1]" == $'\eO'* ]] && bindkey -M viins "${terminfo[kcud1]/O/[}" vi-down-line-or-history
-    [[ "$terminfo[kcuf1]" == $'\eO'* ]] && bindkey -M viins "${terminfo[kcuf1]/O/[}" vi-forward-char
-    [[ "$terminfo[kcub1]" == $'\eO'* ]] && bindkey -M viins "${terminfo[kcub1]/O/[}" vi-backward-char
-    [[ "$terminfo[khome]" == $'\eO'* ]] && bindkey -M viins "${terminfo[khome]/O/[}" beginning-of-line
-    [[ "$terminfo[kend]" == $'\eO'* ]]  && bindkey -M viins "${terminfo[kend]/O/[}" end-of-line
-fi
-
-bindkey '\e[1~' beginning-of-line       # home
-bindkey '\e[4~' end-of-line             # end
-bindkey '\e[A' up-line-or-search        # cursor up
-bindkey '\e[B' down-line-or-search      # <ESC>-
-
-bindkey '^xp' history-beginning-search-backward
-bindkey '^xP' history-beginning-search-forward
-
-# beginning-of-line (^A) (unbound) (unbound)
-# Move to the beginning of the line. If already at the beginning of the line,
-# move to the beginning of the previous line, if any.
-if [[ -n "${key[Home]}" ]]; then
-    bindkey "${key[Home]}" beginning-of-line
-    bindkey -M vicmd "${key[Home]}" vi-beginning-of-line
-    bindkey -M viins "${key[Home]}" vi-beginning-of-line
-fi
-
-# end-of-line (^E) (unbound) (unbound)
-# Move to the end of the line. If already at the end of the line, move to the
-# end of the next line, if any.
-if [[ -n "${key[End]}" ]]; then
-    bindkey "${key[End]}" end-of-line
-    bindkey -M vicmd "${key[End]}" vi-end-of-line
-    bindkey -M viins "${key[End]}" vi-end-of-line
-fi
-
-# vi-delete-char (unbound) (x) (unbound)
-# Delete the character under the cursor, without going past the end of the line.
-if [[ -n "${key[Delete]}" ]]; then
-    bindkey "${key[Delete]}" delete-char
-    bindkey -M vicmd "${key[Delete]}" vi-delete-char
-    bindkey -M viins "${key[Delete]}" vi-delete-char
-fi
-
-# backward-delete-char (^H ^?) (unbound) (unbound)
-# Delete the character behind the cursor.
-if [[ -n "${key[Backspace]}" ]]; then
-    bindkey "${key[Backspace]}" backward-delete-char
-    bindkey -M viins "${key[Backspace]}" backward-delete-char
-    #bindkey -M vicmd "${key[Backspace]}" backward-delete-char
-fi
-
-# overwrite-mode (^X^O) (unbound) (unbound)
-# Toggle between overwrite mode and insert mode.
-if [[ -n "${key[Insert]}" ]]; then
-    bindkey -M viins "${key[Insert]}" overwrite-mode
-    bindkey -M emacs "${key[Insert]}" overwrite-mode
-fi
-
-# up-line-or-search
-# Move up a line in the buffer, or if already at the top line, search backward
-# in the history for a line beginning with the first word in the buffer.
-[[ -n "${key[Up]}" ]] && bindkey "${key[Up]}" up-line-or-search
-
-# down-line-or-search
-# Move down a line in the buffer, or if already at the bottom line, search
-# forward in the history for a line beginning with the first word in the buffer.
-[[ -n "${key[Down]}" ]] && bindkey "${key[Down]}" down-line-or-search
-
-# history-incremental-search-backward (^R ^Xr) (unbound) (unbound)
-# Search backward incrementally for a specified string. The search is
-# case-insensitive if the search string does not have uppercase letters and no
-# numeric argument was given. The string may begin with "^" to anchor the search
-# to the beginning of the line.
-bindkey -M vicmd "\C-r" history-incremental-search-backward
-bindkey -M viins "\C-r" history-incremental-search-backward
-
-# history-incremental-search-forward (^S ^Xs) (unbound) (unbound)
-# Search forward incrementally for a specified string. The search is
-# case-insensitive if the search string does not have uppercase letters and no
-# numeric argument was given. The string may begin with "^" to anchor the search
-# to the beginning of the line. The functions available in the mini-buffer are
-# the same as for history-incremental-search-backward.
-bindkey -M vicmd "\C-s" history-incremental-search-forward
-bindkey -M viins "\C-s" history-incremental-search-forward
-
-# The zsh/complist Module
-# The zsh/complist module offers three extensions to completion listings: the
-# ability to highlight matches in such a list, the ability to scroll through
-# long lists and a different style of menu completion.
-autoload -Uz zsh/complist
-zmodload -i zsh/complist
-
-# accept-and-menu-complete
-# In a menu completion, insert the current completion into the buffer, and
-# advance to the next possible completion.
-bindkey -M menuselect '\e^M' accept-and-menu-complete
-#}}}
-
-# {{{ Completion System
-################################################################################
-# This section describes the use of compinit to initialize completion for the
-# current session when called directly; if you have run compinstall it will be
-# called automatically from your .zshrc.
-zstyle ':completion:*' completer _complete _ignored _approximate
-
-# start menu completion only if it could find no unambiguous initial string
-zstyle ':completion:*:correct:*' insert-unambiguous true
-zstyle ':completion:*:corrections' format \
-    $'%{\e[0;31m%}%d (errors: %e)%{\e[0m%}'
-zstyle ':completion:*:correct:*' original true
-
-# activate color-completion
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-
-# format on completion
-zstyle ':completion:*:descriptions' format \
-    $'%{\e[0;31m%}completing %B%d%b%{\e[0m%}'
-
-# insert all expansions for expand completer
-zstyle ':completion:*:expand:*' tag-order all-expansions
-zstyle ':completion:*:history-words' list false
-
-# activate menu
-zstyle ':completion:*:history-words' menu yes
-
-# ignore duplicate entries
-zstyle ':completion:*:history-words' remove-all-dups yes
-zstyle ':completion:*:history-words' stop yes
-
-# match uppercase from lowercase
-zstyle ':completion:*' matcher-list \
-    'm:{[:lower:]}={[:upper:]} m:{[:lower:][:upper:]}={[:upper:][:lower:]}'
-
-# separate matches into groups
-zstyle ':completion:*:matches' group 'yes'
-zstyle ':completion:*' group-name ''
-
-# if there are more than 3 options allow selecting from a menu
-zstyle ':completion:*' menu select=3
-
-zstyle ':completion:*:messages' format '%d'
-zstyle ':completion:*:options' auto-description '%d'
-
-# describe options in full
-zstyle ':completion:*:options' description 'yes'
-
-# on processes completion complete all user processes
-zstyle ':completion:*:processes' command 'ps -au$USER'
-
-# Provide more processes in completion of programs like killall:
-zstyle ':completion:*:processes-names' command \
-    'ps c -u ${USER} -o command | uniq'
-
-# offer indexes before parameters in subscripts
-zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
-
-# set format for warnings
-zstyle ':completion:*:warnings' format \
-    $'%{\e[0;31m%}No matches for:%{\e[0m%} %d'
-
-# define files to ignore for zcompile
-zstyle ':completion:*:*:zcompile:*' ignored-patterns '(*~|*.zwc)'
-zstyle ':completion:correct:' prompt 'correct to: %e'
-
-# Ignore completion functions for commands you don't have:
-zstyle ':completion::(^approximate*):*:functions' ignored-patterns '_*'
-
-# complete manual by their section
-zstyle ':completion:*:manuals' separate-sections true
-zstyle ':completion:*:manuals.*' insert-sections true
-zstyle ':completion:*:man:*' menu yes select
-
-# host completion
-zstyle -e ':completion:*:hosts' hosts 'reply=(
-    ${${${${${(f)"$(<${HOME}/.ssh/known_hosts)"//\[/}//\]:/ }:#[\|]*}%%\*}%%,*}
-    ${${${(@M)${(f)"$(<${HOME}/.ssh/config)"}:#Host *}#Host }:#*[*?]*}
-    ${(s: :)${(ps:\t:)${${(f)~~"$(</etc/hosts)"}%%\#*}#*[[:blank:]]}}
-)'
-zstyle ':completion:*:*:*:hosts' ignored-patterns 'ip6*' 'localhost*'
-zstyle -e ':completion:*:*:ssh:*:my-accounts' users-hosts \
-    '[[ -f ~/.ssh/config && $key = hosts ]] && key=my_hosts reply=()'
-
-# completion order for git push
-zstyle ':completion:*:git-push:*' tag-order remotes '*'
-
-autoload -Uz compinit
-compinit -u -d ~/.cache/zsh/compinit
+umask 0077
 
 # vcs_info
 # In a lot of cases, it is nice to automatically retrieve information from
@@ -1085,9 +647,6 @@ compinit -u -d ~/.cache/zsh/compinit
 # provide it to the user; possibly in the user's prompt. So that you can
 # instantly tell on which branch you are currently on, for example
 autoload -Uz vcs_info
-
-zstyle ':vcs_info:*' disable ALL
-zstyle ':vcs_info:*' enable git
 
 zstyle ':vcs_info:*:prompt:*' actionformats "(${BOLD_BLACK}%s${NO_COLOR}) [ ${BOLD_CYAN}%b${NO_COLOR}|${BOLD_YELLOW}%a${NO_COLOR} ] "
 zstyle ':vcs_info:*:prompt:*' branchformat "${BOLD_CYAN}%b${NO_COLOR}: ${BOLD_GREEN}%r"
@@ -1100,12 +659,6 @@ zstyle ':vcs_info:*:prompt:*' unstagedstr "${BOLD_YELLOW}*"
 #}}}
 
 # # {{{ ZSh Modules
-################################################################################
-# THE ZSH/COMPLETE MODULE
-# The zsh/complete module makes available several builtin commands which can be
-# used in user-defined completion widgets, see zshcompwid(1).
-autoload -Uz zsh/complete
-
 # THE ZSH/TERMCAP MODULE
 # The zsh/termcap module makes available one builtin command:
 #
