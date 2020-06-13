@@ -11,8 +11,9 @@
 #}}}
 
 # {{{ Add Plugin
-[[ -r ~/.fzf.zsh ]]        && source ~/.fzf.zsh
-[[ -r ~/.zsh/bundle.zsh ]] && source ~/.zsh/bundle.zsh
+[[ -r ~/.fzf.zsh ]]                   && source ~/.fzf.zsh
+[[ -r ~/.sdkman/bin/sdkman-init.sh ]] && source ~/.sdkman/bin/sdkman-init.sh
+[[ -r ~/.zsh/bundle.zsh ]]            && source ~/.zsh/bundle.zsh
 #}}}
 
 # {{{ Parameters Used By The Shell

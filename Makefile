@@ -1,8 +1,10 @@
 ROOT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
-SHARE            = ${HOME}/.cache/zsh
-PLUGIN_DIRECTORY = $(ROOT_DIR)/plugin
+ANTIGEN          = ${PLUGIN_DIRECTORY}/antigen.zsh
 FZF              = ${PLUGIN_DIRECTORY}/fzf
+PLUGIN_DIRECTORY = $(ROOT_DIR)/plugin
+SDKMAN           = ${HOME}/.sdkman
+SHARE            = ${HOME}/.cache/zsh
 
 clean:
 	rm -fr ${HOME}/.antigen
@@ -14,8 +16,10 @@ clean:
 	rm -f ${HOME}/.zshrc
 	rm -fr $(PLUGIN_DIRECTORY)
 	rm -fr $(SHARE)
+	#
+	find ${HOME} -name '*.zwc' -delete
 
-install: | ${HOME}/.zsh antigen ${FZF}
+install: | plugin
 	mkdir -p $(SHARE)
 	#
 	ln -snf ${ROOT_DIR}/zlogin ${HOME}/.zlogin
@@ -24,19 +28,24 @@ install: | ${HOME}/.zsh antigen ${FZF}
 	ln -snf ${ROOT_DIR}/zshenv ${HOME}/.zshenv
 	ln -snf ${ROOT_DIR}/zshrc ${HOME}/.zshrc
 
-antigen: | ${HOME}/.zsh ${PLUGIN_DIRECTORY}/antigen.zsh
+plugin: | antigen ${FZF} ${SDKMAN}
 
-${PLUGIN_DIRECTORY}/antigen.zsh:
+antigen: | ${HOME}/.zsh ${ANTIGEN}
+
+${HOME}/.zsh:
+	ln -snf $(ROOT_DIR) ${HOME}/.zsh
+
+${ANTIGEN}:
 	mkdir -p ${PLUGIN_DIRECTORY}
 	#
-	curl --silent --location git.io/antigen --output ${PLUGIN_DIRECTORY}/antigen.zsh
+	curl --silent --location git.io/antigen --output ${ANTIGEN}
 
 ${FZF}:
 	git clone --quiet git://github.com/junegunn/fzf.git ${FZF}
 	#
 	${FZF}/install --completion --key-bindings --no-bash --no-fish --no-update-rc
 
-${HOME}/.zsh:
-	ln -snf $(ROOT_DIR) ${HOME}/.zsh
+${SDKMAN}:
+	curl --silent 'https://get.sdkman.io?rcupdate=false' | bash
 
 .PHONY: install

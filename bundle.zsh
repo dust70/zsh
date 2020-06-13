@@ -49,6 +49,7 @@ if [[ -r ~/.zsh/plugin/antigen.zsh ]]; then
     # bundles from misc repos
     antigen bundle jreese/zsh-titles
     antigen bundle le0me55i/zsh-systemd
+    antigen bundle lukechilds/zsh-nvm
     antigen bundle webyneter/docker-aliases
     antigen bundle wfxr/forgit
 
