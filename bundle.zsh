@@ -12,7 +12,6 @@ if [[ -r ~/.zsh/plugin/antigen.zsh ]]; then
     antigen bundle docker-compose
     antigen bundle editor
     antigen bundle extract
-    antigen bundle git
     antigen bundle git-flow
     antigen bundle gitfast
     antigen bundle gpg-agent
