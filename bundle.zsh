@@ -5,33 +5,24 @@ if [[ -r ~/.zsh/plugin/antigen.zsh ]]; then
     antigen use oh-my-zsh
 
     # bundles from the default repo (robbyrussell's oh-my-zsh).
-    antigen bundle common-aliases
     antigen bundle direnv
     antigen bundle django
     antigen bundle docker
-    antigen bundle docker-compose
     antigen bundle editor
     antigen bundle extract
-    antigen bundle git-flow
-    antigen bundle gitfast
     antigen bundle gpg-agent
     antigen bundle gradle
     antigen bundle history-substring-search
     antigen bundle keychain
     antigen bundle mvn
     antigen bundle nmap
-    antigen bundle npm
-    antigen bundle nvm
     antigen bundle pass
-    antigen bundle rsync
     antigen bundle sbt
     antigen bundle sdk
-    antigen bundle spring
     antigen bundle ssh-agent
     antigen bundle sudo
     antigen bundle systemd
     antigen bundle themes
-    antigen bundle tig
     antigen bundle tmux
     antigen bundle tmuxinator
     antigen bundle ubuntu
@@ -47,10 +38,7 @@ if [[ -r ~/.zsh/plugin/antigen.zsh ]]; then
 
     # bundles from misc repos
     antigen bundle jreese/zsh-titles
-    antigen bundle le0me55i/zsh-systemd
     antigen bundle lukechilds/zsh-nvm
-    antigen bundle webyneter/docker-aliases
-    antigen bundle wfxr/forgit
 
     antigen theme candy-kingdom
 
