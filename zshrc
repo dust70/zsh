@@ -649,13 +649,13 @@ umask 0077
 # instantly tell on which branch you are currently on, for example
 autoload -Uz vcs_info
 
-zstyle ':vcs_info:*:prompt:*' actionformats "(${BOLD_BLACK}%s${NO_COLOR}) [ ${BOLD_CYAN}%b${NO_COLOR}|${BOLD_YELLOW}%a${NO_COLOR} ] "
-zstyle ':vcs_info:*:prompt:*' branchformat "${BOLD_CYAN}%b${NO_COLOR}: ${BOLD_GREEN}%r"
+zstyle ':vcs_info:*:prompt:*' actionformats "(${BOLD_BLACK}%s${NO_COLOR}) [${BOLD_YELLOW}%a${NO_COLOR}]"
+zstyle ':vcs_info:*:prompt:*' branchformat "${BOLD_GREEN}%r${NO_COLOR}"
 zstyle ':vcs_info:*:prompt:*' check-for-changes true
-zstyle ':vcs_info:*:prompt:*' formats "%u%c${NO_COLOR} (${BOLD_BLACK}%s${NO_COLOR}) [${BOLD_CYAN}%b${NO_COLOR}] ${MAGENTA}%7.7i${NO_COLOR}"
+zstyle ':vcs_info:*:prompt:*' formats "%u%c${NO_COLOR} (${BOLD_BLACK}%s${NO_COLOR}) ${MAGENTA}%8.8i${NO_COLOR}"
 zstyle ':vcs_info:*:prompt:*' get-revision true
 zstyle ':vcs_info:*:prompt:*' stagedstr "${BOLD_GREEN}*"
-zstyle ':vcs_info:*:prompt:*' unstagedstr "${BOLD_YELLOW}*"
+zstyle ':vcs_info:*:prompt:*' unstagedstr "${BOLD_YELLOW}!"
 #}}}
 #}}}
 
