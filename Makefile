@@ -14,6 +14,7 @@ clean:
 	rm -f ${HOME}/.zprofile
 	rm -f ${HOME}/.zshenv
 	rm -f ${HOME}/.zshrc
+	rm -f ${HOME}/.cache/zsh/history
 	rm -fr $(PLUGIN_DIRECTORY)
 	rm -fr $(SHARE)
 	#
