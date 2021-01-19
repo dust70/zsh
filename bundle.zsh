@@ -17,6 +17,7 @@ if [[ -r ~/.zsh/plugin/antigen.zsh ]]; then
     antigen bundle mvn
     antigen bundle nmap
     antigen bundle pass
+    antigen bundle rvm
     antigen bundle sbt
     antigen bundle sdk
     antigen bundle ssh-agent
