@@ -97,9 +97,6 @@ typeset -U path
 [[ -d /usr/bin ]]        && path=(/usr/bin $path)
 [[ -d /usr/local/bin ]]  && path=(/usr/local/bin $path)
 
-# add local rubygems installs
-which ruby > /dev/null 2>&1 && which gem > /dev/null 2>&1 && path=("$(ruby -e 'puts Gem.user_dir')"/bin $path)
-
 # add homebrew paths
 which brew > /dev/null 2>&1 && path=("$(brew --prefix)"/bin $path)
 
@@ -107,6 +104,7 @@ which brew > /dev/null 2>&1 && path=("$(brew --prefix)"/bin $path)
 [[ -d ~/.dotfiles/bin ]]          && path=(~/.dotfiles/bin $path)
 [[ -d ~/.local/bin ]]             && path=(~/.local/bin $path)
 [[ -d ~/.local/share/umake/bin ]] && path=(~/.local/share/umake/bin $path)
+[[ -d ~/.rvm/bin ]]               && path=(~/.rvm/bin $path)
 [[ -d ~/git/bin ]]                && path=(~/git/bin $path)
 
 export PATH
