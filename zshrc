@@ -97,15 +97,13 @@ typeset -U path
 [[ -d /usr/bin ]]        && path=(/usr/bin $path)
 [[ -d /usr/local/bin ]]  && path=(/usr/local/bin $path)
 
-# add homebrew paths
-which brew > /dev/null 2>&1 && path=("$(brew --prefix)"/bin $path)
-
 # set PATH so it includes user's private bin if it exists
-[[ -d ~/.dotfiles/bin ]]          && path=(~/.dotfiles/bin $path)
-[[ -d ~/.local/bin ]]             && path=(~/.local/bin $path)
-[[ -d ~/.local/share/umake/bin ]] && path=(~/.local/share/umake/bin $path)
-[[ -d ~/.rvm/bin ]]               && path=(~/.rvm/bin $path)
-[[ -d ~/git/bin ]]                && path=(~/git/bin $path)
+[[ -d ~/.dotfiles/bin ]]           && path=(~/.dotfiles/bin $path)
+[[ -d ~/.local/bin ]]              && path=(~/.local/bin $path)
+[[ -d ~/.local/share/umake/bin ]]  && path=(~/.local/share/umake/bin $path)
+[[ -d ~/.rvm/bin ]]                && path=(~/.rvm/bin $path)
+[[ -d ~/.rvm/rubies/default/bin ]] && path=(~/.rvm/rubies/default/bin $path)
+[[ -d ~/git/bin ]]                 && path=(~/git/bin $path)
 
 export PATH
 
